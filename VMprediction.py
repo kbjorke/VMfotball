@@ -76,11 +76,11 @@ def determine_winner(matchup):
 
 def determine_result(winner, matchup):
     # https://fivethirtyeight.com/features/in-126-years-english-football-has-seen-13475-nil-nil-draws/
-    draw_results = ['0-0', '1-1', '2-2', '3-3', '4-4']
+    draw_results = ['0 - 0', '1 - 1', '2 - 2', '3 - 3', '4 - 4']
     draw_probs = np.array([7.2, 11.6, 5.2, 1.1, 0.2])
     
-    win_results_0 = ['1-0', '2-1', '2-0', '3-2', '3-1', '3-0', '4-3', '4-2', '4-1', '4-0', '5-4', '5-3', '5-2', '5-1', '5-0']
-    win_results_1 = ['0-1', '1-2', '0-2', '2-3', '1-3', '0-3', '3-4', '2-4', '1-4', '0-4', '4-5', '3-5', '2-5', '1-5', '0-5']
+    win_results_0 = ['1 - 0', '2 - 1', '2 - 0', '3 - 2', '3 - 1', '3 - 0', '4 - 3', '4 - 2', '4 - 1', '4 - 0', '5 - 4', '5 - 3', '5 - 2', '5 - 1', '5 - 0']
+    win_results_1 = ['0 - 1', '1 - 2', '0 - 2', '2 - 3', '1 - 3', '0 - 3', '3 - 4', '2 - 4', '1 - 4', '0 - 4', '4 - 5', '3 - 5', '2 - 5', '1 - 5', '0 - 5']
     win_probs = np.array([9.8+6.3, 8.9+5.6, 8.1+3.4, 2.8+1.8, 5.2+2.3, 4.8+1.4, 0.5+0.3, 1.4+0.6, 2.5+0.7, 2.3+0.4, 0.1+0.05, 0.2+0.1, 0.6+0.2, 1.1+0.2, 1.0+0.1])
     
     draw_probs = draw_probs/sum(draw_probs)
@@ -111,74 +111,48 @@ def determine_result(winner, matchup):
 
     return result
 
-### Group play: ###
+def group_play(matches, group_teams):
+    results = dict()
+    for match in matches:
+        results[match] = ['team1', 'team2', 'results']
 
-knockout=False
+    score_table = dict()
+    for team in group_teams:
+        score_table[team] = [0,0,0,0,0,0,0]
 
-#g1_m1 = ['Russia', 'Saudi Arabia']
-##g1_m1 = ['Germany', 'Saudi Arabia']
-#
-#winner = determine_winner(g1_m1)
-#result = determine_result(winner, g1_m1)
-#print "%s -- %s: %s" % (g1_m1[0], g1_m1[1], result)
+    for match in matches:
+        teams = matches[match]
+        winner = determine_winner(teams)
+        result = determine_result(winner, teams)
+        results[match] = [teams[0], teams[1], result]
+        
+        for team in teams:
+            score_table[team][3] += int(result.split('-')[teams.index(team)])
+            score_table[team][4] += int(result.split('-')[teams.index(team)-1])
+            score_table[team][5] += (int(result.split('-')[teams.index(team)]) - int(result.split('-')[teams.index(team)-1]))
+            if winner is team:
+                score_table[team][0] += 1
+                score_table[team][6] += 3
+            elif winner is "Draw":
+                score_table[team][1] += 1
+                score_table[team][6] += 1
+            else:
+                score_table[team][2] += 1
+                score_table[team][6] += 0
 
-groupA_matches = {
-        'Match 1': ['Russia', 'Saudi Arabia'],
-        'Match 2': ['Egypt', 'Uruguay'],
-        'Match 17': ['Russia', 'Egypt'],
-        'Match 18': ['Uruguay', 'Saudi Arabia'],
-        'Match 33': ['Uruguay', 'Russia'],
-        'Match 34': ['Saudi Arabia', 'Egypt']
-        }
+    return (results, score_table)
 
-groupA_results = {
-        'Match 1': ['winner', 'result'],
-        'Match 2': ['winner', 'result'], 
-        'Match 17': ['winner', 'result'],
-        'Match 18': ['winner', 'result'],
-        'Match 33': ['winner', 'result'],
-        'Match 34': ['winner', 'result']
-        }
-
-groupA_score_table = { # [won, drawn, lost, goals-for, goals-against, goal-diff, points]
-        'Russia': [0,0,0,0,0,0,0],
-        'Saudi Arabia': [0,0,0,0,0,0,0],
-        'Egypt': [0,0,0,0,0,0,0],
-        'Uruguay': [0,0,0,0,0,0,0]
-        }
-
-
-
-for match in groupA_matches:
-    #print match
-    teams = groupA_matches[match]
-    winner = determine_winner(teams)
-    result = determine_result(winner, teams)
-    groupA_results[match] = [winner, result]
-  
-    #print result.split('-')
-    for team in teams:
-        #print team
-        groupA_score_table[team][3] += int(result.split('-')[teams.index(team)])
-        groupA_score_table[team][4] += int(result.split('-')[teams.index(team)-1])
-        groupA_score_table[team][5] += (int(result.split('-')[teams.index(team)]) - int(result.split('-')[teams.index(team)-1]))
-        if winner is team:
-            groupA_score_table[team][0] += 1
-            groupA_score_table[team][6] += 3
-        elif winner is "Draw":
-            groupA_score_table[team][1] += 1
-            groupA_score_table[team][6] += 1
-        else:
-            groupA_score_table[team][2] += 1
-            groupA_score_table[team][6] += 0
-
-    #print "%s -- %s: %s" % (teams[0], teams[1], result)
-
+def print_results(results):
+    print "\n%-8s | %s | %s" %(" Matches", "Teams".center(34), "Results")
+    print "%s" %(60*'-') 
+    for match in results:
+        print "%-8s | %15s -- %-15s | %s" %(match, results[match][0], results[match][1], results[match][2])
 
 def print_score_table(score_table):
     score_table_sorted = sorted(score_table.items(), key=lambda e: e[1][6], reverse=True)
     #print "Team | W : D : L | GF : GA : GD | Pts"
-    print "%15s | %3s : %3s : %3s | %3s : %3s : %3s | %3s" %( 'Team', 'W', 'D', 'L', 'GF', 'GA', ' GD', 'Pts')
+    print "\n%15s | %3s : %3s : %3s | %3s : %3s : %3s | %3s" %( 'Teams', 'W', 'D', 'L', 'GF', 'GA', ' GD', 'Pts')
+    print "%s" %(60*'-') 
     for i in range(len(score_table_sorted)):
         print "%15s | %3d : %3d : %3d | %3d : %3d : %3d | %3d" % (
                 score_table_sorted[i][0],
@@ -190,5 +164,22 @@ def print_score_table(score_table):
                 score_table_sorted[i][1][5],
                 score_table_sorted[i][1][6])
 
+### Group play: ###
 
+knockout=False
+
+groupA_teams = ['Russia', 'Saudi Arabia', 'Egypt', 'Uruguay']
+
+groupA_matches = {
+        'Match 1': ['Russia', 'Saudi Arabia'],
+        'Match 2': ['Egypt', 'Uruguay'],
+        'Match 17': ['Russia', 'Egypt'],
+        'Match 18': ['Uruguay', 'Saudi Arabia'],
+        'Match 33': ['Uruguay', 'Russia'],
+        'Match 34': ['Saudi Arabia', 'Egypt']
+        }
+
+groupA_results, groupA_score_table = group_play(groupA_matches, groupA_teams)
+
+print_results(groupA_results)
 print_score_table(groupA_score_table)
