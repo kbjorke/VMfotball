@@ -164,6 +164,27 @@ def print_score_table(score_table):
                 score_table_sorted[i][1][5],
                 score_table_sorted[i][1][6])
 
+def group_runs(label, group_teams, group_matches, n_runs):
+
+    print " --- Computing %2s runs for Group %s --- " % (n_runs, label)
+    
+    orig_stdout = sys.stdout
+    outfile = open('./group_stage/group%s.txt' % label, 'w')
+    sys.stdout = outfile
+        
+    print "######### Group stage: Group %s #########\n\n" % label
+    
+    for i in range(1,n_runs+1):
+        print "###### RUN %3s ######" % i
+    
+        results, score_table = group_play(group_teams, group_matches)
+        print_results(results)
+        print_score_table(score_table)
+        print "\n"
+    
+    sys.stdout = orig_stdout
+    outfile.close()
+
 ### Group play: ###
 
 group = sys.argv[1] # Commandline arguments for what group to compute
@@ -276,28 +297,7 @@ groupH_matches = {
 
 # Runs for groups:
 
-def group_runs(label, group_teams, group_matches, n_runs):
-
-    print " --- Computing %2s runs for Group %s --- " % (n_runs, label)
-    
-    orig_stdout = sys.stdout
-    outfile = open('./group_stage/group%s.txt' % label, 'w')
-    sys.stdout = outfile
-        
-    print "######### Group stage: Group %s #########" % label
-    
-    for i in range(1,n_runs+1):
-        print "###### RUN %3s ######" % i
-    
-        results, score_table = group_play(group_teams, group_matches)
-        print_results(results)
-        print_score_table(score_table)
-        print "\n"
-    
-    sys.stdout = orig_stdout
-    outfile.close()
-
-n_runs = 6
+n_runs = 10
 
 if group == "groupA":
     group_runs("A", groupA_teams, groupA_matches, n_runs)

@@ -1,0 +1,193 @@
+######### Group stage: Group B #########
+
+
+###### RUN   1 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 4  |         Morocco -- Iran            | 0 - 5
+Match 3  |        Portugal -- Spain           | 2 - 2
+Match 19 |        Portugal -- Morocco         | 1 - 0
+Match 20 |            Iran -- Spain           | 1 - 3
+Match 35 |            Iran -- Portugal        | 1 - 1
+Match 36 |           Spain -- Morocco         | 1 - 1
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+          Spain |   1 :   2 :   0 |   6 :   4 :   2 |   5
+       Portugal |   1 :   2 :   0 |   4 :   3 :   1 |   5
+           Iran |   1 :   1 :   1 |   7 :   4 :   3 |   4
+        Morocco |   0 :   1 :   2 |   1 :   7 :  -6 |   1
+
+
+###### RUN   2 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 4  |         Morocco -- Iran            | 0 - 1
+Match 3  |        Portugal -- Spain           | 0 - 4
+Match 19 |        Portugal -- Morocco         | 2 - 1
+Match 20 |            Iran -- Spain           | 0 - 1
+Match 35 |            Iran -- Portugal        | 1 - 1
+Match 36 |           Spain -- Morocco         | 2 - 3
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+          Spain |   2 :   0 :   1 |   7 :   3 :   4 |   6
+           Iran |   1 :   1 :   1 |   2 :   2 :   0 |   4
+       Portugal |   1 :   1 :   1 |   3 :   6 :  -3 |   4
+        Morocco |   1 :   0 :   2 |   4 :   5 :  -1 |   3
+
+
+###### RUN   3 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 4  |         Morocco -- Iran            | 3 - 3
+Match 3  |        Portugal -- Spain           | 0 - 2
+Match 19 |        Portugal -- Morocco         | 2 - 1
+Match 20 |            Iran -- Spain           | 1 - 2
+Match 35 |            Iran -- Portugal        | 1 - 4
+Match 36 |           Spain -- Morocco         | 3 - 2
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+          Spain |   3 :   0 :   0 |   7 :   3 :   4 |   9
+       Portugal |   2 :   0 :   1 |   6 :   4 :   2 |   6
+        Morocco |   0 :   1 :   2 |   6 :   8 :  -2 |   1
+           Iran |   0 :   1 :   2 |   5 :   9 :  -4 |   1
+
+
+###### RUN   4 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 4  |         Morocco -- Iran            | 1 - 3
+Match 3  |        Portugal -- Spain           | 2 - 2
+Match 19 |        Portugal -- Morocco         | 5 - 1
+Match 20 |            Iran -- Spain           | 0 - 1
+Match 35 |            Iran -- Portugal        | 0 - 0
+Match 36 |           Spain -- Morocco         | 5 - 2
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+          Spain |   2 :   1 :   0 |   8 :   4 :   4 |   7
+       Portugal |   1 :   2 :   0 |   7 :   3 :   4 |   5
+           Iran |   1 :   1 :   1 |   3 :   2 :   1 |   4
+        Morocco |   0 :   0 :   3 |   4 :  13 :  -9 |   0
+
+
+###### RUN   5 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 4  |         Morocco -- Iran            | 0 - 1
+Match 3  |        Portugal -- Spain           | 3 - 0
+Match 19 |        Portugal -- Morocco         | 1 - 0
+Match 20 |            Iran -- Spain           | 1 - 2
+Match 35 |            Iran -- Portugal        | 0 - 3
+Match 36 |           Spain -- Morocco         | 1 - 2
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+       Portugal |   3 :   0 :   0 |   7 :   0 :   7 |   9
+        Morocco |   1 :   0 :   2 |   2 :   3 :  -1 |   3
+           Iran |   1 :   0 :   2 |   2 :   5 :  -3 |   3
+          Spain |   1 :   0 :   2 |   3 :   6 :  -3 |   3
+
+
+###### RUN   6 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 4  |         Morocco -- Iran            | 2 - 2
+Match 3  |        Portugal -- Spain           | 3 - 1
+Match 19 |        Portugal -- Morocco         | 2 - 1
+Match 20 |            Iran -- Spain           | 1 - 5
+Match 35 |            Iran -- Portugal        | 0 - 3
+Match 36 |           Spain -- Morocco         | 1 - 1
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+       Portugal |   3 :   0 :   0 |   8 :   2 :   6 |   9
+          Spain |   1 :   1 :   1 |   7 :   5 :   2 |   4
+        Morocco |   0 :   2 :   1 |   4 :   5 :  -1 |   2
+           Iran |   0 :   1 :   2 |   3 :  10 :  -7 |   1
+
+
+###### RUN   7 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 4  |         Morocco -- Iran            | 0 - 1
+Match 3  |        Portugal -- Spain           | 1 - 0
+Match 19 |        Portugal -- Morocco         | 1 - 0
+Match 20 |            Iran -- Spain           | 2 - 0
+Match 35 |            Iran -- Portugal        | 2 - 2
+Match 36 |           Spain -- Morocco         | 2 - 1
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+           Iran |   2 :   1 :   0 |   5 :   2 :   3 |   7
+       Portugal |   2 :   1 :   0 |   4 :   2 :   2 |   7
+          Spain |   1 :   0 :   2 |   2 :   4 :  -2 |   3
+        Morocco |   0 :   0 :   3 |   1 :   4 :  -3 |   0
+
+
+###### RUN   8 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 4  |         Morocco -- Iran            | 1 - 0
+Match 3  |        Portugal -- Spain           | 1 - 2
+Match 19 |        Portugal -- Morocco         | 2 - 0
+Match 20 |            Iran -- Spain           | 2 - 0
+Match 35 |            Iran -- Portugal        | 4 - 1
+Match 36 |           Spain -- Morocco         | 2 - 0
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+           Iran |   2 :   0 :   1 |   6 :   2 :   4 |   6
+          Spain |   2 :   0 :   1 |   4 :   3 :   1 |   6
+        Morocco |   1 :   0 :   2 |   1 :   4 :  -3 |   3
+       Portugal |   1 :   0 :   2 |   4 :   6 :  -2 |   3
+
+
+###### RUN   9 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 4  |         Morocco -- Iran            | 1 - 0
+Match 3  |        Portugal -- Spain           | 2 - 1
+Match 19 |        Portugal -- Morocco         | 2 - 0
+Match 20 |            Iran -- Spain           | 0 - 2
+Match 35 |            Iran -- Portugal        | 0 - 2
+Match 36 |           Spain -- Morocco         | 2 - 3
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+       Portugal |   3 :   0 :   0 |   6 :   1 :   5 |   9
+        Morocco |   2 :   0 :   1 |   4 :   4 :   0 |   6
+          Spain |   1 :   0 :   2 |   5 :   5 :   0 |   3
+           Iran |   0 :   0 :   3 |   0 :   5 :  -5 |   0
+
+
+###### RUN  10 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 4  |         Morocco -- Iran            | 1 - 0
+Match 3  |        Portugal -- Spain           | 2 - 0
+Match 19 |        Portugal -- Morocco         | 2 - 1
+Match 20 |            Iran -- Spain           | 2 - 1
+Match 35 |            Iran -- Portugal        | 1 - 2
+Match 36 |           Spain -- Morocco         | 2 - 1
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+       Portugal |   3 :   0 :   0 |   6 :   2 :   4 |   9
+        Morocco |   1 :   0 :   2 |   3 :   4 :  -1 |   3
+           Iran |   1 :   0 :   2 |   3 :   4 :  -1 |   3
+          Spain |   1 :   0 :   2 |   3 :   5 :  -2 |   3
+
+
