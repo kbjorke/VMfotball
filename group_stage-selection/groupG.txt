@@ -1,0 +1,26 @@
+######### Group stage: Group G #########
+
+Selection parameters:
+ - Panama does not advance
+ - Belgium advance
+ - Belgium beat Panama
+ - Random selection (run 2)
+
+
+###### RUN   2 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 45 |         England -- Belgium         | 2 - 0
+Match 46 |          Panama -- Tunisia         | 5 - 0
+Match 29 |         Belgium -- Tunisia         | 5 - 2
+Match 30 |         England -- Panama          | 2 - 2
+Match 14 |         Tunisia -- England         | 1 - 2
+Match 13 |         Belgium -- Panama          | 3 - 2
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+        England |   2 :   1 :   0 |   6 :   3 :   3 |   7
+        Belgium |   2 :   0 :   1 |   8 :   6 :   2 |   6
+         Panama |   1 :   1 :   1 |   9 :   5 :   4 |   4
+        Tunisia |   0 :   0 :   3 |   3 :  12 :  -9 |   0

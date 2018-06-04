@@ -183,19 +183,19 @@ groupA_matches = {
         }
 
 
-orig_stdout = sys.stdout
-f = open('./group_stage/groupA.txt', 'w')
-sys.stdout = f
-    
-print "######### Group stage: Group A #########"
-
-for i in range(1,11):
-    print "###### RUN %3s ######" % i
-
-    groupA_results, groupA_score_table = group_play(groupA_matches, groupA_teams)
-    print_results(groupA_results)
-    print_score_table(groupA_score_table)
-    print "\n"
-
-sys.stdout = orig_stdout
-f.close()
+#orig_stdout = sys.stdout
+#f = open('./group_stage/groupA.txt', 'w')
+#sys.stdout = f
+#    
+#print "######### Group stage: Group A #########"
+#
+#for i in range(1,11):
+#    print "###### RUN %3s ######" % i
+#
+#    groupA_results, groupA_score_table = group_play(groupA_matches, groupA_teams)
+#    print_results(groupA_results)
+#    print_score_table(groupA_score_table)
+#    print "\n"
+#
+#sys.stdout = orig_stdout
+#f.close()

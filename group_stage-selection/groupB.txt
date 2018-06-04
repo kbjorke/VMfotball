@@ -1,0 +1,25 @@
+######### Group stage: Group B #########
+
+Selection parameters:
+ - Spain and Portugal advance
+ - Portugal beat Iran
+ - Spain beats Morocco
+
+
+###### RUN   3 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 4  |         Morocco -- Iran            | 3 - 3
+Match 3  |        Portugal -- Spain           | 0 - 2
+Match 19 |        Portugal -- Morocco         | 2 - 1
+Match 20 |            Iran -- Spain           | 1 - 2
+Match 35 |            Iran -- Portugal        | 1 - 4
+Match 36 |           Spain -- Morocco         | 3 - 2
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+          Spain |   3 :   0 :   0 |   7 :   3 :   4 |   9
+       Portugal |   2 :   0 :   1 |   6 :   4 :   2 |   6
+        Morocco |   0 :   1 :   2 |   6 :   8 :  -2 |   1
+           Iran |   0 :   1 :   2 |   5 :   9 :  -4 |   1

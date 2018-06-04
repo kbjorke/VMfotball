@@ -1,0 +1,27 @@
+######### Group stage: Group A #########
+
+Selection parameters:
+ - Uruguay advance as 1st
+ - Saudi Arabia do not advance
+ - Uruguay beat Saudi Arabia
+
+
+###### RUN  10 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 1  |          Russia -- Saudi Arabia    | 2 - 0
+Match 2  |           Egypt -- Uruguay         | 0 - 2
+Match 18 |         Uruguay -- Saudi Arabia    | 3 - 2
+Match 17 |          Russia -- Egypt           | 0 - 1
+Match 33 |         Uruguay -- Russia          | 3 - 0
+Match 34 |    Saudi Arabia -- Egypt           | 0 - 1
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+        Uruguay |   3 :   0 :   0 |   8 :   2 :   6 |   9
+          Egypt |   2 :   0 :   1 |   2 :   2 :   0 |   6
+         Russia |   1 :   0 :   2 |   2 :   4 :  -2 |   3
+   Saudi Arabia |   0 :   0 :   3 |   2 :   6 :  -4 |   0
+
+
