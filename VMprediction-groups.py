@@ -9,7 +9,6 @@ import sys
 
 # Match overview: https://en.wikipedia.org/wiki/2018_FIFA_World_Cup
 
-
 teams_points={ # http://www.fifa.com/fifa-world-ranking/ranking-table/men/index.html
     'Australia': 700,
     'Iran': 727,
@@ -112,7 +111,7 @@ def determine_result(winner, matchup):
 
     return result
 
-def group_play(matches, group_teams):
+def group_play(group_teams, matches):
     results = dict()
     for match in matches:
         results[match] = ['team1', 'team2', 'results']
@@ -167,6 +166,8 @@ def print_score_table(score_table):
 
 ### Group play: ###
 
+group = sys.argv[1] # Commandline arguments for what group to compute
+
 knockout=False
 
 # Group A:
@@ -182,20 +183,142 @@ groupA_matches = {
         'Match 34': ['Saudi Arabia', 'Egypt']
         }
 
+# Group B:
 
-orig_stdout = sys.stdout
-f = open('./group_stage/groupA.txt', 'w')
-sys.stdout = f
+groupB_teams = ['Portugal', 'Spain', 'Morocco', 'Iran']
+
+groupB_matches = {
+        'Match 4': ['Morocco', 'Iran'],
+        'Match 3': ['Portugal', 'Spain'],
+        'Match 19': ['Portugal', 'Morocco'],
+        'Match 20': ['Iran', 'Spain'],
+        'Match 35': ['Iran', 'Portugal'],
+        'Match 36': ['Spain', 'Morocco']
+        }
+
+# Group C:
+
+groupC_teams = ['France', 'Australia', 'Peru', 'Denmark']
+
+groupC_matches = {
+        'Match 5': ['France', 'Australia'],
+        'Match 6': ['Peru', 'Denmark'],
+        'Match 22': ['Denmark', 'Australia'],
+        'Match 21': ['France', 'Peru'],
+        'Match 37': ['Denmark', 'France'],
+        'Match 38': ['Australia', 'Peru']
+        }
+
+# Group D:
+
+groupD_teams = ['Argentina', 'Iceland', 'Croatia', 'Nigeria']
+
+groupD_matches = {
+        'Match 7': ['Argentina', 'Iceland'],
+        'Match 8': ['Croatia', 'Nigeria'],
+        'Match 23': ['Argentina', 'Croatia'],
+        'Match 24': ['Nigeria', 'Iceland'],
+        'Match 39': ['Nigeria', 'Argentina'],
+        'Match 40': ['Iceland', 'Croatia']
+        }
+
+# Group E:
+
+groupE_teams = ['Brazil', 'Switzerland', 'Costa Rica', 'Serbia']
+
+groupE_matches = {
+        'Match 10': ['Costa Rica', 'Serbia'],
+        'Match 9': ['Brazil', 'Switzerland'],
+        'Match 25': ['Brazil', 'Costa Rica'],
+        'Match 26': ['Serbia', 'Switzerland'],
+        'Match 41': ['Serbia', 'Brazil'],
+        'Match 42': ['Switzerland', 'Costa Rica']
+        }
+
+# Group F:
+
+groupF_teams = ['Germany', 'Mexico', 'Sweden', 'South Korea']
+
+groupF_matches = {
+        'Match 11': ['Germany', 'Mexico'],
+        'Match 12': ['Sweden', 'South Korea'],
+        'Match 28': ['South Korea', 'Mexico'],
+        'Match 27': ['Germany', 'Sweden'],
+        'Match 43': ['South Korea', 'Germany'],
+        'Match 44': ['Mexico', 'Sweden']
+        }
+
+# Group G:
+
+groupG_teams = ['Belgium', 'Panama', 'Tunisia', 'England']
+
+groupG_matches = {
+        'Match 13': ['Belgium', 'Panama'],
+        'Match 14': ['Tunisia', 'England'],
+        'Match 29': ['Belgium', 'Tunisia'],
+        'Match 30': ['England', 'Panama'],
+        'Match 45': ['England', 'Belgium'],
+        'Match 46': ['Panama', 'Tunisia']
+        }
+
+# Group H:
+
+groupH_teams = ['Poland', 'Senegal', 'Colombia', 'Japan'] 
+groupH_matches = {
+        'Match 16': ['Colombia', 'Japan'],
+        'Match 15': ['Poland', 'Senegal'],
+        'Match 32': ['Japan', 'Senegal'],
+        'Match 31': ['Poland', 'Colombia'],
+        'Match 47': ['Japan', 'Poland'],
+        'Match 48': ['Senegal', 'Colombia']
+        }
+
+
+# Runs for groups:
+
+def group_runs(label, group_teams, group_matches, n_runs):
+
+    print " --- Computing %2s runs for Group %s --- " % (n_runs, label)
     
-print "######### Group stage: Group A #########"
+    orig_stdout = sys.stdout
+    outfile = open('./group_stage/group%s.txt' % label, 'w')
+    sys.stdout = outfile
+        
+    print "######### Group stage: Group %s #########" % label
+    
+    for i in range(1,n_runs+1):
+        print "###### RUN %3s ######" % i
+    
+        results, score_table = group_play(group_teams, group_matches)
+        print_results(results)
+        print_score_table(score_table)
+        print "\n"
+    
+    sys.stdout = orig_stdout
+    outfile.close()
 
-for i in range(1,11):
-    print "###### RUN %3s ######" % i
+n_runs = 6
 
-    groupA_results, groupA_score_table = group_play(groupA_matches, groupA_teams)
-    print_results(groupA_results)
-    print_score_table(groupA_score_table)
-    print "\n"
+if group == "groupA":
+    group_runs("A", groupA_teams, groupA_matches, n_runs)
 
-sys.stdout = orig_stdout
-f.close()
+if group == "groupB":
+    group_runs("B", groupB_teams, groupB_matches, n_runs)
+
+if group == "groupC":
+    group_runs("C", groupC_teams, groupC_matches, n_runs)
+
+if group == "groupD":
+    group_runs("D", groupD_teams, groupD_matches, n_runs)
+
+if group == "groupE":
+    group_runs("E", groupE_teams, groupE_matches, n_runs)
+
+if group == "groupF":
+    group_runs("F", groupF_teams, groupF_matches, n_runs)
+
+if group == "groupG":
+    group_runs("G", groupG_teams, groupG_matches, n_runs)
+
+if group == "groupH":
+    group_runs("H", groupH_teams, groupH_matches, n_runs)
