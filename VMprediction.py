@@ -5,6 +5,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import random as rnd
+import sys
 
 # Match overview: https://en.wikipedia.org/wiki/2018_FIFA_World_Cup
 
@@ -168,6 +169,8 @@ def print_score_table(score_table):
 
 knockout=False
 
+# Group A:
+
 groupA_teams = ['Russia', 'Saudi Arabia', 'Egypt', 'Uruguay']
 
 groupA_matches = {
@@ -179,7 +182,18 @@ groupA_matches = {
         'Match 34': ['Saudi Arabia', 'Egypt']
         }
 
-groupA_results, groupA_score_table = group_play(groupA_matches, groupA_teams)
 
-print_results(groupA_results)
-print_score_table(groupA_score_table)
+orig_stdout = sys.stdout
+f = open('./group_stage/groupA.txt', 'w')
+sys.stdout = f
+
+for i in range(1,11):
+    print "###### RUN %3s ######" % i
+
+    groupA_results, groupA_score_table = group_play(groupA_matches, groupA_teams)
+    print_results(groupA_results)
+    print_score_table(groupA_score_table)
+    print "\n"
+
+sys.stdout = orig_stdout
+f.close()
