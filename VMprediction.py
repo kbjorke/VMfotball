@@ -115,8 +115,80 @@ def determine_result(winner, matchup):
 
 knockout=False
 
-g1_m1 = ['Russia', 'Saudi Arabia']
-#g1_m1 = ['Germany', 'Saudi Arabia']
+#g1_m1 = ['Russia', 'Saudi Arabia']
+##g1_m1 = ['Germany', 'Saudi Arabia']
+#
+#winner = determine_winner(g1_m1)
+#result = determine_result(winner, g1_m1)
+#print "%s -- %s: %s" % (g1_m1[0], g1_m1[1], result)
 
-winner = determine_winner(g1_m1)
-print "%s -- %s: %s" % (g1_m1[0], g1_m1[1], determine_result(winner, g1_m1))
+groupA_matches = {
+        'Match 1': ['Russia', 'Saudi Arabia'],
+        'Match 2': ['Egypt', 'Uruguay'],
+        'Match 17': ['Russia', 'Egypt'],
+        'Match 18': ['Uruguay', 'Saudi Arabia'],
+        'Match 33': ['Uruguay', 'Russia'],
+        'Match 34': ['Saudi Arabia', 'Egypt']
+        }
+
+groupA_results = {
+        'Match 1': ['winner', 'result'],
+        'Match 2': ['winner', 'result'], 
+        'Match 17': ['winner', 'result'],
+        'Match 18': ['winner', 'result'],
+        'Match 33': ['winner', 'result'],
+        'Match 34': ['winner', 'result']
+        }
+
+groupA_score_table = { # [won, drawn, lost, goals-for, goals-against, goal-diff, points]
+        'Russia': [0,0,0,0,0,0,0],
+        'Saudi Arabia': [0,0,0,0,0,0,0],
+        'Egypt': [0,0,0,0,0,0,0],
+        'Uruguay': [0,0,0,0,0,0,0]
+        }
+
+
+
+for match in groupA_matches:
+    #print match
+    teams = groupA_matches[match]
+    winner = determine_winner(teams)
+    result = determine_result(winner, teams)
+    groupA_results[match] = [winner, result]
+  
+    #print result.split('-')
+    for team in teams:
+        #print team
+        groupA_score_table[team][3] += int(result.split('-')[teams.index(team)])
+        groupA_score_table[team][4] += int(result.split('-')[teams.index(team)-1])
+        groupA_score_table[team][5] += (int(result.split('-')[teams.index(team)]) - int(result.split('-')[teams.index(team)-1]))
+        if winner is team:
+            groupA_score_table[team][0] += 1
+            groupA_score_table[team][6] += 3
+        elif winner is "Draw":
+            groupA_score_table[team][1] += 1
+            groupA_score_table[team][6] += 1
+        else:
+            groupA_score_table[team][2] += 1
+            groupA_score_table[team][6] += 0
+
+    #print "%s -- %s: %s" % (teams[0], teams[1], result)
+
+
+def print_score_table(score_table):
+    score_table_sorted = sorted(score_table.items(), key=lambda e: e[1][6], reverse=True)
+    #print "Team | W : D : L | GF : GA : GD | Pts"
+    print "%15s | %3s : %3s : %3s | %3s : %3s : %3s | %3s" %( 'Team', 'W', 'D', 'L', 'GF', 'GA', ' GD', 'Pts')
+    for i in range(len(score_table_sorted)):
+        print "%15s | %3d : %3d : %3d | %3d : %3d : %3d | %3d" % (
+                score_table_sorted[i][0],
+                score_table_sorted[i][1][0],
+                score_table_sorted[i][1][1],
+                score_table_sorted[i][1][2],
+                score_table_sorted[i][1][3],
+                score_table_sorted[i][1][4],
+                score_table_sorted[i][1][5],
+                score_table_sorted[i][1][6])
+
+
+print_score_table(groupA_score_table)
