@@ -46,7 +46,7 @@ teams_points={ # http://www.fifa.com/fifa-world-ranking/ranking-table/men/index.
 
 
 def determine_winner(matchup):
-    tune_factor = 0.6 # By testing, might need re-tuning
+    tune_factor = 0.4 # By testing, might need re-tuning - 0.6 (prediction) -
     draw_prob = 0.74 # http://pena.lt/y/2015/12/12/frequency-of-draws-in-football/
 
     prob_val = float(teams_points[matchup[0]])/(teams_points[matchup[0]]+teams_points[matchup[1]])
@@ -299,26 +299,26 @@ groupH_matches = {
 
 n_runs = 10
 
-if group == "groupA":
+if group == "groupA" or group == "all":
     group_runs("A", groupA_teams, groupA_matches, n_runs)
 
-if group == "groupB":
+if group == "groupB" or group == "all":
     group_runs("B", groupB_teams, groupB_matches, n_runs)
 
-if group == "groupC":
+if group == "groupC" or group == "all":
     group_runs("C", groupC_teams, groupC_matches, n_runs)
 
-if group == "groupD":
+if group == "groupD" or group == "all":
     group_runs("D", groupD_teams, groupD_matches, n_runs)
 
-if group == "groupE":
+if group == "groupE" or group == "all":
     group_runs("E", groupE_teams, groupE_matches, n_runs)
 
-if group == "groupF":
+if group == "groupF" or group == "all":
     group_runs("F", groupF_teams, groupF_matches, n_runs)
 
-if group == "groupG":
+if group == "groupG" or group == "all":
     group_runs("G", groupG_teams, groupG_matches, n_runs)
 
-if group == "groupH":
+if group == "groupH" or group == "all":
     group_runs("H", groupH_teams, groupH_matches, n_runs)
