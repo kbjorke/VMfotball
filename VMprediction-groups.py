@@ -45,15 +45,18 @@ teams_points={ # http://www.fifa.com/fifa-world-ranking/ranking-table/men/index.
 }
 
 def prob_tune_func(ranking_ratio):
-    tune_factor = 6.0
+    tune_factor = 8.0
     return 1.0/(1 + np.exp(-tune_factor*(ranking_ratio-0.5)))
 
-def determine_winner(matchup):
+def determine_winner(matchup, cup_is_cup=False):
     draw_prob = 0.74 # http://pena.lt/y/2015/12/12/frequency-of-draws-in-football/
 
     ranking_ratio = float(teams_points[matchup[0]])/(teams_points[matchup[0]]+teams_points[matchup[1]])
 
     draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/1e4
+    if cup_is_cup is True:
+        draw_modifier = 0
+        ranking_ratio = 0.5
     draw_prob += draw_modifier
     ranking_ratio_tuned = draw_prob*prob_tune_func(ranking_ratio)
 
@@ -106,7 +109,7 @@ def determine_result(winner, matchup):
 
     return result
 
-def group_play(group_teams, matches):
+def group_play(group_teams, matches, cup_is_cup=False):
     results = dict()
     for match in matches:
         results[match] = ['team1', 'team2', 'results']
@@ -117,7 +120,7 @@ def group_play(group_teams, matches):
 
     for match in matches:
         teams = matches[match]
-        winner = determine_winner(teams)
+        winner = determine_winner(teams, cup_is_cup)
         result = determine_result(winner, teams)
         results[match] = [teams[0], teams[1], result]
         
@@ -159,7 +162,7 @@ def print_score_table(score_table):
                 score_table_sorted[i][1][5],
                 score_table_sorted[i][1][6])
 
-def group_runs(label, group_teams, group_matches, n_runs):
+def group_runs(label, group_teams, group_matches, n_runs, cup_is_cup=False):
 
     print " --- Computing %2s runs for Group %s --- " % (n_runs, label)
     
@@ -172,7 +175,7 @@ def group_runs(label, group_teams, group_matches, n_runs):
     for i in range(1,n_runs+1):
         print "###### RUN %3s ######" % i
     
-        results, score_table = group_play(group_teams, group_matches)
+        results, score_table = group_play(group_teams, group_matches, cup_is_cup)
         print_results(results)
         print_score_table(score_table)
         print "\n"
@@ -293,27 +296,28 @@ groupH_matches = {
 # Runs for groups:
 
 n_runs = 10
+cup_is_cup=False
 
 if group == "groupA" or group == "all":
-    group_runs("A", groupA_teams, groupA_matches, n_runs)
+    group_runs("A", groupA_teams, groupA_matches, n_runs, cup_is_cup)
 
 if group == "groupB" or group == "all":
-    group_runs("B", groupB_teams, groupB_matches, n_runs)
+    group_runs("B", groupB_teams, groupB_matches, n_runs, cup_is_cup)
 
 if group == "groupC" or group == "all":
-    group_runs("C", groupC_teams, groupC_matches, n_runs)
+    group_runs("C", groupC_teams, groupC_matches, n_runs, cup_is_cup)
 
 if group == "groupD" or group == "all":
-    group_runs("D", groupD_teams, groupD_matches, n_runs)
+    group_runs("D", groupD_teams, groupD_matches, n_runs, cup_is_cup)
 
 if group == "groupE" or group == "all":
-    group_runs("E", groupE_teams, groupE_matches, n_runs)
+    group_runs("E", groupE_teams, groupE_matches, n_runs, cup_is_cup)
 
 if group == "groupF" or group == "all":
-    group_runs("F", groupF_teams, groupF_matches, n_runs)
+    group_runs("F", groupF_teams, groupF_matches, n_runs, cup_is_cup)
 
 if group == "groupG" or group == "all":
-    group_runs("G", groupG_teams, groupG_matches, n_runs)
+    group_runs("G", groupG_teams, groupG_matches, n_runs, cup_is_cup)
 
 if group == "groupH" or group == "all":
-    group_runs("H", groupH_teams, groupH_matches, n_runs)
+    group_runs("H", groupH_teams, groupH_matches, n_runs, cup_is_cup)
