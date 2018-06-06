@@ -84,24 +84,19 @@ def determine_result(winner, matchup):
     
     draw_probs = draw_probs/sum(draw_probs)
     draw_probs = np.cumsum(draw_probs)
-    #print draw_probs
     
     win_probs = win_probs/sum(win_probs)
-    print win_probs
     win_probs = np.cumsum(win_probs)
-    #print win_probs
     
     random_number = rnd.random()
 
     if winner == 'Draw':
         for i in range(len(draw_probs)):
-            #print random_number, draw_probs[i]
             if random_number <= draw_probs[i]:
                 result = draw_results[i]
                 break
     else:
         for i in range(len(win_probs)):
-            #print random_number, win_probs[i]
             if random_number <= win_probs[i]:
                 if matchup.index(winner) == 0:
                     result = win_results_0[i]
