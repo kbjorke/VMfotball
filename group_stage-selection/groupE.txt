@@ -1,0 +1,27 @@
+######### Group stage: Group E #########
+
+Selection parameters:
+ - Brazil advance
+ - Serbia does not advance
+ - Brazil beat Serbia
+ - Costa Rica does not advance
+ - Random selection (run 10)
+
+
+###### RUN  10 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 41 |          Serbia -- Brazil          | 0 - 1
+Match 9  |          Brazil -- Switzerland     | 2 - 3
+Match 42 |     Switzerland -- Costa Rica      | 5 - 3
+Match 10 |      Costa Rica -- Serbia          | 1 - 0
+Match 26 |          Serbia -- Switzerland     | 0 - 3
+Match 25 |          Brazil -- Costa Rica      | 1 - 1
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+    Switzerland |   3 :   0 :   0 |  11 :   5 :   6 |   9
+         Brazil |   1 :   1 :   1 |   4 :   4 :   0 |   4
+     Costa Rica |   1 :   1 :   1 |   5 :   6 :  -1 |   4
+         Serbia |   0 :   0 :   3 |   0 :   5 :  -5 |   0

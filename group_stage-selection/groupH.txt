@@ -1,0 +1,27 @@
+######### Group stage: Group H #########
+
+Selection parameters:
+ - Japan does not advance
+ - Poland beats Japan
+ - Random selection (run 10)
+
+
+###### RUN  10 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 48 |         Senegal -- Colombia        | 1 - 2
+Match 47 |           Japan -- Poland          | 1 - 2
+Match 16 |        Colombia -- Japan           | 2 - 2
+Match 31 |          Poland -- Colombia        | 1 - 4
+Match 32 |           Japan -- Senegal         | 1 - 0
+Match 15 |          Poland -- Senegal         | 1 - 0
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+       Colombia |   2 :   1 :   0 |   8 :   4 :   4 |   7
+         Poland |   2 :   0 :   1 |   4 :   5 :  -1 |   6
+          Japan |   1 :   1 :   1 |   4 :   4 :   0 |   4
+        Senegal |   0 :   0 :   3 |   1 :   4 :  -3 |   0
+
+

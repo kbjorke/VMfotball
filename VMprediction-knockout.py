@@ -45,7 +45,7 @@ teams_points={ # http://www.fifa.com/fifa-world-ranking/ranking-table/men/index.
 }
 
 def prob_tune_func(ranking_ratio):
-    tune_factor = 8.0
+    tune_factor = 12.0
     return 1.0/(1 + np.exp(-tune_factor*(ranking_ratio-0.5)))
 
 
@@ -244,4 +244,28 @@ round16_matches = {
 # Runs of knockout stage:
 n_runs = 10
 
-knockout_runs(round16_matches, n_runs)
+#knockout_runs(round16_matches, n_runs)
+
+
+round16_results = knockout_round(round16_matches)
+print_results('Round of 16', round16_results)
+
+QF_matches = getQF(round16_results)
+
+QF_results = knockout_round(QF_matches)
+print_results('Quarter-finals', QF_results)
+
+SF_matches = getSF(QF_results)
+
+SF_results = knockout_round(SF_matches)
+print_results('Semi-finals', SF_results)
+
+TPP_match = getTPP(SF_results)
+
+TPP_result = knockout_round(TPP_match)
+print_results('Third place play-off', TPP_result)
+
+Final_match = getFinal(SF_results)
+
+Final_result = knockout_round(Final_match)
+print_results('Final', Final_result)

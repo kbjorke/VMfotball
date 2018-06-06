@@ -7,42 +7,42 @@
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 49 |     Uruguay -- Portugal    | Uruguay         | 5 - 1
-Match 52 |   Argentina -- Peru        | Peru            | 0 - 3
-Match 53 | Switzerland -- Sweden      | Switzerland (p) | 2 - 2
-Match 50 |     Denmark -- Iceland     | Iceland         | 1 - 2
-Match 51 |       Spain -- Egypt       | Spain           | 2 - 1
-Match 56 |    Colombia -- Belgium     | Belgium         | 1 - 3
-Match 54 |     England -- Senegal     | England         | 3 - 1
-Match 55 |     Germany -- Brazil      | Brazil          | 0 - 1
+Match 49 |     Uruguay -- Portugal    | Uruguay (p)     | 0 - 0
+Match 52 |   Argentina -- Peru        | Peru (p)        | 0 - 0
+Match 53 | Switzerland -- Sweden      | Switzerland     | 4 - 0
+Match 50 |     Denmark -- Iceland     | Denmark         | 1 - 0
+Match 51 |       Spain -- Egypt       | Spain           | 5 - 1
+Match 56 |    Colombia -- Belgium     | Belgium (p)     | 2 - 2
+Match 54 |     England -- Senegal     | Senegal (p)     | 1 - 1
+Match 55 |     Germany -- Brazil      | Germany         | 2 - 1
 
  --- Quarter-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 58 | Switzerland -- England     | England         | 1 - 2
-Match 59 |       Spain -- Peru        | Peru            | 1 - 3
-Match 57 |     Uruguay -- Iceland     | Iceland         | 0 - 2
-Match 60 |      Brazil -- Belgium     | Belgium (p)     | 1 - 1
+Match 58 | Switzerland -- Senegal     | Switzerland     | 1 - 0
+Match 59 |       Spain -- Peru        | Peru            | 0 - 3
+Match 57 |     Uruguay -- Denmark     | Denmark         | 0 - 1
+Match 60 |     Germany -- Belgium     | Belgium         | 1 - 2
 
  --- Semi-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 62 |        Peru -- Belgium     | Peru (p)        | 0 - 0
-Match 61 |     Iceland -- England     | Iceland         | 3 - 2
+Match 62 |        Peru -- Belgium     | Belgium         | 1 - 2
+Match 61 |     Denmark -- Switzerland | Denmark         | 3 - 1
 
  --- Third place play-off ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 63 |     England -- Belgium     | Belgium (p)     | 1 - 1
+Match 63 | Switzerland -- Peru        | Peru (p)        | 1 - 1
 
  --- Final ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 64 |     Iceland -- Peru        | Peru            | 0 - 1
+Match 64 |     Denmark -- Belgium     | Belgium         | 1 - 3
 
 
 ###### RUN   2 ######
@@ -51,42 +51,42 @@ Match 64 |     Iceland -- Peru        | Peru            | 0 - 1
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 49 |     Uruguay -- Portugal    | Portugal        | 0 - 1
-Match 52 |   Argentina -- Peru        | Argentina       | 5 - 1
-Match 53 | Switzerland -- Sweden      | Sweden          | 3 - 4
-Match 50 |     Denmark -- Iceland     | Iceland         | 2 - 3
-Match 51 |       Spain -- Egypt       | Spain           | 2 - 0
-Match 56 |    Colombia -- Belgium     | Colombia        | 1 - 0
-Match 54 |     England -- Senegal     | England         | 1 - 0
-Match 55 |     Germany -- Brazil      | Brazil          | 0 - 2
+Match 49 |     Uruguay -- Portugal    | Portugal        | 1 - 2
+Match 52 |   Argentina -- Peru        | Argentina (p)   | 2 - 2
+Match 53 | Switzerland -- Sweden      | Switzerland     | 1 - 0
+Match 50 |     Denmark -- Iceland     | Denmark         | 3 - 0
+Match 51 |       Spain -- Egypt       | Egypt           | 0 - 1
+Match 56 |    Colombia -- Belgium     | Belgium         | 0 - 1
+Match 54 |     England -- Senegal     | England (p)     | 0 - 0
+Match 55 |     Germany -- Brazil      | Brazil          | 1 - 2
 
  --- Quarter-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 58 |      Sweden -- England     | England         | 0 - 2
-Match 59 |       Spain -- Argentina   | Spain           | 2 - 1
-Match 57 |    Portugal -- Iceland     | Portugal        | 1 - 0
-Match 60 |      Brazil -- Colombia    | Brazil          | 2 - 0
+Match 58 | Switzerland -- England     | Switzerland     | 3 - 2
+Match 59 |       Egypt -- Argentina   | Argentina       | 0 - 2
+Match 57 |    Portugal -- Denmark     | Portugal        | 3 - 1
+Match 60 |      Brazil -- Belgium     | Belgium         | 1 - 3
 
  --- Semi-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 62 |       Spain -- Brazil      | Brazil          | 0 - 2
-Match 61 |    Portugal -- England     | Portugal        | 3 - 2
+Match 62 |   Argentina -- Belgium     | Argentina       | 1 - 0
+Match 61 |    Portugal -- Switzerland | Portugal        | 2 - 1
 
  --- Third place play-off ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 63 |     England -- Spain       | Spain (p)       | 0 - 0
+Match 63 | Switzerland -- Belgium     | Switzerland     | 2 - 1
 
  --- Final ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 64 |    Portugal -- Brazil      | Portugal        | 4 - 3
+Match 64 |    Portugal -- Argentina   | Portugal        | 3 - 1
 
 
 ###### RUN   3 ######
@@ -95,42 +95,42 @@ Match 64 |    Portugal -- Brazil      | Portugal        | 4 - 3
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 49 |     Uruguay -- Portugal    | Uruguay (p)     | 1 - 1
-Match 52 |   Argentina -- Peru        | Argentina       | 1 - 0
-Match 53 | Switzerland -- Sweden      | Switzerland     | 2 - 0
-Match 50 |     Denmark -- Iceland     | Iceland (p)     | 0 - 0
-Match 51 |       Spain -- Egypt       | Spain           | 2 - 1
-Match 56 |    Colombia -- Belgium     | Belgium         | 0 - 2
-Match 54 |     England -- Senegal     | England         | 4 - 3
-Match 55 |     Germany -- Brazil      | Brazil (p)      | 0 - 0
+Match 49 |     Uruguay -- Portugal    | Uruguay (p)     | 2 - 2
+Match 52 |   Argentina -- Peru        | Argentina       | 3 - 1
+Match 53 | Switzerland -- Sweden      | Sweden          | 2 - 3
+Match 50 |     Denmark -- Iceland     | Denmark         | 2 - 0
+Match 51 |       Spain -- Egypt       | Egypt (p)       | 1 - 1
+Match 56 |    Colombia -- Belgium     | Belgium         | 0 - 1
+Match 54 |     England -- Senegal     | England         | 1 - 0
+Match 55 |     Germany -- Brazil      | Germany         | 2 - 1
 
  --- Quarter-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 58 | Switzerland -- England     | England (p)     | 1 - 1
-Match 59 |       Spain -- Argentina   | Argentina       | 2 - 3
-Match 57 |     Uruguay -- Iceland     | Iceland         | 0 - 2
-Match 60 |      Brazil -- Belgium     | Belgium (p)     | 2 - 2
+Match 58 |      Sweden -- England     | England         | 1 - 3
+Match 59 |       Egypt -- Argentina   | Egypt           | 3 - 1
+Match 57 |     Uruguay -- Denmark     | Uruguay (p)     | 1 - 1
+Match 60 |     Germany -- Belgium     | Belgium         | 0 - 2
 
  --- Semi-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 62 |   Argentina -- Belgium     | Belgium         | 0 - 3
-Match 61 |     Iceland -- England     | England         | 1 - 3
+Match 62 |       Egypt -- Belgium     | Belgium         | 1 - 2
+Match 61 |     Uruguay -- England     | England         | 0 - 2
 
  --- Third place play-off ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 63 |     Iceland -- Argentina   | Iceland         | 3 - 1
+Match 63 |     Uruguay -- Egypt       | Uruguay (p)     | 1 - 1
 
  --- Final ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 64 |     England -- Belgium     | England         | 3 - 1
+Match 64 |     England -- Belgium     | Belgium         | 0 - 2
 
 
 ###### RUN   4 ######
@@ -139,42 +139,42 @@ Match 64 |     England -- Belgium     | England         | 3 - 1
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 49 |     Uruguay -- Portugal    | Uruguay         | 1 - 0
-Match 52 |   Argentina -- Peru        | Argentina       | 3 - 2
-Match 53 | Switzerland -- Sweden      | Switzerland     | 2 - 0
-Match 50 |     Denmark -- Iceland     | Iceland         | 0 - 1
-Match 51 |       Spain -- Egypt       | Spain           | 3 - 1
-Match 56 |    Colombia -- Belgium     | Belgium         | 1 - 2
-Match 54 |     England -- Senegal     | Senegal         | 1 - 2
-Match 55 |     Germany -- Brazil      | Brazil          | 0 - 1
+Match 49 |     Uruguay -- Portugal    | Portugal (p)    | 2 - 2
+Match 52 |   Argentina -- Peru        | Argentina       | 3 - 0
+Match 53 | Switzerland -- Sweden      | Sweden (p)      | 1 - 1
+Match 50 |     Denmark -- Iceland     | Denmark (p)     | 1 - 1
+Match 51 |       Spain -- Egypt       | Spain (p)       | 0 - 0
+Match 56 |    Colombia -- Belgium     | Belgium         | 0 - 1
+Match 54 |     England -- Senegal     | England         | 2 - 0
+Match 55 |     Germany -- Brazil      | Brazil          | 0 - 3
 
  --- Quarter-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 58 | Switzerland -- Senegal     | Switzerland     | 4 - 0
-Match 59 |       Spain -- Argentina   | Spain           | 3 - 1
-Match 57 |     Uruguay -- Iceland     | Uruguay         | 2 - 0
+Match 58 |      Sweden -- England     | Sweden          | 4 - 3
+Match 59 |       Spain -- Argentina   | Spain           | 2 - 0
+Match 57 |    Portugal -- Denmark     | Portugal        | 4 - 2
 Match 60 |      Brazil -- Belgium     | Brazil (p)      | 1 - 1
 
  --- Semi-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 62 |       Spain -- Brazil      | Spain           | 1 - 0
-Match 61 |     Uruguay -- Switzerland | Switzerland     | 0 - 1
+Match 62 |       Spain -- Brazil      | Brazil          | 1 - 4
+Match 61 |    Portugal -- Sweden      | Portugal        | 2 - 1
 
  --- Third place play-off ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 63 |     Uruguay -- Brazil      | Brazil          | 1 - 3
+Match 63 |      Sweden -- Spain       | Spain (p)       | 1 - 1
 
  --- Final ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 64 | Switzerland -- Spain       | Spain           | 0 - 2
+Match 64 |    Portugal -- Brazil      | Portugal        | 5 - 4
 
 
 ###### RUN   5 ######
@@ -183,42 +183,42 @@ Match 64 | Switzerland -- Spain       | Spain           | 0 - 2
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 49 |     Uruguay -- Portugal    | Portugal        | 0 - 1
-Match 52 |   Argentina -- Peru        | Argentina       | 1 - 0
-Match 53 | Switzerland -- Sweden      | Sweden (p)      | 1 - 1
-Match 50 |     Denmark -- Iceland     | Denmark         | 1 - 0
-Match 51 |       Spain -- Egypt       | Spain (p)       | 0 - 0
+Match 49 |     Uruguay -- Portugal    | Uruguay (p)     | 0 - 0
+Match 52 |   Argentina -- Peru        | Peru (p)        | 0 - 0
+Match 53 | Switzerland -- Sweden      | Switzerland     | 3 - 1
+Match 50 |     Denmark -- Iceland     | Denmark (p)     | 1 - 1
+Match 51 |       Spain -- Egypt       | Spain           | 3 - 2
 Match 56 |    Colombia -- Belgium     | Colombia        | 1 - 0
-Match 54 |     England -- Senegal     | England         | 5 - 0
-Match 55 |     Germany -- Brazil      | Brazil          | 0 - 4
+Match 54 |     England -- Senegal     | Senegal         | 1 - 2
+Match 55 |     Germany -- Brazil      | Germany         | 2 - 0
 
  --- Quarter-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 58 |      Sweden -- England     | Sweden          | 2 - 0
-Match 59 |       Spain -- Argentina   | Argentina       | 0 - 1
-Match 57 |    Portugal -- Denmark     | Denmark         | 1 - 5
-Match 60 |      Brazil -- Colombia    | Brazil          | 2 - 1
+Match 58 | Switzerland -- Senegal     | Senegal         | 0 - 1
+Match 59 |       Spain -- Peru        | Peru            | 1 - 2
+Match 57 |     Uruguay -- Denmark     | Denmark         | 0 - 1
+Match 60 |     Germany -- Colombia    | Colombia        | 1 - 3
 
  --- Semi-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 62 |   Argentina -- Brazil      | Brazil          | 1 - 3
-Match 61 |     Denmark -- Sweden      | Denmark         | 3 - 2
+Match 62 |        Peru -- Colombia    | Peru            | 1 - 0
+Match 61 |     Denmark -- Senegal     | Senegal         | 1 - 3
 
  --- Third place play-off ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 63 |      Sweden -- Argentina   | Argentina       | 1 - 5
+Match 63 |     Denmark -- Colombia    | Denmark (p)     | 0 - 0
 
  --- Final ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 64 |     Denmark -- Brazil      | Brazil          | 1 - 3
+Match 64 |     Senegal -- Peru        | Peru (p)        | 1 - 1
 
 
 ###### RUN   6 ######
@@ -227,42 +227,42 @@ Match 64 |     Denmark -- Brazil      | Brazil          | 1 - 3
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 49 |     Uruguay -- Portugal    | Portugal        | 1 - 3
-Match 52 |   Argentina -- Peru        | Peru            | 1 - 3
+Match 49 |     Uruguay -- Portugal    | Uruguay         | 2 - 1
+Match 52 |   Argentina -- Peru        | Argentina       | 3 - 0
 Match 53 | Switzerland -- Sweden      | Switzerland     | 1 - 0
-Match 50 |     Denmark -- Iceland     | Denmark         | 3 - 1
-Match 51 |       Spain -- Egypt       | Spain           | 5 - 1
-Match 56 |    Colombia -- Belgium     | Belgium         | 2 - 3
-Match 54 |     England -- Senegal     | England (p)     | 0 - 0
-Match 55 |     Germany -- Brazil      | Germany         | 2 - 0
+Match 50 |     Denmark -- Iceland     | Denmark         | 5 - 1
+Match 51 |       Spain -- Egypt       | Spain           | 4 - 0
+Match 56 |    Colombia -- Belgium     | Colombia (p)    | 1 - 1
+Match 54 |     England -- Senegal     | Senegal (p)     | 1 - 1
+Match 55 |     Germany -- Brazil      | Germany (p)     | 1 - 1
 
  --- Quarter-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 58 | Switzerland -- England     | Switzerland     | 2 - 1
-Match 59 |       Spain -- Peru        | Spain           | 3 - 1
-Match 57 |    Portugal -- Denmark     | Portugal        | 2 - 0
-Match 60 |     Germany -- Belgium     | Germany         | 1 - 0
+Match 58 | Switzerland -- Senegal     | Switzerland     | 2 - 1
+Match 59 |       Spain -- Argentina   | Spain (p)       | 2 - 2
+Match 57 |     Uruguay -- Denmark     | Denmark         | 1 - 2
+Match 60 |     Germany -- Colombia    | Germany         | 2 - 0
 
  --- Semi-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 62 |       Spain -- Germany     | Germany         | 1 - 3
-Match 61 |    Portugal -- Switzerland | Portugal        | 2 - 0
+Match 62 |       Spain -- Germany     | Spain           | 1 - 0
+Match 61 |     Denmark -- Switzerland | Switzerland     | 0 - 3
 
  --- Third place play-off ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 63 | Switzerland -- Spain       | Switzerland     | 3 - 1
+Match 63 |     Denmark -- Germany     | Germany         | 1 - 2
 
  --- Final ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 64 |    Portugal -- Germany     | Germany         | 0 - 1
+Match 64 | Switzerland -- Spain       | Spain           | 1 - 2
 
 
 ###### RUN   7 ######
@@ -271,42 +271,42 @@ Match 64 |    Portugal -- Germany     | Germany         | 0 - 1
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 49 |     Uruguay -- Portugal    | Portugal        | 0 - 1
-Match 52 |   Argentina -- Peru        | Argentina       | 1 - 0
-Match 53 | Switzerland -- Sweden      | Switzerland     | 2 - 1
-Match 50 |     Denmark -- Iceland     | Denmark (p)     | 1 - 1
+Match 49 |     Uruguay -- Portugal    | Portugal        | 1 - 3
+Match 52 |   Argentina -- Peru        | Peru            | 0 - 1
+Match 53 | Switzerland -- Sweden      | Switzerland (p) | 1 - 1
+Match 50 |     Denmark -- Iceland     | Iceland         | 0 - 1
 Match 51 |       Spain -- Egypt       | Spain           | 2 - 1
-Match 56 |    Colombia -- Belgium     | Belgium         | 0 - 1
-Match 54 |     England -- Senegal     | Senegal         | 2 - 4
-Match 55 |     Germany -- Brazil      | Germany         | 4 - 2
+Match 56 |    Colombia -- Belgium     | Colombia        | 1 - 0
+Match 54 |     England -- Senegal     | England         | 1 - 0
+Match 55 |     Germany -- Brazil      | Germany         | 2 - 1
 
  --- Quarter-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 58 | Switzerland -- Senegal     | Senegal         | 3 - 4
-Match 59 |       Spain -- Argentina   | Argentina (p)   | 1 - 1
-Match 57 |    Portugal -- Denmark     | Portugal        | 3 - 2
-Match 60 |     Germany -- Belgium     | Germany         | 1 - 0
+Match 58 | Switzerland -- England     | Switzerland     | 2 - 1
+Match 59 |       Spain -- Peru        | Spain (p)       | 2 - 2
+Match 57 |    Portugal -- Iceland     | Portugal        | 4 - 1
+Match 60 |     Germany -- Colombia    | Germany         | 4 - 1
 
  --- Semi-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 62 |   Argentina -- Germany     | Germany         | 0 - 2
-Match 61 |    Portugal -- Senegal     | Portugal        | 3 - 1
+Match 62 |       Spain -- Germany     | Germany         | 0 - 1
+Match 61 |    Portugal -- Switzerland | Switzerland     | 1 - 3
 
  --- Third place play-off ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 63 |     Senegal -- Argentina   | Argentina       | 0 - 1
+Match 63 |    Portugal -- Spain       | Spain           | 1 - 3
 
  --- Final ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 64 |    Portugal -- Germany     | Germany         | 0 - 2
+Match 64 | Switzerland -- Germany     | Germany         | 0 - 1
 
 
 ###### RUN   8 ######
@@ -315,42 +315,42 @@ Match 64 |    Portugal -- Germany     | Germany         | 0 - 2
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 49 |     Uruguay -- Portugal    | Portugal        | 0 - 2
-Match 52 |   Argentina -- Peru        | Peru            | 2 - 3
-Match 53 | Switzerland -- Sweden      | Sweden          | 0 - 1
-Match 50 |     Denmark -- Iceland     | Denmark         | 1 - 0
-Match 51 |       Spain -- Egypt       | Spain           | 2 - 1
-Match 56 |    Colombia -- Belgium     | Belgium         | 0 - 1
-Match 54 |     England -- Senegal     | England         | 1 - 0
-Match 55 |     Germany -- Brazil      | Germany         | 1 - 0
+Match 49 |     Uruguay -- Portugal    | Portugal        | 1 - 2
+Match 52 |   Argentina -- Peru        | Argentina       | 2 - 1
+Match 53 | Switzerland -- Sweden      | Switzerland     | 2 - 1
+Match 50 |     Denmark -- Iceland     | Denmark         | 3 - 0
+Match 51 |       Spain -- Egypt       | Spain           | 1 - 0
+Match 56 |    Colombia -- Belgium     | Belgium         | 2 - 3
+Match 54 |     England -- Senegal     | Senegal (p)     | 3 - 3
+Match 55 |     Germany -- Brazil      | Germany         | 3 - 2
 
  --- Quarter-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 58 |      Sweden -- England     | Sweden (p)      | 0 - 0
-Match 59 |       Spain -- Peru        | Peru            | 0 - 5
-Match 57 |    Portugal -- Denmark     | Denmark         | 1 - 3
-Match 60 |     Germany -- Belgium     | Belgium (p)     | 0 - 0
+Match 58 | Switzerland -- Senegal     | Switzerland (p) | 0 - 0
+Match 59 |       Spain -- Argentina   | Argentina       | 0 - 1
+Match 57 |    Portugal -- Denmark     | Portugal        | 4 - 1
+Match 60 |     Germany -- Belgium     | Belgium         | 1 - 5
 
  --- Semi-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 62 |        Peru -- Belgium     | Belgium (p)     | 2 - 2
-Match 61 |     Denmark -- Sweden      | Sweden          | 0 - 4
+Match 62 |   Argentina -- Belgium     | Argentina       | 1 - 0
+Match 61 |    Portugal -- Switzerland | Portugal        | 2 - 0
 
  --- Third place play-off ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 63 |     Denmark -- Peru        | Peru            | 2 - 3
+Match 63 | Switzerland -- Belgium     | Switzerland     | 2 - 1
 
  --- Final ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 64 |      Sweden -- Belgium     | Belgium         | 1 - 3
+Match 64 |    Portugal -- Argentina   | Portugal        | 2 - 0
 
 
 ###### RUN   9 ######
@@ -359,42 +359,42 @@ Match 64 |      Sweden -- Belgium     | Belgium         | 1 - 3
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 49 |     Uruguay -- Portugal    | Portugal        | 0 - 3
-Match 52 |   Argentina -- Peru        | Peru            | 0 - 1
-Match 53 | Switzerland -- Sweden      | Sweden          | 1 - 2
-Match 50 |     Denmark -- Iceland     | Denmark         | 3 - 0
-Match 51 |       Spain -- Egypt       | Egypt           | 2 - 3
-Match 56 |    Colombia -- Belgium     | Colombia (p)    | 1 - 1
-Match 54 |     England -- Senegal     | England         | 2 - 1
-Match 55 |     Germany -- Brazil      | Brazil (p)      | 2 - 2
+Match 49 |     Uruguay -- Portugal    | Portugal        | 1 - 4
+Match 52 |   Argentina -- Peru        | Argentina       | 2 - 1
+Match 53 | Switzerland -- Sweden      | Sweden          | 0 - 1
+Match 50 |     Denmark -- Iceland     | Denmark         | 2 - 0
+Match 51 |       Spain -- Egypt       | Spain           | 3 - 0
+Match 56 |    Colombia -- Belgium     | Colombia        | 3 - 2
+Match 54 |     England -- Senegal     | Senegal (p)     | 1 - 1
+Match 55 |     Germany -- Brazil      | Germany (p)     | 0 - 0
 
  --- Quarter-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 58 |      Sweden -- England     | England         | 0 - 1
-Match 59 |       Egypt -- Peru        | Egypt           | 2 - 0
-Match 57 |    Portugal -- Denmark     | Portugal        | 3 - 1
-Match 60 |      Brazil -- Colombia    | Colombia        | 1 - 2
+Match 58 |      Sweden -- Senegal     | Senegal (p)     | 0 - 0
+Match 59 |       Spain -- Argentina   | Spain           | 2 - 1
+Match 57 |    Portugal -- Denmark     | Denmark         | 1 - 4
+Match 60 |     Germany -- Colombia    | Germany (p)     | 1 - 1
 
  --- Semi-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 62 |       Egypt -- Colombia    | Egypt           | 3 - 1
-Match 61 |    Portugal -- England     | England         | 1 - 2
+Match 62 |       Spain -- Germany     | Spain           | 1 - 0
+Match 61 |     Denmark -- Senegal     | Denmark         | 1 - 0
 
  --- Third place play-off ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 63 |    Portugal -- Colombia    | Colombia        | 0 - 3
+Match 63 |     Senegal -- Germany     | Germany         | 0 - 4
 
  --- Final ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 64 |     England -- Egypt       | England         | 2 - 1
+Match 64 |     Denmark -- Spain       | Spain (p)       | 1 - 1
 
 
 ###### RUN  10 ######
@@ -403,41 +403,41 @@ Match 64 |     England -- Egypt       | England         | 2 - 1
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 49 |     Uruguay -- Portugal    | Portugal (p)    | 0 - 0
-Match 52 |   Argentina -- Peru        | Peru            | 0 - 3
-Match 53 | Switzerland -- Sweden      | Switzerland     | 2 - 1
-Match 50 |     Denmark -- Iceland     | Denmark         | 2 - 1
-Match 51 |       Spain -- Egypt       | Spain           | 3 - 0
-Match 56 |    Colombia -- Belgium     | Belgium (p)     | 0 - 0
-Match 54 |     England -- Senegal     | Senegal         | 0 - 2
-Match 55 |     Germany -- Brazil      | Germany         | 3 - 0
+Match 49 |     Uruguay -- Portugal    | Portugal (p)    | 1 - 1
+Match 52 |   Argentina -- Peru        | Argentina       | 1 - 0
+Match 53 | Switzerland -- Sweden      | Switzerland (p) | 2 - 2
+Match 50 |     Denmark -- Iceland     | Denmark (p)     | 2 - 2
+Match 51 |       Spain -- Egypt       | Spain           | 2 - 1
+Match 56 |    Colombia -- Belgium     | Belgium         | 0 - 2
+Match 54 |     England -- Senegal     | Senegal (p)     | 1 - 1
+Match 55 |     Germany -- Brazil      | Brazil          | 0 - 1
 
  --- Quarter-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 58 | Switzerland -- Senegal     | Senegal         | 1 - 2
-Match 59 |       Spain -- Peru        | Spain           | 4 - 2
-Match 57 |    Portugal -- Denmark     | Portugal        | 1 - 0
-Match 60 |     Germany -- Belgium     | Belgium         | 1 - 3
+Match 58 | Switzerland -- Senegal     | Switzerland     | 4 - 0
+Match 59 |       Spain -- Argentina   | Spain           | 1 - 0
+Match 57 |    Portugal -- Denmark     | Portugal        | 4 - 1
+Match 60 |      Brazil -- Belgium     | Belgium         | 0 - 1
 
  --- Semi-finals ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 62 |       Spain -- Belgium     | Spain           | 2 - 1
-Match 61 |    Portugal -- Senegal     | Senegal         | 0 - 3
+Match 62 |       Spain -- Belgium     | Spain           | 1 - 0
+Match 61 |    Portugal -- Switzerland | Portugal (p)    | 1 - 1
 
  --- Third place play-off ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 63 |    Portugal -- Belgium     | Belgium         | 1 - 2
+Match 63 | Switzerland -- Belgium     | Belgium         | 0 - 1
 
  --- Final ---
 
  Matches |           Teams            |      Winner     | Results
 --------------------------------------------------------------------
-Match 64 |     Senegal -- Spain       | Spain           | 0 - 1
+Match 64 |    Portugal -- Spain       | Spain           | 0 - 1
 
 
