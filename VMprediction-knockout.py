@@ -183,22 +183,42 @@ def getFinal(SF_results):
 
 
 
-def group_runs(label, group_teams, group_matches, n_runs):
+def knockout_runs(round16_matches_matches, n_runs):
 
-    print " --- Computing %2s runs for Group %s --- " % (n_runs, label)
+    print " --- Computing %2s runs for Knockout stage --- " % (n_runs)
     
     orig_stdout = sys.stdout
-    outfile = open('./group_stage/group%s.txt' % label, 'w')
+    outfile = open('./knockout_stage/knockout_stage.txt', 'w')
     sys.stdout = outfile
         
-    print "######### Group stage: Group %s #########\n\n" % label
+    print "######### Knockout stage: #########\n\n"
     
     for i in range(1,n_runs+1):
         print "###### RUN %3s ######" % i
-    
-        results, score_table = group_play(group_teams, group_matches)
-        print_results(results)
-        print_score_table(score_table)
+
+        round16_results = knockout_round(round16_matches)
+        print_results('Round of 16', round16_results)
+        
+        QF_matches = getQF(round16_results)
+        
+        QF_results = knockout_round(QF_matches)
+        print_results('Quarter-finals', QF_results)
+        
+        SF_matches = getSF(QF_results)
+        
+        SF_results = knockout_round(SF_matches)
+        print_results('Semi-finals', SF_results)
+        
+        TPP_match = getTPP(SF_results)
+        
+        TPP_result = knockout_round(TPP_match)
+        print_results('Third place play-off', TPP_result)
+        
+        Final_match = getFinal(SF_results)
+        
+        Final_result = knockout_round(Final_match)
+        print_results('Final', Final_result)
+        
         print "\n"
     
     sys.stdout = orig_stdout
@@ -221,28 +241,7 @@ round16_matches = {
         'Match 56': ['Colombia', 'Belgium']
         }
 
-round16_results = knockout_round(round16_matches)
-print_results('Round of 16', round16_results)
-
-QF_matches = getQF(round16_results)
-
-QF_results = knockout_round(QF_matches)
-print_results('Quarter-finals', QF_results)
-
-SF_matches = getSF(QF_results)
-
-SF_results = knockout_round(SF_matches)
-print_results('Semi-finals', SF_results)
-
-TPP_match = getTPP(SF_results)
-
-TPP_result = knockout_round(TPP_match)
-print_results('Third place play-off', TPP_result)
-
-Final_match = getFinal(SF_results)
-
-Final_result = knockout_round(Final_match)
-print_results('Final', Final_result)
-
 # Runs of knockout stage:
 n_runs = 10
+
+knockout_runs(round16_matches, n_runs)
