@@ -44,22 +44,21 @@ teams_points={ # http://www.fifa.com/fifa-world-ranking/ranking-table/men/index.
     'Switzerland': 1179
 }
 
+def prob_tune_func(ranking_ratio):
+    tune_factor = 6.0
+    return 1.0/(1 + np.exp(-tune_factor*(ranking_ratio-0.5)))
 
 def determine_winner(matchup):
-    tune_factor = 0.4 # By testing, might need re-tuning - 0.6 (prediction) -
     draw_prob = 0.74 # http://pena.lt/y/2015/12/12/frequency-of-draws-in-football/
 
-    prob_val = float(teams_points[matchup[0]])/(teams_points[matchup[0]]+teams_points[matchup[1]])
+    ranking_ratio = float(teams_points[matchup[0]])/(teams_points[matchup[0]]+teams_points[matchup[1]])
 
-    #print abs(teams_points[matchup[0]]-teams_points[matchup[1]])
     draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/1e4
-    #print draw_modifier
     draw_prob += draw_modifier
-    #print draw_prob
-    prob_val_tuned = draw_prob*(prob_val**tune_factor)
+    ranking_ratio_tuned = draw_prob*prob_tune_func(ranking_ratio)
 
     random_number = rnd.random()
-    if random_number <= prob_val_tuned:
+    if random_number <= ranking_ratio_tuned:
         winner = matchup[0]
     elif random_number > draw_prob:
         winner = 'Draw'
@@ -68,7 +67,7 @@ def determine_winner(matchup):
 
     if knockout and winner is 'Draw':
         random_number = rnd.random()
-        if random_number <= prob_val:
+        if random_number <= ranking_ratio:
             winner = matchup[0]+' (p)'
         else:
             winner = matchup[1]+' (p)'
