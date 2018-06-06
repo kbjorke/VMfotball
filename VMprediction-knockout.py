@@ -57,7 +57,8 @@ def determine_winner(matchup):
     draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/1e4
     draw_prob += draw_modifier
     ranking_ratio_tuned = draw_prob*prob_tune_func(ranking_ratio)
-    
+
+    #print prob_tune_func(ranking_ratio)
     random_number = rnd.random()
     if random_number <= ranking_ratio_tuned:
         winner = matchup[0]
