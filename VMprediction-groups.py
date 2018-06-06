@@ -88,6 +88,7 @@ def determine_result(winner, matchup):
     #print draw_probs
     
     win_probs = win_probs/sum(win_probs)
+    print win_probs
     win_probs = np.cumsum(win_probs)
     #print win_probs
     
