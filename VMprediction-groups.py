@@ -9,59 +9,102 @@ import sys
 
 # Match overview: https://en.wikipedia.org/wiki/2018_FIFA_World_Cup
 
-teams_points={ # http://www.fifa.com/fifa-world-ranking/ranking-table/men/index.html
-    'Australia': 700,
-    'Iran': 727,
-    'Japan': 528,
-    'Saudi Arabia': 462,
-    'South Korea': 520,
-    'Egypt': 636,
-    'Morocco': 681,
-    'Nigeria': 608,
-    'Senegal': 825,
-    'Tunisia': 1012,
-    'Costa Rica': 858,
-    'Mexico': 1008,
-    'Panama': 574,
-    'Argentina': 1254,
-    'Brazil': 1384,
-    'Colombia': 989,
-    'Peru': 1106,
-    'Uruguay': 976,
-    'Belgium': 1346,
-    'Croatia': 975,
-    'Denmark': 1054,
-    'England': 1040,
-    'France': 1166,
-    'Germany': 1544,
-    'Iceland': 930,
-    'Poland': 1128,
-    'Portugal': 1306,
-    'Russia': 493,
-    'Serbia': 732,
-    'Spain': 1162,
-    'Sweden': 889,
-    'Switzerland': 1179
+teams_points={ # Updated 8. june 2018 https://www.eloratings.net/
+    'Australia': 1733,
+    'Iran': 1787,
+    'Japan': 1670,
+    'Saudi Arabia': 1592,
+    'South Korea': 1729,
+    'Egypt': 1646,
+    'Morocco': 1723,
+    'Nigeria': 1681,
+    'Senegal': 1740,
+    'Tunisia': 1659,
+    'Costa Rica': 1750,
+    'Mexico': 1861,
+    'Panama': 1659,
+    'Argentina': 1986,
+    'Brazil': 2136,
+    'Colombia': 1928,
+    'Peru': 1916,
+    'Uruguay': 1894,
+    'Belgium': 1933,
+    'Croatia': 1848,
+    'Denmark': 1845,
+    'England': 1948,
+    'France': 1995,
+    'Germany': 2076,
+    'Iceland': 1764,
+    'Poland': 1831,
+    'Portugal': 1970,
+    'Russia': 1678,
+    'Serbia': 1763,
+    'Spain': 2042,
+    'Sweden': 1794,
+    'Switzerland': 1886
 }
+
+#teams_points={ # Updated 7. june 2018 http://www.fifa.com/fifa-world-ranking/ranking-table/men/index.html
+#    'Australia': 718,
+#    'Iran': 708,
+#    'Japan': 521,
+#    'Saudi Arabia': 465,
+#    'South Korea': 544,
+#    'Egypt': 649,
+#    'Morocco': 686,
+#    'Nigeria': 618,
+#    'Senegal': 838,
+#    'Tunisia': 910,
+#    'Costa Rica': 884,
+#    'Mexico': 989,
+#    'Panama': 571,
+#    'Argentina': 1241,
+#    'Brazil': 1431,
+#    'Colombia': 986,
+#    'Peru': 1125,
+#    'Uruguay': 1018,
+#    'Belgium': 1298,
+#    'Croatia': 945,
+#    'Denmark': 1051,
+#    'England': 1051,
+#    'France': 1198,
+#    'Germany': 1558,
+#    'Iceland': 908,
+#    'Poland': 1183,
+#    'Portugal': 1274,
+#    'Russia': 457,
+#    'Serbia': 751,
+#    'Spain': 1126,
+#    'Sweden': 880,
+#    'Switzerland': 1199
+#}
 
 def prob_tune_func(ranking_ratio):
     tune_factor = 8.0
     return 1.0/(1 + np.exp(-tune_factor*(ranking_ratio-0.5)))
 
+def win_expectancy(rating_diff):
+    return 1.0(10**(-rating_diff/400.0) + 1)
+
 def determine_winner(matchup, cup_is_cup=False):
     draw_prob = 0.74 # http://pena.lt/y/2015/12/12/frequency-of-draws-in-football/
 
-    ranking_ratio = float(teams_points[matchup[0]])/(teams_points[matchup[0]]+teams_points[matchup[1]])
+    rating_diff = float(teams_points[matchup[0]]-teams_points[matchup[1]])
+    #ranking_ratio = float(teams_points[matchup[0]])/(teams_points[matchup[0]]+teams_points[matchup[1]])
 
-    draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/1e4
+    draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/5e3
+    #draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/1e4
     if cup_is_cup is True:
         draw_modifier = 0
-        ranking_ratio = 0.5
-    draw_prob += draw_modifier
-    ranking_ratio_tuned = draw_prob*prob_tune_func(ranking_ratio)
+        win_exp = 0.5*draw_prob
+    else:
+        draw_prob += draw_modifier
+        win_exp = draw_prob*win_expectancy(rating_diff)
+        #win_exp = draw_prob*prob_tune_func(ranking_ratio)
 
+    print win_expectancy(rating_diff)
     random_number = rnd.random()
-    if random_number <= ranking_ratio_tuned:
+    if random_number <= win_exp:
         winner = matchup[0]
     elif random_number > draw_prob:
         winner = 'Draw'
@@ -70,7 +113,7 @@ def determine_winner(matchup, cup_is_cup=False):
 
     if knockout and winner is 'Draw':
         random_number = rnd.random()
-        if random_number <= ranking_ratio:
+        if random_number <= win_exp:
             winner = matchup[0]+' (p)'
         else:
             winner = matchup[1]+' (p)'
