@@ -1,0 +1,22 @@
+######### Group stage: Group H #########
+
+
+###### RUN   1 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 48 |         Senegal -- Colombia        | 3 - 1
+Match 47 |           Japan -- Poland          | 0 - 2
+Match 16 |        Colombia -- Japan           | 2 - 0
+Match 31 |          Poland -- Colombia        | 0 - 1
+Match 32 |           Japan -- Senegal         | 1 - 2
+Match 15 |          Poland -- Senegal         | 0 - 0
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+        Senegal |   2 :   1 :   0 |   5 :   2 :   3 |   7
+       Colombia |   2 :   0 :   1 |   4 :   3 :   1 |   6
+         Poland |   1 :   1 :   1 |   2 :   1 :   1 |   4
+          Japan |   0 :   0 :   3 |   1 :   6 :  -5 |   0
+
+

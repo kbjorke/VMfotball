@@ -84,7 +84,7 @@ def prob_tune_func(ranking_ratio):
     return 1.0/(1 + np.exp(-tune_factor*(ranking_ratio-0.5)))
 
 def win_expectancy(rating_diff):
-    return 1.0(10**(-rating_diff/400.0) + 1)
+    return 1.0/(10**(-rating_diff/400.0) + 1)
 
 def determine_winner(matchup, cup_is_cup=False):
     draw_prob = 0.74 # http://pena.lt/y/2015/12/12/frequency-of-draws-in-football/
@@ -102,7 +102,6 @@ def determine_winner(matchup, cup_is_cup=False):
         win_exp = draw_prob*win_expectancy(rating_diff)
         #win_exp = draw_prob*prob_tune_func(ranking_ratio)
 
-    print win_expectancy(rating_diff)
     random_number = rnd.random()
     if random_number <= win_exp:
         winner = matchup[0]
@@ -338,7 +337,7 @@ groupH_matches = {
 
 # Runs for groups:
 
-n_runs = 10
+n_runs = 1
 cup_is_cup=False
 
 if group == "groupA" or group == "all":
