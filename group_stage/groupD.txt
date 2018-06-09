@@ -5,18 +5,18 @@
 
  Matches |               Teams                | Results
 ------------------------------------------------------------
-Match 7  |       Argentina -- Iceland         | 0 - 4
-Match 8  |         Croatia -- Nigeria         | 1 - 1
-Match 40 |         Iceland -- Croatia         | 0 - 2
-Match 39 |         Nigeria -- Argentina       | 0 - 1
-Match 23 |       Argentina -- Croatia         | 0 - 1
-Match 24 |         Nigeria -- Iceland         | 1 - 4
+Match 7  |       Argentina -- Iceland         | 2 - 1
+Match 8  |         Croatia -- Nigeria         | 0 - 3
+Match 40 |         Iceland -- Croatia         | 1 - 0
+Match 39 |         Nigeria -- Argentina       | 2 - 5
+Match 23 |       Argentina -- Croatia         | 0 - 2
+Match 24 |         Nigeria -- Iceland         | 0 - 1
 
           Teams |   W :   D :   L |  GF :  GA :  GD | Pts
 ------------------------------------------------------------
-        Croatia |   2 :   1 :   0 |   4 :   1 :   3 |   7
-        Iceland |   2 :   0 :   1 |   8 :   3 :   5 |   6
-      Argentina |   1 :   0 :   2 |   1 :   5 :  -4 |   3
-        Nigeria |   0 :   1 :   2 |   2 :   6 :  -4 |   1
+      Argentina |   2 :   0 :   1 |   7 :   5 :   2 |   6
+        Iceland |   2 :   0 :   1 |   3 :   2 :   1 |   6
+        Nigeria |   1 :   0 :   2 |   5 :   6 :  -1 |   3
+        Croatia |   1 :   0 :   2 |   2 :   4 :  -2 |   3
 
 

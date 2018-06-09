@@ -1,0 +1,102 @@
+###### Selections for group stage: ######
+
+Vetos: 2
+
+### Group A: ###
+
+Teams:
+ - Russia
+ - Saudi Arabia
+ - Egypt
+ - Uruguay
+
+Selections:
+ 1. Uruguay advances
+ 2. Uruguay beats Saudi Arabia
+ 3. Vetoes used: 0
+
+### Group B: ###
+
+Teams:
+ - Portugal
+ - Spain
+ - Morocco
+ - Iran
+
+Selections:
+ 1. Spain beats Morocco
+ 2. Portugal beats Iran
+ 3. Vetoes used: 0
+
+### Group C: ###
+
+Teams:
+ - France
+ - Australia
+ - Peru
+ - Denmark
+
+Selections:
+ 1. France beat Australia
+ 2. Vetoes used: 1
+
+### Group D: ###
+
+Teams:
+ - Argentina
+ - Iceland
+ - Croatia
+ - Nigeria
+
+Selections:
+ 1. Argentina beats Nigeria
+ 2. Vetoes used: 0
+
+### Group E: ###
+
+Teams:
+ - Brazil
+ - Switzerland
+ - Costa Rica
+ - Serbia
+
+Selections:
+ 1. Brazil beats Costa Rica
+ 2. Vetoes used: 0
+
+### Group F: ###
+
+Teams:
+ - Germany
+ - Mexico
+ - Sweden
+ - South Korea
+
+Selections:
+ 1. Germany beats South Korea
+ 2. South Korea does not advance
+ 3. Vetoes used: 1
+
+### Group G: ###
+
+Teams:
+ - Belgium
+ - Panama
+ - Tunisia
+ - England
+
+Selections:
+ 1. England beats Tunisia
+ 2. Vetoes used: 0
+
+### Group H: ###
+
+Teams:
+ - Poland
+ - Senegal
+ - Colombia
+ - Japan
+
+Selections:
+ 1. Colombia beats Japan
+ 2. Vetoes used: 0
