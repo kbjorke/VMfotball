@@ -271,14 +271,14 @@ knockout=True
 # Round of 16:
 
 round16_matches = {
-        'Match 50': ['Denmark', 'Iceland'],
-        'Match 49': ['Uruguay', 'Portugal'],
-        'Match 51': ['Spain', 'Egypt'],
-        'Match 52': ['Argentina', 'Peru'],
-        'Match 53': ['Switzerland', 'Sweden'],
-        'Match 54': ['England', 'Senegal'],
-        'Match 55': ['Germany', 'Brazil'],
-        'Match 56': ['Colombia', 'Belgium']
+        'Match 50': ['Denmark', 'Iceland'], # 1C - 2D
+        'Match 49': ['Uruguay', 'Portugal'], # 1A - 2B
+        'Match 51': ['Spain', 'Egypt'], # 1B - 2A
+        'Match 52': ['Argentina', 'Peru'], # 1D - 2C
+        'Match 53': ['Switzerland', 'Sweden'], # 1E - 2F
+        'Match 54': ['England', 'Senegal'], # 1G - 2H
+        'Match 55': ['Germany', 'Brazil'], # 1F - 2E
+        'Match 56': ['Colombia', 'Belgium'] # 1H - 2G
         }
 
 # Runs of knockout stage:
