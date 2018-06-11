@@ -1,0 +1,9 @@
+###### Selections for knockout stage: ######
+
+Vetos: 3
+
+Selections:
+ - Egypt does not get to Semi-finals
+ - Iceland does not get to Final
+ - Senegal does not get to Final
+ - Vetos used: 0 

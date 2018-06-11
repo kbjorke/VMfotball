@@ -271,41 +271,41 @@ knockout=True
 # Round of 16:
 
 round16_matches = {
-        'Match 50': ['Denmark', 'Iceland'], # 1C - 2D
+        'Match 50': ['France', 'Iceland'], # 1C - 2D
         'Match 49': ['Uruguay', 'Portugal'], # 1A - 2B
         'Match 51': ['Spain', 'Egypt'], # 1B - 2A
         'Match 52': ['Argentina', 'Peru'], # 1D - 2C
-        'Match 53': ['Switzerland', 'Sweden'], # 1E - 2F
-        'Match 54': ['England', 'Senegal'], # 1G - 2H
-        'Match 55': ['Germany', 'Brazil'], # 1F - 2E
-        'Match 56': ['Colombia', 'Belgium'] # 1H - 2G
+        'Match 53': ['Brazil', 'Mexico'], # 1E - 2F
+        'Match 54': ['Belgium', 'Senegal'], # 1G - 2H
+        'Match 55': ['Germany', 'Switzerland'], # 1F - 2E
+        'Match 56': ['Colombia', 'England'] # 1H - 2G
         }
 
 # Runs of knockout stage:
-n_runs = 10
+n_runs = 1
 
-#knockout_runs(round16_matches, n_runs)
+knockout_runs(round16_matches, n_runs)
 
 
-round16_results = knockout_round(round16_matches)
-print_results('Round of 16', round16_results)
-
-QF_matches = getQF(round16_results)
-
-QF_results = knockout_round(QF_matches)
-print_results('Quarter-finals', QF_results)
-
-SF_matches = getSF(QF_results)
-
-SF_results = knockout_round(SF_matches)
-print_results('Semi-finals', SF_results)
-
-TPP_match = getTPP(SF_results)
-
-TPP_result = knockout_round(TPP_match)
-print_results('Third place play-off', TPP_result)
-
-Final_match = getFinal(SF_results)
-
-Final_result = knockout_round(Final_match)
-print_results('Final', Final_result)
+#round16_results = knockout_round(round16_matches)
+#print_results('Round of 16', round16_results)
+#
+#QF_matches = getQF(round16_results)
+#
+#QF_results = knockout_round(QF_matches)
+#print_results('Quarter-finals', QF_results)
+#
+#SF_matches = getSF(QF_results)
+#
+#SF_results = knockout_round(SF_matches)
+#print_results('Semi-finals', SF_results)
+#
+#TPP_match = getTPP(SF_results)
+#
+#TPP_result = knockout_round(TPP_match)
+#print_results('Third place play-off', TPP_result)
+#
+#Final_match = getFinal(SF_results)
+#
+#Final_result = knockout_round(Final_match)
+#print_results('Final', Final_result)

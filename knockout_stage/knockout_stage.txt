@@ -1,0 +1,47 @@
+######### Knockout stage: #########
+
+
+###### RUN   1 ######
+
+ --- Round of 16 ---
+
+ Matches |           Teams            |      Winner     | Results
+--------------------------------------------------------------------
+Match 49 |     Uruguay -- Portugal    | Uruguay (p)     | 2 - 2
+Match 52 |   Argentina -- Peru        | Peru            | 2 - 4
+Match 53 |      Brazil -- Mexico      | Brazil          | 4 - 3
+Match 50 |      France -- Iceland     | France          | 3 - 2
+Match 51 |       Spain -- Egypt       | Spain           | 2 - 0
+Match 56 |    Colombia -- England     | England (p)     | 2 - 2
+Match 54 |     Belgium -- Senegal     | Senegal         | 2 - 3
+Match 55 |     Germany -- Switzerland | Germany         | 3 - 1
+
+ --- Quarter-finals ---
+
+ Matches |           Teams            |      Winner     | Results
+--------------------------------------------------------------------
+Match 58 |      Brazil -- Senegal     | Brazil          | 3 - 1
+Match 59 |       Spain -- Peru        | Spain           | 2 - 1
+Match 57 |     Uruguay -- France      | France          | 0 - 2
+Match 60 |     Germany -- England     | Germany         | 1 - 0
+
+ --- Semi-finals ---
+
+ Matches |           Teams            |      Winner     | Results
+--------------------------------------------------------------------
+Match 62 |       Spain -- Germany     | Germany         | 0 - 1
+Match 61 |      France -- Brazil      | Brazil          | 1 - 2
+
+ --- Third place play-off ---
+
+ Matches |           Teams            |      Winner     | Results
+--------------------------------------------------------------------
+Match 63 |      France -- Spain       | France          | 1 - 0
+
+ --- Final ---
+
+ Matches |           Teams            |      Winner     | Results
+--------------------------------------------------------------------
+Match 64 |      Brazil -- Germany     | Brazil          | 5 - 2
+
+
