@@ -1,0 +1,22 @@
+######### Group stage: Group A #########
+
+
+###### RUN   1 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 1  |          Russia -- Saudi Arabia    | 0 - 5
+Match 2  |           Egypt -- Uruguay         | 0 - 1
+Match 18 |         Uruguay -- Saudi Arabia    | 2 - 1
+Match 17 |          Russia -- Egypt           | 1 - 1
+Match 33 |         Uruguay -- Russia          | 3 - 2
+Match 34 |    Saudi Arabia -- Egypt           | 2 - 0
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+        Uruguay |   3 :   0 :   0 |   6 :   3 :   3 |   9
+   Saudi Arabia |   2 :   0 :   1 |   8 :   2 :   6 |   6
+          Egypt |   0 :   1 :   2 |   1 :   4 :  -3 |   1
+         Russia |   0 :   1 :   2 |   3 :   9 :  -6 |   1
+
+

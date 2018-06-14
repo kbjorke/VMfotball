@@ -1,0 +1,22 @@
+######### Group stage: Group C #########
+
+
+###### RUN   1 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 5  |          France -- Australia       | 4 - 0
+Match 6  |            Peru -- Denmark         | 1 - 0
+Match 38 |       Australia -- Peru            | 1 - 1
+Match 22 |         Denmark -- Australia       | 1 - 1
+Match 21 |          France -- Peru            | 1 - 2
+Match 37 |         Denmark -- France          | 0 - 2
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+           Peru |   2 :   1 :   0 |   4 :   2 :   2 |   7
+         France |   2 :   0 :   1 |   7 :   2 :   5 |   6
+      Australia |   0 :   2 :   1 |   2 :   6 :  -4 |   2
+        Denmark |   0 :   1 :   2 |   1 :   4 :  -3 |   1
+
+

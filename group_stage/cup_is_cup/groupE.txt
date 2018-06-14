@@ -1,0 +1,22 @@
+######### Group stage: Group E #########
+
+
+###### RUN   1 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 41 |          Serbia -- Brazil          | 2 - 4
+Match 9  |          Brazil -- Switzerland     | 2 - 1
+Match 42 |     Switzerland -- Costa Rica      | 1 - 0
+Match 10 |      Costa Rica -- Serbia          | 1 - 2
+Match 26 |          Serbia -- Switzerland     | 3 - 3
+Match 25 |          Brazil -- Costa Rica      | 1 - 2
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+         Brazil |   2 :   0 :   1 |   7 :   5 :   2 |   6
+    Switzerland |   1 :   1 :   1 |   5 :   5 :   0 |   4
+         Serbia |   1 :   1 :   1 |   7 :   8 :  -1 |   4
+     Costa Rica |   1 :   0 :   2 |   3 :   4 :  -1 |   3
+
+

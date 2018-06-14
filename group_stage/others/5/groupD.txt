@@ -1,0 +1,22 @@
+######### Group stage: Group D #########
+
+
+###### RUN   1 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 7  |       Argentina -- Iceland         | 2 - 0
+Match 8  |         Croatia -- Nigeria         | 2 - 1
+Match 40 |         Iceland -- Croatia         | 3 - 0
+Match 39 |         Nigeria -- Argentina       | 2 - 4
+Match 23 |       Argentina -- Croatia         | 2 - 0
+Match 24 |         Nigeria -- Iceland         | 2 - 2
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+      Argentina |   3 :   0 :   0 |   8 :   2 :   6 |   9
+        Iceland |   1 :   1 :   1 |   5 :   4 :   1 |   4
+        Croatia |   1 :   0 :   2 |   2 :   6 :  -4 |   3
+        Nigeria |   0 :   1 :   2 |   5 :   8 :  -3 |   1
+
+

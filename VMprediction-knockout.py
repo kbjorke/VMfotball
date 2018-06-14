@@ -87,17 +87,22 @@ def prob_tune_func(ranking_ratio):
 def win_expectancy(rating_diff):
     return 1.0/(10**(-rating_diff/400.0) + 1)
 
-def determine_winner(matchup):
+def determine_winner(matchup, cup_is_cup=False):
     draw_prob = 0.74 # http://pena.lt/y/2015/12/12/frequency-of-draws-in-football/
 
     rating_diff = float(teams_points[matchup[0]]-teams_points[matchup[1]])
     #ranking_ratio = float(teams_points[matchup[0]])/(teams_points[matchup[0]]+teams_points[matchup[1]])
 
-    draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/5e3
-    #draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/1e4
-    draw_prob += draw_modifier
-    win_exp = draw_prob*win_expectancy(rating_diff)
-    #win_exp = draw_prob*prob_tune_func(ranking_ratio)
+    if cup_is_cup is True:
+        draw_modifier = 0
+        draw_prob += draw_modifier
+        win_exp = 0.5*draw_prob
+    else:
+        draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/5e3
+        #draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/1e4
+        draw_prob += draw_modifier
+        win_exp = draw_prob*win_expectancy(rating_diff)
+        #win_exp = draw_prob*prob_tune_func(ranking_ratio)
 
     random_number = rnd.random()
     if random_number <= win_exp:
@@ -148,14 +153,14 @@ def determine_result(winner, matchup):
 
     return result
 
-def knockout_round(matches):
+def knockout_round(matches, cup_is_cup=False):
     round_results = dict()
     for match in matches:
         round_results[match] = ['team1', 'team2', 'winner', 'results']
     
     for match in matches:
         teams = matches[match]
-        winner = determine_winner(teams)
+        winner = determine_winner(teams, cup_is_cup)
         result = determine_result(winner, teams)
         round_results[match] = [teams[0], teams[1], winner, result]
 
@@ -223,7 +228,7 @@ def getFinal(SF_results):
 
 
 
-def knockout_runs(round16_matches_matches, n_runs):
+def knockout_runs(round16_matches_matches, n_runs, cup_is_cup=False):
 
     print " --- Computing %2s runs for Knockout stage --- " % (n_runs)
     
@@ -236,27 +241,27 @@ def knockout_runs(round16_matches_matches, n_runs):
     for i in range(1,n_runs+1):
         print "###### RUN %3s ######" % i
 
-        round16_results = knockout_round(round16_matches)
+        round16_results = knockout_round(round16_matches, cup_is_cup)
         print_results('Round of 16', round16_results)
         
         QF_matches = getQF(round16_results)
         
-        QF_results = knockout_round(QF_matches)
+        QF_results = knockout_round(QF_matches, cup_is_cup)
         print_results('Quarter-finals', QF_results)
         
         SF_matches = getSF(QF_results)
         
-        SF_results = knockout_round(SF_matches)
+        SF_results = knockout_round(SF_matches, cup_is_cup)
         print_results('Semi-finals', SF_results)
         
         TPP_match = getTPP(SF_results)
         
-        TPP_result = knockout_round(TPP_match)
+        TPP_result = knockout_round(TPP_match, cup_is_cup)
         print_results('Third place play-off', TPP_result)
         
         Final_match = getFinal(SF_results)
         
-        Final_result = knockout_round(Final_match)
+        Final_result = knockout_round(Final_match, cup_is_cup)
         print_results('Final', Final_result)
         
         print "\n"
@@ -270,7 +275,7 @@ knockout=True
 
 # Round of 16:
 
-round16_matches = {
+round16_matches = { # kbjorke
         'Match 50': ['France', 'Iceland'], # 1C - 2D
         'Match 49': ['Uruguay', 'Portugal'], # 1A - 2B
         'Match 51': ['Spain', 'Egypt'], # 1B - 2A
@@ -280,11 +285,72 @@ round16_matches = {
         'Match 55': ['Germany', 'Switzerland'], # 1F - 2E
         'Match 56': ['Colombia', 'England'] # 1H - 2G
         }
+#round16_matches = { # others/1
+#        'Match 50': ['Peru', 'Nigeria'], # 1C - 2D
+#        'Match 49': ['Egypt', 'Spain'], # 1A - 2B
+#        'Match 51': ['Portugal', 'Uruguay'], # 1B - 2A
+#        'Match 52': ['Argentina', 'France'], # 1D - 2C
+#        'Match 53': ['Brazil', 'Sweden'], # 1E - 2F
+#        'Match 54': ['England', 'Poland'], # 1G - 2H
+#        'Match 55': ['Germany', 'Costa Rica'], # 1F - 2E
+#        'Match 56': ['Senegal', 'Belgium'] # 1H - 2G
+#        }
+#round16_matches = { # others/2
+#        'Match 50': ['Peru', 'Iceland'], # 1C - 2D
+#        'Match 49': ['Uruguay', 'Spain'], # 1A - 2B
+#        'Match 51': ['Portugal', 'Egypt'], # 1B - 2A
+#        'Match 52': ['Argentina', 'France'], # 1D - 2C
+#        'Match 53': ['Brazil', 'Mexico'], # 1E - 2F
+#        'Match 54': ['Tunisia', 'Senegal'], # 1G - 2H
+#        'Match 55': ['Germany', 'Switzerland'], # 1F - 2E
+#        'Match 56': ['Colombia', 'England'] # 1H - 2G
+#        }
+#round16_matches = { # others/3
+#        'Match 50': ['France', 'Argentina'], # 1C - 2D
+#        'Match 49': ['Uruguay', 'Spain'], # 1A - 2B
+#        'Match 51': ['Portugal', 'Russia'], # 1B - 2A
+#        'Match 52': ['Iceland', 'Peru'], # 1D - 2C
+#        'Match 53': ['Brazil', 'Mexico'], # 1E - 2F
+#        'Match 54': ['England', 'Colombia'], # 1G - 2H
+#        'Match 55': ['Germany', 'Costa Rica'], # 1F - 2E
+#        'Match 56': ['Poland', 'Belgium'] # 1H - 2G
+#        }
+#round16_matches = { # others/4
+#        'Match 50': ['France', 'Argentina'], # 1C - 2D
+#        'Match 49': ['Uruguay', 'Spain'], # 1A - 2B
+#        'Match 51': ['Portugal', 'Russia'], # 1B - 2A
+#        'Match 52': ['Iceland', 'Peru'], # 1D - 2C
+#        'Match 53': ['Brazil', 'Mexico'], # 1E - 2F
+#        'Match 54': ['England', 'Poland'], # 1G - 2H
+#        'Match 55': ['Germany', 'Switzerland'], # 1F - 2E
+#        'Match 56': ['Colombia', 'Belgium'] # 1H - 2G
+#        }
+#round16_matches = { # others/5
+#        'Match 50': ['Peru', 'Iceland'], # 1C - 2D
+#        'Match 49': ['Uruguay', 'Spain'], # 1A - 2B
+#        'Match 51': ['Portugal', 'Russia'], # 1B - 2A
+#        'Match 52': ['Argentina', 'France'], # 1D - 2C
+#        'Match 53': ['Brazil', 'Germany'], # 1E - 2F
+#        'Match 54': ['England', 'Senegal'], # 1G - 2H
+#        'Match 55': ['Mexico', 'Serbia'], # 1F - 2E
+#        'Match 56': ['Colombia', 'Belgium'] # 1H - 2G
+#        }
+#round16_matches = { # cup is cup
+#        'Match 50': ['Australia', 'Iceland'], # 1C - 2D
+#        'Match 49': ['Uruguay', 'Portugal'], # 1A - 2B
+#        'Match 51': ['Spain', 'Saudi Arabia'], # 1B - 2A
+#        'Match 52': ['Argentina', 'Peru'], # 1D - 2C
+#        'Match 53': ['Brazil', 'South Korea'], # 1E - 2F
+#        'Match 54': ['Belgium', 'Poland'], # 1G - 2H
+#        'Match 55': ['Sweden', 'Switzerland'], # 1F - 2E
+#        'Match 56': ['Japan', 'Panama'] # 1H - 2G
+#        }
 
 # Runs of knockout stage:
+cup_is_cup = False
 n_runs = 1
 
-knockout_runs(round16_matches, n_runs)
+knockout_runs(round16_matches, n_runs, cup_is_cup)
 
 
 #round16_results = knockout_round(round16_matches)

@@ -1,0 +1,47 @@
+######### Knockout stage: #########
+
+
+###### RUN   1 ######
+
+ --- Round of 16 ---
+
+ Matches |           Teams            |      Winner     | Results
+--------------------------------------------------------------------
+Match 49 |     Uruguay -- Portugal    | Uruguay         | 4 - 2
+Match 52 |   Argentina -- Peru        | Argentina       | 3 - 0
+Match 53 |      Brazil -- South Korea | Brazil          | 2 - 0
+Match 50 |   Australia -- Iceland     | Australia       | 3 - 0
+Match 51 |       Spain -- Saudi Arabia | Saudi Arabia (p) | 1 - 1
+Match 56 |       Japan -- Panama      | Japan           | 2 - 1
+Match 54 |     Belgium -- Poland      | Poland          | 1 - 3
+Match 55 |      Sweden -- Switzerland | Switzerland     | 0 - 1
+
+ --- Quarter-finals ---
+
+ Matches |           Teams            |      Winner     | Results
+--------------------------------------------------------------------
+Match 58 |      Brazil -- Poland      | Poland          | 1 - 4
+Match 59 | Saudi Arabia -- Argentina   | Saudi Arabia    | 2 - 0
+Match 57 |     Uruguay -- Australia   | Australia       | 1 - 2
+Match 60 | Switzerland -- Japan       | Japan           | 0 - 1
+
+ --- Semi-finals ---
+
+ Matches |           Teams            |      Winner     | Results
+--------------------------------------------------------------------
+Match 62 | Saudi Arabia -- Japan       | Saudi Arabia (p) | 1 - 1
+Match 61 |   Australia -- Poland      | Australia       | 2 - 0
+
+ --- Third place play-off ---
+
+ Matches |           Teams            |      Winner     | Results
+--------------------------------------------------------------------
+Match 63 |      Poland -- Japan       | Poland          | 2 - 0
+
+ --- Final ---
+
+ Matches |           Teams            |      Winner     | Results
+--------------------------------------------------------------------
+Match 64 |   Australia -- Saudi Arabia | Australia (p)   | 1 - 1
+
+

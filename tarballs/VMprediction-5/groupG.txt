@@ -1,0 +1,22 @@
+######### Group stage: Group G #########
+
+
+###### RUN   1 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 45 |         England -- Belgium         | 2 - 1
+Match 46 |          Panama -- Tunisia         | 0 - 1
+Match 29 |         Belgium -- Tunisia         | 2 - 1
+Match 30 |         England -- Panama          | 1 - 0
+Match 14 |         Tunisia -- England         | 0 - 3
+Match 13 |         Belgium -- Panama          | 1 - 0
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+        England |   3 :   0 :   0 |   6 :   1 :   5 |   9
+        Belgium |   2 :   0 :   1 |   4 :   3 :   1 |   6
+        Tunisia |   1 :   0 :   2 |   2 :   5 :  -3 |   3
+         Panama |   0 :   0 :   3 |   0 :   3 :  -3 |   0
+
+

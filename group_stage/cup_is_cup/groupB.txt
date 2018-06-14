@@ -1,0 +1,22 @@
+######### Group stage: Group B #########
+
+
+###### RUN   1 ######
+
+ Matches |               Teams                | Results
+------------------------------------------------------------
+Match 4  |         Morocco -- Iran            | 0 - 0
+Match 3  |        Portugal -- Spain           | 0 - 0
+Match 19 |        Portugal -- Morocco         | 0 - 1
+Match 20 |            Iran -- Spain           | 0 - 0
+Match 35 |            Iran -- Portugal        | 1 - 5
+Match 36 |           Spain -- Morocco         | 1 - 0
+
+          Teams |   W :   D :   L |  GF :  GA :  GD | Pts
+------------------------------------------------------------
+          Spain |   1 :   2 :   0 |   1 :   0 :   1 |   5
+       Portugal |   1 :   1 :   1 |   5 :   2 :   3 |   4
+        Morocco |   1 :   1 :   1 |   1 :   1 :   0 |   4
+           Iran |   0 :   2 :   1 |   1 :   5 :  -4 |   2
+
+
