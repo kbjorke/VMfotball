@@ -370,14 +370,21 @@ print results
 
 #print score_prob_matrix
 
-match1 = ['Russia', 'Saudi Arabia', 5, 0]
+#match1 = ['Russia', 'Saudi Arabia', 5, 0]
+match1 = ['Russia', 'Saudi Arabia']
+match1_exp = [1, 1]
+match1_obs = [5, 0]
+match2 = ['Egypt', 'Uruguay']
+match3 = ['Portugal', 'Spain']
+match4 = ['Morocco', 'Iran']
 
-match = match1[0:2]
+match = match1
+#match = match2
+#match = match3
+#match = match4
 
 draw_modifier = draw_mod(match)
 rating_diff = float(teams_points[match[0]]-teams_points[match[1]])
-
-print rating_diff
 
 prob_win_1 = (draw_prob+draw_modifier)*win_expectancy(rating_diff)
 prob_win_2 = (draw_prob+draw_modifier)*win_expectancy(-rating_diff)
@@ -396,14 +403,16 @@ for i in range(6):
 
         
 print score_prob_matrix
-print np.sum(score_prob_matrix)
+
+print np.sum(score_prob_matrix[np.where(score_prob_matrix <= score_prob_matrix[match1_exp[0],match1_exp[1]])])
+print np.sum(score_prob_matrix[np.where(score_prob_matrix <= score_prob_matrix[match1_obs[0],match1_obs[1]])])
 
 fix, ax = plt.subplots()
-plt.imshow(100*score_prob_matrix, cmap="hot", interpolation='nearest')
+plt.imshow(100*score_prob_matrix[:5,:5], cmap="hot", interpolation='nearest')
 ax.xaxis.tick_top()
 ax.xaxis.set_label_position('top') 
 cbar = plt.colorbar()
-plt.xlabel(match[1])
-plt.ylabel(match[0])
-cbar.ax.set_ylabel("Probability density [%]", rotation=270)
+plt.xlabel(match[1]+" [goals]")
+plt.ylabel(match[0]+" [goals]")
+cbar.ax.set_ylabel("Probability density [%]", rotation=270, labelpad=20)
 plt.show()
