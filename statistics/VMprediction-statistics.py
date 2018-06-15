@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import random as rnd
 import sys
 
+from matplotlib.lines import Line2D
+
 # Match overview: https://en.wikipedia.org/wiki/2018_FIFA_World_Cup
 
 teams_points={ # Updated 8. june 2018 https://www.eloratings.net/
@@ -379,64 +381,137 @@ group_stage_matches = {
             [0, 1]],
         }
 
-#match1 = ['Russia', 'Saudi Arabia', 5, 0]
-match1 = ['Russia', 'Saudi Arabia']
-match1_exp = [1, 1]
-match1_obs = [5, 0]
-match2 = ['Egypt', 'Uruguay']
-match2_exp = [1, 2]
-match2_obs = [0, 1]
-match3 = ['Portugal', 'Spain']
-match3_exp = [0, 1]
-match3_obs = [3, 3]
-match4 = ['Morocco', 'Iran']
-match4_exp = [1, 1]
-match4_obs = [0, 1]
+def scores_pdf(matchup, score_prob_matrix):
+    draw_modifier = draw_mod(matchup)
+    rating_diff = float(teams_points[matchup[0]]-teams_points[matchup[1]])
+    
+    prob_win_1 = (draw_prob+draw_modifier)*win_expectancy(rating_diff)
+    prob_win_2 = (draw_prob+draw_modifier)*win_expectancy(-rating_diff)
+    prob_draw = 1-(draw_prob+draw_modifier)
 
-match = match1
-#match = match2
-#match = match3
-#match = match4
-match_exp = match1_exp
-match_obs = match1_obs
-#match_exp = match2_exp
-#match_obs = match2_obs
-#match_exp = match3_exp
-#match_obs = match3_obs
-#match_exp = match4_exp
-#match_obs = match4_obs
+    print prob_win_1,prob_win_2,prob_draw
 
-draw_modifier = draw_mod(match)
-rating_diff = float(teams_points[match[0]]-teams_points[match[1]])
+    prob_density_matrix = np.zeros([6,6])
+   
+    for i in range(6):
+        for j in range(6):
+            if i == j:
+                prob_density_matrix[i,j] = score_prob_matrix[i,j]*prob_draw
+            elif i > j:
+                prob_density_matrix[i,j] = score_prob_matrix[i,j]*prob_win_1
+            elif i < j:
+                prob_density_matrix[i,j] = score_prob_matrix[i,j]*prob_win_2
 
-prob_win_1 = (draw_prob+draw_modifier)*win_expectancy(rating_diff)
-prob_win_2 = (draw_prob+draw_modifier)*win_expectancy(-rating_diff)
-prob_draw = 1-(draw_prob+draw_modifier)
+    return prob_density_matrix
 
-print prob_win_1,prob_win_2,prob_draw
+def result_prob(mathcup):
+    draw_modifier = draw_mod(matchup)
+    rating_diff = float(teams_points[matchup[0]]-teams_points[matchup[1]])
 
-for i in range(6):
-    for j in range(6):
-        if i == j:
-            score_prob_matrix[i,j] *= prob_draw
-        elif i > j:
-            score_prob_matrix[i,j] *= prob_win_1
-        elif i < j:
-            score_prob_matrix[i,j] *= prob_win_2
+    prob_win_1 = (draw_prob+draw_modifier)*win_expectancy(rating_diff)
+    prob_win_2 = (draw_prob+draw_modifier)*win_expectancy(-rating_diff)
+    prob_draw = 1-(draw_prob+draw_modifier)
 
-        
-print score_prob_matrix
+    return [prob_win_1, prob_win_2, prob_draw]
 
-print np.sum(score_prob_matrix[np.where(score_prob_matrix <= score_prob_matrix[match_exp[0],match_exp[1]])])
-print np.sum(score_prob_matrix[np.where(score_prob_matrix <= score_prob_matrix[match_obs[0],match_obs[1]])])
+def pvalue(score, match_prob_matrix):
+    return np.sum(match_prob_matrix[np.where(match_prob_matrix <= match_prob_matrix[score[0],score[1]])])
 
-fix, ax = plt.subplots()
-plt.imshow(100*score_prob_matrix[:5,:5], cmap="hot", interpolation='nearest')
+
+
+for match in group_stage_matches:
+    matchup = group_stage_matches[match][0]
+    predicted_score = group_stage_matches[match][1]
+    observed_score = group_stage_matches[match][2]
+
+    print matchup,predicted_score,observed_score
+
+    match_prob_matrix = scores_pdf(matchup, score_prob_matrix)
+
+    print match_prob_matrix
+
+    print pvalue(predicted_score, match_prob_matrix)
+    print pvalue(observed_score, match_prob_matrix)
+
+    match_result_prob = result_prob(matchup)
+    prob_win_1 = match_result_prob[0]
+    prob_win_2 = match_result_prob[1]
+    prob_draw = match_result_prob[2]
+
+    fix, ax = plt.subplots()
+    predict = plt.plot(predicted_score[1], predicted_score[0], marker='o', markersize=14, color="blue")
+    observe = plt.plot(observed_score[1], observed_score[0], marker='o', markersize=14, color="green")
+    plt.imshow(100*match_prob_matrix, cmap="hot", interpolation='nearest')
+    ax.xaxis.tick_top()
+    ax.xaxis.set_label_position('top') 
+    ax.legend(handles=[Line2D([], [], marker='o', color="w", label="Predicted", markerfacecolor="blue", markersize=14), Line2D([], [], marker='o', color="w", label="Observed", markerfacecolor="green", markersize=14)], loc='lower right', numpoints=1)
+    cbar = plt.colorbar()
+    plt.xlabel(match[1]+" [goals] | Win: %.1f %s" % (100*prob_win_2, "%"))
+    plt.ylabel(match[0]+" [goals] | Win: %.1f %s" % (100*prob_win_1, "%"))
+    cbar.ax.set_ylabel("Probability density [%]", rotation=270, labelpad=20)
+    plt.show()
+
+##match1 = ['Russia', 'Saudi Arabia', 5, 0]
+#match1 = ['Russia', 'Saudi Arabia']
+#match1_exp = [1, 1]
+#match1_obs = [5, 0]
+#match2 = ['Egypt', 'Uruguay']
+#match2_exp = [1, 2]
+#match2_obs = [0, 1]
+#match3 = ['Portugal', 'Spain']
+#match3_exp = [0, 1]
+#match3_obs = [3, 3]
+#match4 = ['Morocco', 'Iran']
+#match4_exp = [1, 1]
+#match4_obs = [0, 1]
+#
+#match = match1
+##match = match2
+##match = match3
+##match = match4
+#match_exp = match1_exp
+#match_obs = match1_obs
+##match_exp = match2_exp
+##match_obs = match2_obs
+##match_exp = match3_exp
+##match_obs = match3_obs
+##match_exp = match4_exp
+##match_obs = match4_obs
+#
+#draw_modifier = draw_mod(match)
+#rating_diff = float(teams_points[match[0]]-teams_points[match[1]])
+#
+#prob_win_1 = (draw_prob+draw_modifier)*win_expectancy(rating_diff)
+#prob_win_2 = (draw_prob+draw_modifier)*win_expectancy(-rating_diff)
+#prob_draw = 1-(draw_prob+draw_modifier)
+#
+#print prob_win_1,prob_win_2,prob_draw
+#
+#for i in range(6):
+#    for j in range(6):
+#        if i == j:
+#            score_prob_matrix[i,j] *= prob_draw
+#        elif i > j:
+#            score_prob_matrix[i,j] *= prob_win_1
+#        elif i < j:
+#            score_prob_matrix[i,j] *= prob_win_2
+#
+#        
+#print score_prob_matrix
+#
+#print np.sum(score_prob_matrix[np.where(score_prob_matrix <= score_prob_matrix[match_exp[0],match_exp[1]])])
+#print np.sum(score_prob_matrix[np.where(score_prob_matrix <= score_prob_matrix[match_obs[0],match_obs[1]])])
+#
+#fix, ax = plt.subplots()
+#predict = plt.plot(match_exp[1], match_exp[0], marker='o', markersize=14, color="blue")
+#observe = plt.plot(match_obs[1], match_obs[0], marker='o', markersize=14, color="green")
 #plt.imshow(100*score_prob_matrix, cmap="hot", interpolation='nearest')
-ax.xaxis.tick_top()
-ax.xaxis.set_label_position('top') 
-cbar = plt.colorbar()
-plt.xlabel(match[1]+" [goals] | Win: %.1f %s" % (100*prob_win_2, "%"))
-plt.ylabel(match[0]+" [goals] | Win: %.1f %s" % (100*prob_win_1, "%"))
-cbar.ax.set_ylabel("Probability density [%]", rotation=270, labelpad=20)
-plt.show()
+#ax.xaxis.tick_top()
+#ax.xaxis.set_label_position('top') 
+#ax.legend(handles=[Line2D([], [], marker='o', color="w", label="Predicted", markerfacecolor="blue", markersize=14), Line2D([], [], marker='o', color="w", label="Observed", markerfacecolor="green", markersize=14)], loc='lower right', numpoints=1)
+##ax.legend([predict, observe], ["Predicted", "Observed"], loc='center')
+#cbar = plt.colorbar()
+#plt.xlabel(match[1]+" [goals] | Win: %.1f %s" % (100*prob_win_2, "%"))
+#plt.ylabel(match[0]+" [goals] | Win: %.1f %s" % (100*prob_win_1, "%"))
+#cbar.ax.set_ylabel("Probability density [%]", rotation=270, labelpad=20)
+#plt.show()
