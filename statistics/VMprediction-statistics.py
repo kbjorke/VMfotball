@@ -352,36 +352,59 @@ score_prob_matrix = np.array([
     [win_probs[14], win_probs[13], win_probs[12], win_probs[11], win_probs[10], draw_probs[5]],
     ])
 
-draw_results = ['0 - 0', '1 - 1', '2 - 2', '3 - 3', '4 - 4', '5 - 5']
-win_results_0 = ['1 - 0', '2 - 1', '2 - 0', '3 - 2', '3 - 1', '3 - 0', '4 - 3', '4 - 2', '4 - 1', '4 - 0', '5 - 4', '5 - 3', '5 - 2', '5 - 1', '5 - 0']
-win_results_1 = ['0 - 1', '1 - 2', '0 - 2', '2 - 3', '1 - 3', '0 - 3', '3 - 4', '2 - 4', '1 - 4', '0 - 4', '4 - 5', '3 - 5', '2 - 5', '1 - 5', '0 - 5']
-results = np.array([
-    [draw_results[0], win_results_1[0], win_results_1[2], win_results_1[5], win_results_1[9], win_results_1[14]],
-    [win_results_0[0], draw_results[1], win_results_1[1], win_results_1[4], win_results_1[8], win_results_1[13]],
-    [win_results_0[2], win_results_0[1], draw_results[2], win_results_1[3], win_results_1[7], win_results_1[12]],
-    [win_results_0[5], win_results_0[4], win_results_0[3], draw_results[3], win_results_1[6], win_results_1[11]],
-    [win_results_0[9], win_results_0[8], win_results_0[7], win_results_0[6], draw_results[4], win_results_1[10]],
-    [win_results_0[14], win_results_0[13], win_results_0[12], win_results_0[11], win_results_0[10], draw_results[5]],
-    ])
-print results
+#draw_results = ['0 - 0', '1 - 1', '2 - 2', '3 - 3', '4 - 4', '5 - 5']
+#win_results_0 = ['1 - 0', '2 - 1', '2 - 0', '3 - 2', '3 - 1', '3 - 0', '4 - 3', '4 - 2', '4 - 1', '4 - 0', '5 - 4', '5 - 3', '5 - 2', '5 - 1', '5 - 0']
+#win_results_1 = ['0 - 1', '1 - 2', '0 - 2', '2 - 3', '1 - 3', '0 - 3', '3 - 4', '2 - 4', '1 - 4', '0 - 4', '4 - 5', '3 - 5', '2 - 5', '1 - 5', '0 - 5']
+#results = np.array([
+#    [draw_results[0], win_results_1[0], win_results_1[2], win_results_1[5], win_results_1[9], win_results_1[14]],
+#    [win_results_0[0], draw_results[1], win_results_1[1], win_results_1[4], win_results_1[8], win_results_1[13]],
+#    [win_results_0[2], win_results_0[1], draw_results[2], win_results_1[3], win_results_1[7], win_results_1[12]],
+#    [win_results_0[5], win_results_0[4], win_results_0[3], draw_results[3], win_results_1[6], win_results_1[11]],
+#    [win_results_0[9], win_results_0[8], win_results_0[7], win_results_0[6], draw_results[4], win_results_1[10]],
+#    [win_results_0[14], win_results_0[13], win_results_0[12], win_results_0[11], win_results_0[10], draw_results[5]],
+#    ])
+#print results
 
 #score_prob_matrix = score_prob_matrix/np.sum(score_prob_matrix)
 #print np.sum(score_prob_matrix)
 
 #print score_prob_matrix
 
+group_stage_matches = {
+        'Match 1': [['Russia', 'Saudi Arabia'], 
+            [1, 1], 
+            [5, 0]],
+        'Match 2': [['Egypt', 'Uruguay'],
+            [1, 2], 
+            [0, 1]],
+        }
+
 #match1 = ['Russia', 'Saudi Arabia', 5, 0]
 match1 = ['Russia', 'Saudi Arabia']
 match1_exp = [1, 1]
 match1_obs = [5, 0]
 match2 = ['Egypt', 'Uruguay']
+match2_exp = [1, 2]
+match2_obs = [0, 1]
 match3 = ['Portugal', 'Spain']
+match3_exp = [0, 1]
+match3_obs = [3, 3]
 match4 = ['Morocco', 'Iran']
+match4_exp = [1, 1]
+match4_obs = [0, 1]
 
 match = match1
 #match = match2
 #match = match3
 #match = match4
+match_exp = match1_exp
+match_obs = match1_obs
+#match_exp = match2_exp
+#match_obs = match2_obs
+#match_exp = match3_exp
+#match_obs = match3_obs
+#match_exp = match4_exp
+#match_obs = match4_obs
 
 draw_modifier = draw_mod(match)
 rating_diff = float(teams_points[match[0]]-teams_points[match[1]])
@@ -404,15 +427,16 @@ for i in range(6):
         
 print score_prob_matrix
 
-print np.sum(score_prob_matrix[np.where(score_prob_matrix <= score_prob_matrix[match1_exp[0],match1_exp[1]])])
-print np.sum(score_prob_matrix[np.where(score_prob_matrix <= score_prob_matrix[match1_obs[0],match1_obs[1]])])
+print np.sum(score_prob_matrix[np.where(score_prob_matrix <= score_prob_matrix[match_exp[0],match_exp[1]])])
+print np.sum(score_prob_matrix[np.where(score_prob_matrix <= score_prob_matrix[match_obs[0],match_obs[1]])])
 
 fix, ax = plt.subplots()
 plt.imshow(100*score_prob_matrix[:5,:5], cmap="hot", interpolation='nearest')
+#plt.imshow(100*score_prob_matrix, cmap="hot", interpolation='nearest')
 ax.xaxis.tick_top()
 ax.xaxis.set_label_position('top') 
 cbar = plt.colorbar()
-plt.xlabel(match[1]+" [goals]")
-plt.ylabel(match[0]+" [goals]")
+plt.xlabel(match[1]+" [goals] | Win: %.1f %s" % (100*prob_win_2, "%"))
+plt.ylabel(match[0]+" [goals] | Win: %.1f %s" % (100*prob_win_1, "%"))
 cbar.ax.set_ylabel("Probability density [%]", rotation=270, labelpad=20)
 plt.show()
