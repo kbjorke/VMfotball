@@ -378,7 +378,7 @@ group_stage_matches = {
             [5, 0]],
         'Match 2': [['Egypt', 'Uruguay'],
             [1, 2], 
-            [0, 1]],
+            "N/A"], #[0, 1]],
         }
 
 def scores_pdf(matchup, score_prob_matrix):
@@ -404,7 +404,7 @@ def scores_pdf(matchup, score_prob_matrix):
 
     return prob_density_matrix
 
-def result_prob(mathcup):
+def result_prob(matchup):
     draw_modifier = draw_mod(matchup)
     rating_diff = float(teams_points[matchup[0]]-teams_points[matchup[1]])
 
@@ -417,39 +417,180 @@ def result_prob(mathcup):
 def pvalue(score, match_prob_matrix):
     return np.sum(match_prob_matrix[np.where(match_prob_matrix <= match_prob_matrix[score[0],score[1]])])
 
+def get_std(score_matrix):
+    sigma1_matrix = np.ones([6,6])
+    prob_matrix = np.copy(score_matrix)
+    
+    pval = np.sum(prob_matrix)
+    while pval > 0.32:
+        sigma1_matrix[np.where(prob_matrix==np.max(prob_matrix))] = 0
+        prob_matrix[np.where(prob_matrix==np.max(prob_matrix))] = 0
+        pval = np.sum(prob_matrix)
+    
+    sigma2_matrix = np.copy(sigma1_matrix)
+    
+    pval = np.sum(prob_matrix)
+    while pval > 0.05:
+        sigma2_matrix[np.where(prob_matrix==np.max(prob_matrix))] = 0
+        prob_matrix[np.where(prob_matrix==np.max(prob_matrix))] = 0
+        pval = np.sum(prob_matrix)
 
+    return [sigma1_matrix, sigma2_matrix]
 
-for match in group_stage_matches:
-    matchup = group_stage_matches[match][0]
-    predicted_score = group_stage_matches[match][1]
-    observed_score = group_stage_matches[match][2]
+def make_pdf_plot(analysis_data):
+    match = analysis_data[0]
+    matchup = analysis_data[1]
+    predicted_score = analysis_data[2]
+    observed_score = analysis_data[3]
+    match_prob_matrix = analysis_data[4]
+    sigma1_matrix = analysis_data[5]
+    sigma2_matrix = analysis_data[6]
+    prob_win_1 = analysis_data[7]
+    prob_win_2 = analysis_data[8]
+    prob_draw = analysis_data[9]
 
-    print matchup,predicted_score,observed_score
+    font_size = 15
+    font_size_title = 18
+    marker_size = 14
+    line_width = 3
 
-    match_prob_matrix = scores_pdf(matchup, score_prob_matrix)
-
-    print match_prob_matrix
-
-    print pvalue(predicted_score, match_prob_matrix)
-    print pvalue(observed_score, match_prob_matrix)
-
-    match_result_prob = result_prob(matchup)
-    prob_win_1 = match_result_prob[0]
-    prob_win_2 = match_result_prob[1]
-    prob_draw = match_result_prob[2]
-
-    fix, ax = plt.subplots()
-    predict = plt.plot(predicted_score[1], predicted_score[0], marker='o', markersize=14, color="blue")
-    observe = plt.plot(observed_score[1], observed_score[0], marker='o', markersize=14, color="green")
+    fig, ax = plt.subplots()
+    
+    predict = plt.plot(predicted_score[1], predicted_score[0], marker='o', markersize=marker_size, color="blue")
+    if observed_score != "N/A":
+        observe = plt.plot(observed_score[1], observed_score[0], marker='o', markersize=marker_size, color="green")
+    
     plt.imshow(100*match_prob_matrix, cmap="hot", interpolation='nearest')
+    cbar = plt.colorbar()
+    s1 = plt.contour(sigma1_matrix, colors="y", levels=[0.5], linewidths=line_width)
+    s2 = plt.contour(sigma2_matrix, colors="r", levels=[0.5], linewidths=line_width)
+    
     ax.xaxis.tick_top()
     ax.xaxis.set_label_position('top') 
-    ax.legend(handles=[Line2D([], [], marker='o', color="w", label="Predicted", markerfacecolor="blue", markersize=14), Line2D([], [], marker='o', color="w", label="Observed", markerfacecolor="green", markersize=14)], loc='lower right', numpoints=1)
-    cbar = plt.colorbar()
-    plt.xlabel(match[1]+" [goals] | Win: %.1f %s" % (100*prob_win_2, "%"))
-    plt.ylabel(match[0]+" [goals] | Win: %.1f %s" % (100*prob_win_1, "%"))
-    cbar.ax.set_ylabel("Probability density [%]", rotation=270, labelpad=20)
-    plt.show()
+
+    ax.legend(handles=[
+        Line2D([], [], marker='o', color="w", label="Predicted", 
+            markerfacecolor="blue", markersize=marker_size), 
+        Line2D([0,0], [0,1], color="y", label="p < 0.32", linewidth=line_width),
+        Line2D([], [], marker='o', color="w", label="Observed", 
+            markerfacecolor="green", markersize=marker_size), 
+        Line2D([0,0], [0,1], color="r", label="p < 0.05", linewidth=line_width)
+        ], loc='lower right', numpoints=1, ncol=2, bbox_to_anchor=(1.07, -0.07))
+
+    plt.xlabel(matchup[1]+" [goals] | Win: %.1f %s" % (100*prob_win_2, "%"))
+    plt.ylabel(matchup[0]+" [goals] | Win: %.1f %s" % (100*prob_win_1, "%"))
+
+    cbar.ax.set_ylabel("Probability density [%]", rotation=270, labelpad=20, fontsize=font_size)
+    cbar.ax.tick_params(labelsize=font_size)
+
+    for item in ([ax.title, ax.xaxis.label, ax.yaxis.label] + ax.get_xticklabels() + ax.get_yticklabels()):
+        item.set_fontsize(font_size)
+    ax.set_title("%s: %s - %s | Draw: %.1f %s" % (match, matchup[0], matchup[1], 100*prob_draw, "%"), x=0.5, y=-0.12, fontsize=font_size_title)
+
+    fig_title="./pdfs/%s-%s-%s.png" %(match.replace(" ", "_"),matchup[0].replace(" ", "_"),matchup[1].replace(" ", "_"))
+    plt.savefig(fig_title)
+    print 'Figure "%s" made!' % fig_title
+
+def analysis_predictions(matches):
+    for match in matches:
+        matchup = matches[match][0]
+        predicted_score = matches[match][1]
+        observed_score = matches[match][2]
+        
+        #print matchup,predicted_score,observed_score
+        
+        match_prob_matrix = scores_pdf(matchup, score_prob_matrix)
+        
+        #print match_prob_matrix
+        
+        sigma1_matrix, sigma2_matrix = get_std(match_prob_matrix)
+        
+        print "Pval predicted: %f" % pvalue(predicted_score, match_prob_matrix)
+        if observed_score == "N/A":
+            print "Pval observed : N/A"
+        else:
+            print "Pval observed : %f" % pvalue(observed_score, match_prob_matrix)
+   
+        #print matchup
+        match_result_prob = result_prob(matchup)
+        prob_win_1 = match_result_prob[0]
+        prob_win_2 = match_result_prob[1]
+        prob_draw = match_result_prob[2]
+
+        analysis_data = [match, matchup, predicted_score, observed_score, match_prob_matrix, sigma1_matrix, sigma2_matrix, prob_win_1, prob_win_2, prob_draw]
+
+        make_pdf_plot(analysis_data)
+
+
+analysis_predictions(group_stage_matches)
+
+#for match in group_stage_matches:
+#    matchup = group_stage_matches[match][0]
+#    predicted_score = group_stage_matches[match][1]
+#    observed_score = group_stage_matches[match][2]
+#
+#    print matchup,predicted_score,observed_score
+#
+#    match_prob_matrix = scores_pdf(matchup, score_prob_matrix)
+#
+#    print match_prob_matrix
+#
+#    sigma1_matrix, sigma2_matrix = get_std(match_prob_matrix)
+#
+#    print pvalue(predicted_score, match_prob_matrix)
+#    print pvalue(observed_score, match_prob_matrix)
+#
+#    match_result_prob = result_prob(matchup)
+#    prob_win_1 = match_result_prob[0]
+#    prob_win_2 = match_result_prob[1]
+#    prob_draw = match_result_prob[2]
+#
+#    fix, ax = plt.subplots()
+#    predict = plt.plot(predicted_score[1], predicted_score[0], marker='o', markersize=14, color="blue")
+#    observe = plt.plot(observed_score[1], observed_score[0], marker='o', markersize=14, color="green")
+#    plt.imshow(100*match_prob_matrix, cmap="hot", interpolation='nearest')
+#    cbar = plt.colorbar()
+#    s1 = plt.contour(sigma1_matrix, colors="y", levels=[0.5], linewidths=3)
+#    s2 = plt.contour(sigma2_matrix, colors="r", levels=[0.5], linewidths=3)
+#    ax.xaxis.tick_top()
+#    ax.xaxis.set_label_position('top') 
+##    ax.legend(handles=[Line2D([], [], marker='o', color="w", label="Predicted", markerfacecolor="blue", markersize=14), Line2D([], [], marker='o', color="w", label="Observed", markerfacecolor="green", markersize=14)], loc='lower right', numpoints=1)
+#    ax.legend(handles=[
+#        Line2D([], [], marker='o', color="w", label="Predicted", 
+#            markerfacecolor="blue", markersize=14), 
+#        Line2D([0,0], [0,1], color="y", label="p < 0.32", linewidth=3), 
+#        Line2D([], [], marker='o', color="w", label="Observed", 
+#            markerfacecolor="green", markersize=14), 
+#        Line2D([0,0], [0,1], color="r", label="p < 0.05", linewidth=3)
+#        ], loc='lower right', numpoints=1, ncol=2, bbox_to_anchor=(1.05, -0.12))
+#    plt.xlabel(matchup[1]+" [goals] | Win: %.1f %s" % (100*prob_win_2, "%"))
+#    plt.ylabel(matchup[0]+" [goals] | Win: %.1f %s" % (100*prob_win_1, "%"))
+#    cbar.ax.set_ylabel("Probability density [%]", rotation=270, labelpad=20)
+#    plt.show()
+
+#fix, ax = plt.subplots()
+#predict = plt.plot(match_exp[1], match_exp[0], marker='o', markersize=14, color="blue")
+#observe = plt.plot(match_obs[1], match_obs[0], marker='o', markersize=14, color="green")
+#plt.imshow(100*score_prob_matrix, cmap="hot", interpolation='nearest')
+#cbar = plt.colorbar()
+##plt.imshow(100*np.ma.masked_values(sigma2_matrix, 0), cmap="Wistia", interpolation='nearest', alpha=0.3)
+#s1 = plt.contour(sigma1_matrix, colors="y", levels=[0.5], linewidths=3)
+#s2 = plt.contour(sigma2_matrix, colors="r", levels=[0.5], linewidths=3)
+#ax.xaxis.tick_top()
+#ax.xaxis.set_label_position('top') 
+#ax.legend(handles=[
+#    Line2D([], [], marker='o', color="w", label="Predicted", 
+#        markerfacecolor="blue", markersize=14), 
+#    Line2D([0,0], [0,1], color="y", label="p < 0.32", linewidth=3), 
+#    Line2D([], [], marker='o', color="w", label="Observed", 
+#        markerfacecolor="green", markersize=14), 
+#    Line2D([0,0], [0,1], color="r", label="p < 0.05", linewidth=3)
+#    ], loc='lower right', numpoints=1, ncol=2, bbox_to_anchor=(1.05, -0.12))
+##ax.legend([predict, observe], ["Predicted", "Observed"], loc='center')
+#plt.xlabel(match[1]+" [goals] | Win: %.1f %s" % (100*prob_win_2, "%"))
+#plt.ylabel(match[0]+" [goals] | Win: %.1f %s" % (100*prob_win_1, "%"))
+#cbar.ax.set_ylabel("Probability density [%]", rotation=270, labelpad=20)
+#plt.show()
 
 ##match1 = ['Russia', 'Saudi Arabia', 5, 0]
 #match1 = ['Russia', 'Saudi Arabia']
@@ -496,22 +637,42 @@ for match in group_stage_matches:
 #        elif i < j:
 #            score_prob_matrix[i,j] *= prob_win_2
 #
-#        
+#sigma1_matrix, sigma2_matrix = get_std(score_prob_matrix)
+#
 #print score_prob_matrix
 #
 #print np.sum(score_prob_matrix[np.where(score_prob_matrix <= score_prob_matrix[match_exp[0],match_exp[1]])])
 #print np.sum(score_prob_matrix[np.where(score_prob_matrix <= score_prob_matrix[match_obs[0],match_obs[1]])])
 #
+#
 #fix, ax = plt.subplots()
 #predict = plt.plot(match_exp[1], match_exp[0], marker='o', markersize=14, color="blue")
 #observe = plt.plot(match_obs[1], match_obs[0], marker='o', markersize=14, color="green")
 #plt.imshow(100*score_prob_matrix, cmap="hot", interpolation='nearest')
+#cbar = plt.colorbar()
+##plt.imshow(100*np.ma.masked_values(sigma2_matrix, 0), cmap="Wistia", interpolation='nearest', alpha=0.3)
+#s1 = plt.contour(sigma1_matrix, colors="y", levels=[0.5], linewidths=3)
+#s2 = plt.contour(sigma2_matrix, colors="r", levels=[0.5], linewidths=3)
 #ax.xaxis.tick_top()
 #ax.xaxis.set_label_position('top') 
-#ax.legend(handles=[Line2D([], [], marker='o', color="w", label="Predicted", markerfacecolor="blue", markersize=14), Line2D([], [], marker='o', color="w", label="Observed", markerfacecolor="green", markersize=14)], loc='lower right', numpoints=1)
+#ax.legend(handles=[
+#    Line2D([], [], marker='o', color="w", label="Predicted", 
+#        markerfacecolor="blue", markersize=14), 
+#    Line2D([0,0], [0,1], color="y", label="p < 0.32", linewidth=3), 
+#    Line2D([], [], marker='o', color="w", label="Observed", 
+#        markerfacecolor="green", markersize=14), 
+#    Line2D([0,0], [0,1], color="r", label="p < 0.05", linewidth=3)], 
+#    loc='lower right', numpoints=1, ncol=2, bbox_to_anchor=(1.05, -0.12))
 ##ax.legend([predict, observe], ["Predicted", "Observed"], loc='center')
-#cbar = plt.colorbar()
 #plt.xlabel(match[1]+" [goals] | Win: %.1f %s" % (100*prob_win_2, "%"))
 #plt.ylabel(match[0]+" [goals] | Win: %.1f %s" % (100*prob_win_1, "%"))
 #cbar.ax.set_ylabel("Probability density [%]", rotation=270, labelpad=20)
+#plt.show()
+#
+#plt.figure()
+#plt.imshow(sigma1_matrix, cmap="hot", interpolation='nearest')
+#plt.show()
+#
+#plt.figure()
+#plt.imshow(sigma2_matrix, cmap="hot", interpolation='nearest')
 #plt.show()
