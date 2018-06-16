@@ -58,329 +58,6 @@ def prediction_pdf(match, draw_prob):
     team1_goals = match[2]
     team2_goals = match[3]
 
-def determine_winner(matchup, cup_is_cup=False):
-    draw_prob = 0.74 # http://pena.lt/y/2015/12/12/frequency-of-draws-in-football/
-
-    rating_diff = float(teams_points[matchup[0]]-teams_points[matchup[1]])
-    #ranking_ratio = float(teams_points[matchup[0]])/(teams_points[matchup[0]]+teams_points[matchup[1]])
-
-    draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/5e3
-    #draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/1e4
-    if cup_is_cup is True:
-        draw_modifier = 0
-        win_exp = 0.5*draw_prob
-    else:
-        draw_prob += draw_modifier
-        win_exp = draw_prob*win_expectancy(rating_diff)
-        #win_exp = draw_prob*prob_tune_func(ranking_ratio)
-
-    random_number = rnd.random()
-    if random_number <= win_exp:
-        winner = matchup[0]
-    elif random_number > draw_prob:
-        winner = 'Draw'
-    else:
-        winner = matchup[1]
-
-    if knockout and winner is 'Draw':
-        random_number = rnd.random()
-        if random_number <= win_exp:
-            winner = matchup[0]+' (p)'
-        else:
-            winner = matchup[1]+' (p)'
-    return winner
-
-def determine_result(winner, matchup):
-    # https://fivethirtyeight.com/features/in-126-years-english-football-has-seen-13475-nil-nil-draws/
-    draw_results = ['0 - 0', '1 - 1', '2 - 2', '3 - 3', '4 - 4']
-    draw_probs = np.array([7.2, 11.6, 5.2, 1.1, 0.2])
-    
-    win_results_0 = ['1 - 0', '2 - 1', '2 - 0', '3 - 2', '3 - 1', '3 - 0', '4 - 3', '4 - 2', '4 - 1', '4 - 0', '5 - 4', '5 - 3', '5 - 2', '5 - 1', '5 - 0']
-    win_results_1 = ['0 - 1', '1 - 2', '0 - 2', '2 - 3', '1 - 3', '0 - 3', '3 - 4', '2 - 4', '1 - 4', '0 - 4', '4 - 5', '3 - 5', '2 - 5', '1 - 5', '0 - 5']
-    win_probs = np.array([9.8+6.3, 8.9+5.6, 8.1+3.4, 2.8+1.8, 5.2+2.3, 4.8+1.4, 0.5+0.3, 1.4+0.6, 2.5+0.7, 2.3+0.4, 0.1+0.05, 0.2+0.1, 0.6+0.2, 1.1+0.2, 1.0+0.1])
-    
-    draw_probs = draw_probs/sum(draw_probs)
-    draw_probs = np.cumsum(draw_probs)
-    
-    win_probs = win_probs/sum(win_probs)
-    win_probs = np.cumsum(win_probs)
-    
-    random_number = rnd.random()
-
-    if winner == 'Draw':
-        for i in range(len(draw_probs)):
-            if random_number <= draw_probs[i]:
-                result = draw_results[i]
-                break
-    else:
-        for i in range(len(win_probs)):
-            if random_number <= win_probs[i]:
-                if matchup.index(winner) == 0:
-                    result = win_results_0[i]
-                elif matchup.index(winner) == 1:
-                    result = win_results_1[i]
-                break
-
-    return result
-
-def group_play(group_teams, matches, cup_is_cup=False):
-    results = dict()
-    for match in matches:
-        results[match] = ['team1', 'team2', 'results']
-
-    score_table = dict()
-    for team in group_teams:
-        score_table[team] = [0,0,0,0,0,0,0]
-
-    for match in matches:
-        teams = matches[match]
-        winner = determine_winner(teams, cup_is_cup)
-        result = determine_result(winner, teams)
-        results[match] = [teams[0], teams[1], result]
-        
-        for team in teams:
-            score_table[team][3] += int(result.split('-')[teams.index(team)])
-            score_table[team][4] += int(result.split('-')[teams.index(team)-1])
-            score_table[team][5] += (int(result.split('-')[teams.index(team)]) - int(result.split('-')[teams.index(team)-1]))
-            if winner is team:
-                score_table[team][0] += 1
-                score_table[team][6] += 3
-            elif winner is "Draw":
-                score_table[team][1] += 1
-                score_table[team][6] += 1
-            else:
-                score_table[team][2] += 1
-                score_table[team][6] += 0
-
-    return (results, score_table)
-
-def print_results(results):
-    print "\n%-8s | %s | %s" %(" Matches", "Teams".center(34), "Results")
-    print "%s" %(60*'-') 
-    for match in results:
-        print "%-8s | %15s -- %-15s | %s" %(match, results[match][0], results[match][1], results[match][2])
-
-def print_score_table(score_table):
-    score_table_sorted = sorted(score_table.items(), key=lambda e: e[1][6], reverse=True)
-    #print "Team | W : D : L | GF : GA : GD | Pts"
-    print "\n%15s | %3s : %3s : %3s | %3s : %3s : %3s | %3s" %( 'Teams', 'W', 'D', 'L', 'GF', 'GA', ' GD', 'Pts')
-    print "%s" %(60*'-') 
-    for i in range(len(score_table_sorted)):
-        print "%15s | %3d : %3d : %3d | %3d : %3d : %3d | %3d" % (
-                score_table_sorted[i][0],
-                score_table_sorted[i][1][0],
-                score_table_sorted[i][1][1],
-                score_table_sorted[i][1][2],
-                score_table_sorted[i][1][3],
-                score_table_sorted[i][1][4],
-                score_table_sorted[i][1][5],
-                score_table_sorted[i][1][6])
-
-def group_runs(label, group_teams, group_matches, n_runs, cup_is_cup=False):
-
-    print " --- Computing %2s runs for Group %s --- " % (n_runs, label)
-    
-    orig_stdout = sys.stdout
-    outfile = open('./group_stage/group%s.txt' % label, 'w')
-    sys.stdout = outfile
-        
-    print "######### Group stage: Group %s #########\n\n" % label
-    
-    for i in range(1,n_runs+1):
-        print "###### RUN %3s ######" % i
-    
-        results, score_table = group_play(group_teams, group_matches, cup_is_cup)
-        print_results(results)
-        print_score_table(score_table)
-        print "\n"
-    
-    sys.stdout = orig_stdout
-    outfile.close()
-
-#### Group play: ###
-#
-#group = sys.argv[1] # Commandline arguments for what group to compute
-#
-#knockout=False
-#
-## Group A:
-#
-#groupA_teams = ['Russia', 'Saudi Arabia', 'Egypt', 'Uruguay']
-#
-#groupA_matches = {
-#        'Match 1': ['Russia', 'Saudi Arabia'],
-#        'Match 2': ['Egypt', 'Uruguay'],
-#        'Match 17': ['Russia', 'Egypt'],
-#        'Match 18': ['Uruguay', 'Saudi Arabia'],
-#        'Match 33': ['Uruguay', 'Russia'],
-#        'Match 34': ['Saudi Arabia', 'Egypt']
-#        }
-#
-## Group B:
-#
-#groupB_teams = ['Portugal', 'Spain', 'Morocco', 'Iran']
-#
-#groupB_matches = {
-#        'Match 4': ['Morocco', 'Iran'],
-#        'Match 3': ['Portugal', 'Spain'],
-#        'Match 19': ['Portugal', 'Morocco'],
-#        'Match 20': ['Iran', 'Spain'],
-#        'Match 35': ['Iran', 'Portugal'],
-#        'Match 36': ['Spain', 'Morocco']
-#        }
-#
-## Group C:
-#
-#groupC_teams = ['France', 'Australia', 'Peru', 'Denmark']
-#
-#groupC_matches = {
-#        'Match 5': ['France', 'Australia'],
-#        'Match 6': ['Peru', 'Denmark'],
-#        'Match 22': ['Denmark', 'Australia'],
-#        'Match 21': ['France', 'Peru'],
-#        'Match 37': ['Denmark', 'France'],
-#        'Match 38': ['Australia', 'Peru']
-#        }
-#
-## Group D:
-#
-#groupD_teams = ['Argentina', 'Iceland', 'Croatia', 'Nigeria']
-#
-#groupD_matches = {
-#        'Match 7': ['Argentina', 'Iceland'],
-#        'Match 8': ['Croatia', 'Nigeria'],
-#        'Match 23': ['Argentina', 'Croatia'],
-#        'Match 24': ['Nigeria', 'Iceland'],
-#        'Match 39': ['Nigeria', 'Argentina'],
-#        'Match 40': ['Iceland', 'Croatia']
-#        }
-#
-## Group E:
-#
-#groupE_teams = ['Brazil', 'Switzerland', 'Costa Rica', 'Serbia']
-#
-#groupE_matches = {
-#        'Match 10': ['Costa Rica', 'Serbia'],
-#        'Match 9': ['Brazil', 'Switzerland'],
-#        'Match 25': ['Brazil', 'Costa Rica'],
-#        'Match 26': ['Serbia', 'Switzerland'],
-#        'Match 41': ['Serbia', 'Brazil'],
-#        'Match 42': ['Switzerland', 'Costa Rica']
-#        }
-#
-## Group F:
-#
-#groupF_teams = ['Germany', 'Mexico', 'Sweden', 'South Korea']
-#
-#groupF_matches = {
-#        'Match 11': ['Germany', 'Mexico'],
-#        'Match 12': ['Sweden', 'South Korea'],
-#        'Match 28': ['South Korea', 'Mexico'],
-#        'Match 27': ['Germany', 'Sweden'],
-#        'Match 43': ['South Korea', 'Germany'],
-#        'Match 44': ['Mexico', 'Sweden']
-#        }
-#
-## Group G:
-#
-#groupG_teams = ['Belgium', 'Panama', 'Tunisia', 'England']
-#
-#groupG_matches = {
-#        'Match 13': ['Belgium', 'Panama'],
-#        'Match 14': ['Tunisia', 'England'],
-#        'Match 29': ['Belgium', 'Tunisia'],
-#        'Match 30': ['England', 'Panama'],
-#        'Match 45': ['England', 'Belgium'],
-#        'Match 46': ['Panama', 'Tunisia']
-#        }
-#
-## Group H:
-#
-#groupH_teams = ['Poland', 'Senegal', 'Colombia', 'Japan'] 
-#groupH_matches = {
-#        'Match 16': ['Colombia', 'Japan'],
-#        'Match 15': ['Poland', 'Senegal'],
-#        'Match 32': ['Japan', 'Senegal'],
-#        'Match 31': ['Poland', 'Colombia'],
-#        'Match 47': ['Japan', 'Poland'],
-#        'Match 48': ['Senegal', 'Colombia']
-#        }
-#
-#
-## Runs for groups:
-#
-#n_runs = 1
-#cup_is_cup=False
-#
-#if group == "groupA" or group == "all":
-#    group_runs("A", groupA_teams, groupA_matches, n_runs, cup_is_cup)
-#
-#if group == "groupB" or group == "all":
-#    group_runs("B", groupB_teams, groupB_matches, n_runs, cup_is_cup)
-#
-#if group == "groupC" or group == "all":
-#    group_runs("C", groupC_teams, groupC_matches, n_runs, cup_is_cup)
-#
-#if group == "groupD" or group == "all":
-#    group_runs("D", groupD_teams, groupD_matches, n_runs, cup_is_cup)
-#
-#if group == "groupE" or group == "all":
-#    group_runs("E", groupE_teams, groupE_matches, n_runs, cup_is_cup)
-#
-#if group == "groupF" or group == "all":
-#    group_runs("F", groupF_teams, groupF_matches, n_runs, cup_is_cup)
-#
-#if group == "groupG" or group == "all":
-#    group_runs("G", groupG_teams, groupG_matches, n_runs, cup_is_cup)
-#
-#if group == "groupH" or group == "all":
-#    group_runs("H", groupH_teams, groupH_matches, n_runs, cup_is_cup)
-
-draw_prob = 0.74 # http://pena.lt/y/2015/12/12/frequency-of-draws-in-football/
-
-# SCORE PROBS: https://fivethirtyeight.com/features/in-126-years-english-football-has-seen-13475-nil-nil-draws/
-draw_probs = np.array([7.2, 11.6, 5.2, 1.1, 0.2, 0])
-win_probs = np.array([9.8+6.3, 8.9+5.6, 8.1+3.4, 2.8+1.8, 5.2+2.3, 4.8+1.4, 0.5+0.3, 1.4+0.6, 2.5+0.7, 2.3+0.4, 0.1+0.05, 0.2+0.1, 0.6+0.2, 1.1+0.2, 1.0+0.1])
-
-draw_probs = draw_probs/sum(draw_probs)
-win_probs = win_probs/sum(win_probs)
-#win_probs = win_probs/2
-score_prob_matrix = np.array([
-    [draw_probs[0], win_probs[0], win_probs[2], win_probs[5], win_probs[9], win_probs[14]],
-    [win_probs[0], draw_probs[1], win_probs[1], win_probs[4], win_probs[8], win_probs[13]],
-    [win_probs[2], win_probs[1], draw_probs[2], win_probs[3], win_probs[7], win_probs[12]],
-    [win_probs[5], win_probs[4], win_probs[3], draw_probs[3], win_probs[6], win_probs[11]],
-    [win_probs[9], win_probs[8], win_probs[7], win_probs[6], draw_probs[4], win_probs[10]],
-    [win_probs[14], win_probs[13], win_probs[12], win_probs[11], win_probs[10], draw_probs[5]],
-    ])
-
-#draw_results = ['0 - 0', '1 - 1', '2 - 2', '3 - 3', '4 - 4', '5 - 5']
-#win_results_0 = ['1 - 0', '2 - 1', '2 - 0', '3 - 2', '3 - 1', '3 - 0', '4 - 3', '4 - 2', '4 - 1', '4 - 0', '5 - 4', '5 - 3', '5 - 2', '5 - 1', '5 - 0']
-#win_results_1 = ['0 - 1', '1 - 2', '0 - 2', '2 - 3', '1 - 3', '0 - 3', '3 - 4', '2 - 4', '1 - 4', '0 - 4', '4 - 5', '3 - 5', '2 - 5', '1 - 5', '0 - 5']
-#results = np.array([
-#    [draw_results[0], win_results_1[0], win_results_1[2], win_results_1[5], win_results_1[9], win_results_1[14]],
-#    [win_results_0[0], draw_results[1], win_results_1[1], win_results_1[4], win_results_1[8], win_results_1[13]],
-#    [win_results_0[2], win_results_0[1], draw_results[2], win_results_1[3], win_results_1[7], win_results_1[12]],
-#    [win_results_0[5], win_results_0[4], win_results_0[3], draw_results[3], win_results_1[6], win_results_1[11]],
-#    [win_results_0[9], win_results_0[8], win_results_0[7], win_results_0[6], draw_results[4], win_results_1[10]],
-#    [win_results_0[14], win_results_0[13], win_results_0[12], win_results_0[11], win_results_0[10], draw_results[5]],
-#    ])
-#print results
-
-#score_prob_matrix = score_prob_matrix/np.sum(score_prob_matrix)
-#print np.sum(score_prob_matrix)
-
-#print score_prob_matrix
-
-group_stage_matches = {
-        'Match 1': [['Russia', 'Saudi Arabia'], 
-            [1, 1], 
-            [5, 0]],
-        'Match 2': [['Egypt', 'Uruguay'],
-            [1, 2], 
-            "N/A"], #[0, 1]],
-        }
-
 def scores_pdf(matchup, score_prob_matrix):
     draw_modifier = draw_mod(matchup)
     rating_diff = float(teams_points[matchup[0]]-teams_points[matchup[1]])
@@ -451,14 +128,15 @@ def make_pdf_plot(analysis_data):
 
     font_size = 15
     font_size_title = 18
-    marker_size = 14
+    marker_size = 20
+    marker_size2 = 14
     line_width = 3
 
     fig, ax = plt.subplots()
     
     predict = plt.plot(predicted_score[1], predicted_score[0], marker='o', markersize=marker_size, color="blue")
     if observed_score != "N/A":
-        observe = plt.plot(observed_score[1], observed_score[0], marker='o', markersize=marker_size, color="green")
+        observe = plt.plot(observed_score[1], observed_score[0], marker='o', markersize=marker_size2, color="green")
     
     plt.imshow(100*match_prob_matrix, cmap="hot", interpolation='nearest')
     cbar = plt.colorbar()
@@ -473,7 +151,7 @@ def make_pdf_plot(analysis_data):
             markerfacecolor="blue", markersize=marker_size), 
         Line2D([0,0], [0,1], color="y", label="p < 0.32", linewidth=line_width),
         Line2D([], [], marker='o', color="w", label="Observed", 
-            markerfacecolor="green", markersize=marker_size), 
+            markerfacecolor="green", markersize=marker_size2), 
         Line2D([0,0], [0,1], color="r", label="p < 0.05", linewidth=line_width)
         ], loc='lower right', numpoints=1, ncol=2, bbox_to_anchor=(1.07, -0.07))
 
@@ -490,6 +168,7 @@ def make_pdf_plot(analysis_data):
     fig_title="./pdfs/%s-%s-%s.png" %(match.replace(" ", "_"),matchup[0].replace(" ", "_"),matchup[1].replace(" ", "_"))
     plt.savefig(fig_title)
     print 'Figure "%s" made!' % fig_title
+    plt.close()
 
 def analysis_predictions(matches):
     for match in matches:
@@ -511,7 +190,6 @@ def analysis_predictions(matches):
         else:
             print "Pval observed : %f" % pvalue(observed_score, match_prob_matrix)
    
-        #print matchup
         match_result_prob = result_prob(matchup)
         prob_win_1 = match_result_prob[0]
         prob_win_2 = match_result_prob[1]
@@ -521,6 +199,214 @@ def analysis_predictions(matches):
 
         make_pdf_plot(analysis_data)
 
+def print_results(results):
+    print "\n%-8s | %s | %s" %(" Matches", "Teams".center(34), "Results")
+    print "%s" %(60*'-') 
+    for match in results:
+        print "%-8s | %15s -- %-15s | %s" %(match, results[match][0], results[match][1], results[match][2])
+
+def print_score_table(score_table):
+    score_table_sorted = sorted(score_table.items(), key=lambda e: e[1][6], reverse=True)
+    #print "Team | W : D : L | GF : GA : GD | Pts"
+    print "\n%15s | %3s : %3s : %3s | %3s : %3s : %3s | %3s" %( 'Teams', 'W', 'D', 'L', 'GF', 'GA', ' GD', 'Pts')
+    print "%s" %(60*'-') 
+    for i in range(len(score_table_sorted)):
+        print "%15s | %3d : %3d : %3d | %3d : %3d : %3d | %3d" % (
+                score_table_sorted[i][0],
+                score_table_sorted[i][1][0],
+                score_table_sorted[i][1][1],
+                score_table_sorted[i][1][2],
+                score_table_sorted[i][1][3],
+                score_table_sorted[i][1][4],
+                score_table_sorted[i][1][5],
+                score_table_sorted[i][1][6])
+
+def group_runs(label, group_teams, group_matches, n_runs, cup_is_cup=False):
+
+    print " --- Computing %2s runs for Group %s --- " % (n_runs, label)
+    
+    orig_stdout = sys.stdout
+    outfile = open('./group_stage/group%s.txt' % label, 'w')
+    sys.stdout = outfile
+        
+    print "######### Group stage: Group %s #########\n\n" % label
+    
+    print "###### RUN %3s ######" % i
+    
+    results, score_table = group_play(group_teams, group_matches, cup_is_cup)
+    print_results(results)
+    print_score_table(score_table)
+    print "\n"
+    
+    sys.stdout = orig_stdout
+    outfile.close()
+
+
+draw_prob = 0.74 # http://pena.lt/y/2015/12/12/frequency-of-draws-in-football/
+
+# SCORE PROBS: https://fivethirtyeight.com/features/in-126-years-english-football-has-seen-13475-nil-nil-draws/
+draw_probs = np.array([7.2, 11.6, 5.2, 1.1, 0.2, 0])
+win_probs = np.array([9.8+6.3, 8.9+5.6, 8.1+3.4, 2.8+1.8, 5.2+2.3, 4.8+1.4, 0.5+0.3, 1.4+0.6, 2.5+0.7, 2.3+0.4, 0.1+0.05, 0.2+0.1, 0.6+0.2, 1.1+0.2, 1.0+0.1])
+
+draw_probs = draw_probs/sum(draw_probs)
+win_probs = win_probs/sum(win_probs)
+#win_probs = win_probs/2
+score_prob_matrix = np.array([
+    [draw_probs[0], win_probs[0], win_probs[2], win_probs[5], win_probs[9], win_probs[14]],
+    [win_probs[0], draw_probs[1], win_probs[1], win_probs[4], win_probs[8], win_probs[13]],
+    [win_probs[2], win_probs[1], draw_probs[2], win_probs[3], win_probs[7], win_probs[12]],
+    [win_probs[5], win_probs[4], win_probs[3], draw_probs[3], win_probs[6], win_probs[11]],
+    [win_probs[9], win_probs[8], win_probs[7], win_probs[6], draw_probs[4], win_probs[10]],
+    [win_probs[14], win_probs[13], win_probs[12], win_probs[11], win_probs[10], draw_probs[5]],
+    ])
+
+
+group_stage_matches = {
+        'Match 01': [['Russia', 'Saudi Arabia'], 
+            [1, 1],     # predicted
+            [5, 0]],    # observed
+        'Match 02': [['Egypt', 'Uruguay'],
+            [1, 2],     # predicted
+            [0, 1]],    # observed
+        'Match 04': [['Morocco', 'Iran'],
+            [1, 1],     # predicted
+            [0, 1]],    # observed
+        'Match 03': [['Portugal', 'Spain'],
+            [0, 1],     # predicted
+            [3, 3]],    # observed
+        'Match 05': [['France', 'Australia'],
+            [2, 0],     # predicted
+            [2, 1]],    # observed
+        'Match 07': [['Argentina', 'Iceland'],
+            [2, 1],     # predicted
+            [1, 1]],    # observed
+        'Match 06': [['Peru', 'Denmark'],
+            [1, 0],     # predicted
+            [0, 1]],    # observed
+        'Match 08': [['Croatia', 'Nigeria'],
+            [0, 3],     # predicted
+            [2, 0]],    # observed
+        'Match 10': [['Costa Rica', 'Serbia'],
+            [1, 1],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 11': [['Germany', 'Mexico'],
+            [2, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 09': [['Brazil', 'Switzerland'],
+            [1, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 12': [['Sweden', 'South Korea'],
+            [0, 2],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 13': [['Belgium', 'Panama'],
+            [4, 1],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 14': [['Tunisia', 'England'],
+            [2, 3],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 16': [['Colombia', 'Japan'],
+            [1, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 15': [['Poland', 'Senegal'],
+            [0, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 17': [['Russia', 'Egypt'],
+            [0, 1],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 19': [['Portugal', 'Morocco'],
+            [3, 1],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 18': [['Uruguay', 'Saudi Arabia'],
+            [3, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 20': [['Iran', 'Spain'],
+            [3, 5],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 22': [['Denmark', 'Australia'],
+            [2, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 21': [['France', 'Peru'],
+            [4, 2],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 23': [['Argentina', 'Croatia'],
+            [0, 2],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 25': [['Brazil', 'Costa Rica'],
+            [1, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 24': [['Nigeria', 'Iceland'],
+            [0, 1],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 26': [['Serbia', 'Switzerland'],
+            [1, 4],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 29': [['Belgium', 'Tunisia'],
+            [1, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 28': [['South Korea', 'Mexico'],
+            [0, 3],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 27': [['Germany', 'Sweden'],
+            [1, 1],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 30': [['England', 'Panama'],
+            [2, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 32': [['Japan', 'Senegal'],
+            [1, 3],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 31': [['Poland', 'Colombia'],
+            [0, 1],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 33': [['Uruguay', 'Russia'],
+            [3, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 34': [['Saudi Arabia', 'Egypt'],
+            [3, 3],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 35': [['Spain', 'Morocco'],
+            [4, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 35': [['Iran', 'Portugal'],
+            [1, 2],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 38': [['Australia', 'Peru'],
+            [1, 2],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 37': [['Denmark', 'France'],
+            [0, 1],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 39': [['Nigeria', 'Argentina'],
+            [2, 5],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 40': [['Iceland', 'Croatia'],
+            [1, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 43': [['South Korea', 'Germany'],
+            [0, 1],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 44': [['Mexico', 'Sweden'],
+            [2, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 41': [['Serbia', 'Brazil'],
+            [0, 3],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 42': [['Switzerland', 'Costa Rica'],
+            [3, 1],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 47': [['Japan', 'Poland'],
+            [2, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 48': [['Senegal', 'Colombia'],
+            [2, 2],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 46': [['Panama', 'Tunisia'],
+            [2, 0],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        'Match 45': [['England', 'Belgium'],
+            [2, 4],     # predicted
+            "N/A"], #[0, 0]],    # observed
+        }
 
 analysis_predictions(group_stage_matches)
 
