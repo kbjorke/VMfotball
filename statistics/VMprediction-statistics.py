@@ -66,7 +66,7 @@ def scores_pdf(matchup, score_prob_matrix):
     prob_win_2 = (draw_prob+draw_modifier)*win_expectancy(-rating_diff)
     prob_draw = 1-(draw_prob+draw_modifier)
 
-    print prob_win_1,prob_win_2,prob_draw
+    #print prob_win_1,prob_win_2,prob_draw
 
     prob_density_matrix = np.zeros([6,6])
    
@@ -114,7 +114,7 @@ def get_std(score_matrix):
 
     return [sigma1_matrix, sigma2_matrix]
 
-def make_pdf_plot(analysis_data):
+def make_pdf_plot(title, analysis_data):
     match = analysis_data[0]
     matchup = analysis_data[1]
     predicted_score = analysis_data[2]
@@ -165,13 +165,14 @@ def make_pdf_plot(analysis_data):
         item.set_fontsize(font_size)
     ax.set_title("%s: %s - %s | Draw: %.1f %s" % (match, matchup[0], matchup[1], 100*prob_draw, "%"), x=0.5, y=-0.12, fontsize=font_size_title)
 
-    fig_title="./pdfs/%s-%s-%s.png" %(match.replace(" ", "_"),matchup[0].replace(" ", "_"),matchup[1].replace(" ", "_"))
+    fig_title="./%s-pdfs/%s-%s-%s.png" %(title, match.replace(" ", "_"),matchup[0].replace(" ", "_"),matchup[1].replace(" ", "_"))
     plt.savefig(fig_title)
     print 'Figure "%s" made!' % fig_title
     plt.close()
 
-def analysis_predictions(matches):
-    for match in matches:
+def analysis_predictions(title, matches):
+    header=True
+    for match in sorted(matches):
         matchup = matches[match][0]
         predicted_score = matches[match][1]
         observed_score = matches[match][2]
@@ -184,11 +185,11 @@ def analysis_predictions(matches):
         
         sigma1_matrix, sigma2_matrix = get_std(match_prob_matrix)
         
-        print "Pval predicted: %f" % pvalue(predicted_score, match_prob_matrix)
-        if observed_score == "N/A":
-            print "Pval observed : N/A"
-        else:
-            print "Pval observed : %f" % pvalue(observed_score, match_prob_matrix)
+        #print "Pval predicted: %f" % pvalue(predicted_score, match_prob_matrix)
+        #if observed_score == "N/A":
+        #    print "Pval observed : N/A"
+        #else:
+        #    print "Pval observed : %f" % pvalue(observed_score, match_prob_matrix)
    
         match_result_prob = result_prob(matchup)
         prob_win_1 = match_result_prob[0]
@@ -197,7 +198,49 @@ def analysis_predictions(matches):
 
         analysis_data = [match, matchup, predicted_score, observed_score, match_prob_matrix, sigma1_matrix, sigma2_matrix, prob_win_1, prob_win_2, prob_draw]
 
-        make_pdf_plot(analysis_data)
+        #make_pdf_plot(title, analysis_data)
+        print_pval_table(title, analysis_data, header)
+        header=False
+
+def print_pval_table(title, analysis_data, header=False):
+    match = analysis_data[0]
+    matchup = analysis_data[1]
+    predicted_score = analysis_data[2]
+    observed_score = analysis_data[3]
+    match_prob_matrix = analysis_data[4]
+    sigma1_matrix = analysis_data[5]
+    sigma2_matrix = analysis_data[6]
+    prob_win_1 = analysis_data[7]
+    prob_win_2 = analysis_data[8]
+    prob_draw = analysis_data[9]
+
+    orig_stdout = sys.stdout
+
+    if header:
+        outfile = open('./pval_table-%s.txt' % title, 'w')
+        sys.stdout = outfile
+        if title == "groups":
+            header_title = "Group stage"
+        else:
+            header_title = ""
+        print "###### p-value table: %s ######" % header_title
+        print "\n%-8s | %s | %s | %s | %s | %s |" %(" Match", "Teams".center(27), "Predicted", "p-val", "Observed", "p-val")
+        print "%s" % (79*"-")
+    else:
+        outfile = open('./pval_table-%s.txt' % title, 'a')
+        sys.stdout = outfile
+
+    pval_predicted = pvalue(predicted_score, match_prob_matrix)
+
+    if observed_score == "N/A":
+        print "%s | %12s - %-12s | %3d - %-3d | %.3f | %s | %s |" % (match, matchup[0], matchup[1], predicted_score[0], predicted_score[1], pval_predicted, (" "+observed_score).center(8), "N/A".center(5))
+    else:
+        pval_observed = pvalue(observed_score, match_prob_matrix)
+        print "%s | %12s - %-12s | %3d - %-3d | %.3f | %3d - %-2d | %.3f |" % (match, matchup[0], matchup[1], predicted_score[0], predicted_score[1], pval_predicted, observed_score[0], observed_score[1], pval_observed)
+        
+    sys.stdout = orig_stdout
+    outfile.close()
+
 
 def print_results(results):
     print "\n%-8s | %s | %s" %(" Matches", "Teams".center(34), "Results")
@@ -288,13 +331,13 @@ group_stage_matches = {
             [2, 0]],    # observed
         'Match 10': [['Costa Rica', 'Serbia'],
             [1, 1],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [0, 1]],    # observed
         'Match 11': [['Germany', 'Mexico'],
             [2, 0],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [0, 1]],    # observed
         'Match 09': [['Brazil', 'Switzerland'],
             [1, 0],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [1, 1]],    # observed
         'Match 12': [['Sweden', 'South Korea'],
             [0, 2],     # predicted
             "N/A"], #[0, 0]],    # observed
@@ -408,7 +451,7 @@ group_stage_matches = {
             "N/A"], #[0, 0]],    # observed
         }
 
-analysis_predictions(group_stage_matches)
+analysis_predictions('groups', group_stage_matches)
 
 #for match in group_stage_matches:
 #    matchup = group_stage_matches[match][0]
