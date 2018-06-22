@@ -13,15 +13,15 @@ Match 08 |      Croatia - Nigeria      |   0 - 3   | 0.129 |   2 - 0  | 0.661 |
 Match 09 |       Brazil - Switzerland  |   1 - 0   | 1.000 |   1 - 1  | 0.630 |
 Match 10 |   Costa Rica - Serbia       |   1 - 1   | 1.000 |   0 - 1  | 0.882 |
 Match 11 |      Germany - Mexico       |   2 - 0   | 0.645 |   0 - 1  | 0.329 |
-Match 12 |       Sweden - South Korea  |   0 - 2   | 0.378 |    N/A   |  N/A  |
-Match 13 |      Belgium - Panama       |   4 - 1   | 0.228 |    N/A   |  N/A  |
-Match 14 |      Tunisia - England      |   2 - 3   | 0.335 |    N/A   |  N/A  |
-Match 15 |       Poland - Senegal      |   0 - 0   | 0.614 |    N/A   |  N/A  |
-Match 16 |     Colombia - Japan        |   1 - 0   | 1.000 |    N/A   |  N/A  |
-Match 17 |       Russia - Egypt        |   0 - 1   | 0.712 |    N/A   |  N/A  |
-Match 18 |      Uruguay - Saudi Arabia |   3 - 0   | 0.444 |    N/A   |  N/A  |
-Match 19 |     Portugal - Morocco      |   3 - 1   | 0.535 |    N/A   |  N/A  |
-Match 20 |         Iran - Spain        |   3 - 5   | 0.015 |    N/A   |  N/A  |
+Match 12 |       Sweden - South Korea  |   0 - 2   | 0.378 |   1 - 0  | 0.887 |
+Match 13 |      Belgium - Panama       |   4 - 1   | 0.228 |   3 - 0  | 0.398 |
+Match 14 |      Tunisia - England      |   2 - 3   | 0.335 |   1 - 2  | 0.852 |
+Match 15 |       Poland - Senegal      |   0 - 0   | 0.614 |   1 - 2  | 0.482 |
+Match 16 |     Colombia - Japan        |   1 - 0   | 1.000 |   1 - 2  | 0.234 |
+Match 17 |       Russia - Egypt        |   0 - 1   | 0.712 |   3 - 1  | 0.327 |
+Match 18 |      Uruguay - Saudi Arabia |   3 - 0   | 0.444 |   1 - 0  | 1.000 |
+Match 19 |     Portugal - Morocco      |   3 - 1   | 0.535 |   1 - 0  | 1.000 |
+Match 20 |         Iran - Spain        |   0 - 1   | 1.000 |    N/A   |  N/A  |
 Match 21 |       France - Peru         |   4 - 2   | 0.090 |    N/A   |  N/A  |
 Match 22 |      Denmark - Australia    |   2 - 0   | 0.681 |    N/A   |  N/A  |
 Match 23 |    Argentina - Croatia      |   0 - 2   | 0.274 |    N/A   |  N/A  |
