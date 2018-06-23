@@ -21,16 +21,16 @@ Match 16 |     Colombia - Japan        |   1 - 0   | 1.000 |   1 - 2  | 0.234 |
 Match 17 |       Russia - Egypt        |   0 - 1   | 0.712 |   3 - 1  | 0.327 |
 Match 18 |      Uruguay - Saudi Arabia |   3 - 0   | 0.444 |   1 - 0  | 1.000 |
 Match 19 |     Portugal - Morocco      |   3 - 1   | 0.535 |   1 - 0  | 1.000 |
-Match 20 |         Iran - Spain        |   0 - 1   | 1.000 |    N/A   |  N/A  |
-Match 21 |       France - Peru         |   4 - 2   | 0.090 |    N/A   |  N/A  |
-Match 22 |      Denmark - Australia    |   2 - 0   | 0.681 |    N/A   |  N/A  |
-Match 23 |    Argentina - Croatia      |   0 - 2   | 0.274 |    N/A   |  N/A  |
-Match 24 |      Nigeria - Iceland      |   0 - 1   | 0.888 |    N/A   |  N/A  |
-Match 25 |       Brazil - Costa Rica   |   1 - 0   | 1.000 |    N/A   |  N/A  |
-Match 26 |       Serbia - Switzerland  |   1 - 4   | 0.179 |    N/A   |  N/A  |
+Match 20 |         Iran - Spain        |   3 - 5   | 0.015 |   0 - 1  | 1.000 |
+Match 21 |       France - Peru         |   4 - 2   | 0.090 |   1 - 0  | 0.888 |
+Match 22 |      Denmark - Australia    |   2 - 0   | 0.681 |   1 - 1  | 0.889 |
+Match 23 |    Argentina - Croatia      |   0 - 2   | 0.274 |   0 - 3  | 0.154 |
+Match 24 |      Nigeria - Iceland      |   0 - 1   | 0.888 |   2 - 0  | 0.329 |
+Match 25 |       Brazil - Costa Rica   |   1 - 0   | 1.000 |   2 - 0  | 0.690 |
+Match 26 |       Serbia - Switzerland  |   1 - 4   | 0.179 |   1 - 2  | 0.779 |
 Match 27 |      Germany - Sweden       |   1 - 1   | 0.615 |    N/A   |  N/A  |
-Match 28 |  South Korea - Mexico       |   0 - 3   | 0.320 |    N/A   |  N/A  |
-Match 29 |      Belgium - Tunisia      |   1 - 0   | 1.000 |    N/A   |  N/A  |
+Match 28 |  South Korea - Mexico       |   0 - 3   | 0.320 |   1 - 2  | 0.777 |
+Match 29 |      Belgium - Tunisia      |   1 - 0   | 1.000 |   5 - 2  | 0.043 |
 Match 30 |      England - Panama       |   2 - 0   | 0.718 |    N/A   |  N/A  |
 Match 31 |       Poland - Colombia     |   0 - 1   | 0.890 |    N/A   |  N/A  |
 Match 32 |        Japan - Senegal      |   1 - 3   | 0.330 |    N/A   |  N/A  |

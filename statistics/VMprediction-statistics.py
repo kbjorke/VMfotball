@@ -232,7 +232,7 @@ def plot_pvals(title, pvals_predicted, pvals_observed):
 
     fig, ax = plt.subplots()
     plt.plot(pvals_predicted, 'o-b')
-    plt.plot(pvals_observed, 'o-g')
+    plt.plot(pvals_observed[:pvals_observed.index(None)], 'o-g')
     plt.yscale('log')
     plt.grid('on', which="both")
     plt.legend(handles=[Line2D([], [], marker='o', color="w", label="Predicted p-value", markerfacecolor="blue"), Line2D([], [], marker='o', color="w", label="Observed p-value", markerfacecolor="green")], loc='lower right', numpoints=1)
@@ -241,7 +241,8 @@ def plot_pvals(title, pvals_predicted, pvals_observed):
     for item in ([ax.title, ax.xaxis.label, ax.yaxis.label] + ax.get_xticklabels() + ax.get_yticklabels()):
         item.set_fontsize(font_size)
     ax.set_title("p-values: %s" % (title), y=1.04, fontsize=font_size_title)
-    plt.show()
+    fig_title="./pval_plot-%s.png" %(title)
+    plt.savefig(fig_title)
 
     print "p-value plot made! (%s)" % title
 
@@ -275,14 +276,14 @@ def analysis_predictions(title, matches):
         #print_pval_table(title, analysis_data, header)
         header=False
 
-    #plot_pvals(title, pvals_predicted, pvals_observed)
+    plot_pvals(title, pvals_predicted, pvals_observed)
 
-    fig, axs = plt.subplots(1, 1, sharey=True, tight_layout=True)
-
-    #axs.hist(pvals_predicted, bins=14)
-    axs.hist(pvals_observed[:pvals_observed.index(None)], bins=14)
-
-    plt.show()
+#    fig, axs = plt.subplots(1, 1, sharey=True, tight_layout=True)
+#
+#    #axs.hist(pvals_predicted, bins=14)
+#    axs.hist(pvals_observed[:pvals_observed.index(None)], bins=14)
+#
+#    plt.show()
 
     print "Analysis complete! (%s)" % title
 
@@ -346,32 +347,32 @@ group_stage_matches = {
             [3, 0],     # predicted
             [1, 0]],    # observed
         'Match 20': [['Iran', 'Spain'],
-            [0, 1],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [3, 5],     # predicted
+            [0, 1]],    # observed
         'Match 22': [['Denmark', 'Australia'],
             [2, 0],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [1, 1]],    # observed
         'Match 21': [['France', 'Peru'],
             [4, 2],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [1, 0]],    # observed
         'Match 23': [['Argentina', 'Croatia'],
             [0, 2],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [0, 3]],    # observed
         'Match 25': [['Brazil', 'Costa Rica'],
             [1, 0],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [2, 0]],    # observed
         'Match 24': [['Nigeria', 'Iceland'],
             [0, 1],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [2, 0]],    # observed
         'Match 26': [['Serbia', 'Switzerland'],
             [1, 4],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [1, 2]],    # observed
         'Match 29': [['Belgium', 'Tunisia'],
             [1, 0],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [5, 2]],    # observed
         'Match 28': [['South Korea', 'Mexico'],
             [0, 3],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [1, 2]],    # observed
         'Match 27': [['Germany', 'Sweden'],
             [1, 1],     # predicted
             "N/A"], #[0, 0]],    # observed
