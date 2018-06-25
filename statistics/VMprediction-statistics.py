@@ -109,7 +109,13 @@ def result_prob(matchup):
     return [prob_win_1, prob_win_2, prob_draw]
 
 def pvalue(score, match_prob_matrix):
-    return np.sum(match_prob_matrix[np.where(match_prob_matrix <= match_prob_matrix[score[0],score[1]])])
+    if max(score) > 5:
+        pval = 0.001
+    else:
+        pval = np.sum(match_prob_matrix[np.where(match_prob_matrix <= match_prob_matrix[score[0],score[1]])])
+
+    return pval
+
 
 def get_std(score_matrix):
     sigma1_matrix = np.ones([6,6])
@@ -263,7 +269,7 @@ def analysis_predictions(title, matches):
         prob_win_1 = match_result_prob[0]
         prob_win_2 = match_result_prob[1]
         prob_draw = match_result_prob[2]
-    
+   
         pvals_predicted.append(pvalue(predicted_score, match_prob_matrix))
         if observed_score == "N/A":
             pvals_observed.append(None)
@@ -276,14 +282,63 @@ def analysis_predictions(title, matches):
         #print_pval_table(title, analysis_data, header)
         header=False
 
-    plot_pvals(title, pvals_predicted, pvals_observed)
+    #plot_pvals(title, pvals_predicted, pvals_observed)
 
-#    fig, axs = plt.subplots(1, 1, sharey=True, tight_layout=True)
-#
-#    #axs.hist(pvals_predicted, bins=14)
-#    axs.hist(pvals_observed[:pvals_observed.index(None)], bins=14)
-#
-#    plt.show()
+    print len(pvals_predicted)
+    print pvals_predicted
+
+    tol = 1e-6
+    #alpha = 1.0
+    
+    nbins=6
+    nlogbins=11
+    bins = np.linspace(1e-3,1,nbins)
+    logbins = np.logspace(np.log10(bins[0]),np.log10(bins[-1]),nlogbins)
+    
+
+    #fig1, axs1 = plt.subplots(1, 1, sharey=True, tight_layout=True)
+    #y1, x1, _1 = axs1.hist(np.array(pvals_predicted)-tol, bins=bins, alpha=alpha, color="b")
+    #y2, x2, _2 = axs1.hist(np.array(pvals_observed[:pvals_observed.index(None)])-tol, bins=bins, alpha=alpha, color="g")
+    #axs1.set_ylim([0, 1+max([max(y1),max(y2)])])
+    #axs1.yaxis.grid('on')
+    
+    fig1, axs1 = plt.subplots(1, 1, sharey=True, tight_layout=True)
+    y1, x1, _1 = plt.hist(np.array(pvals_predicted)-tol, bins=bins, alpha=0, color="b")
+    y2, x2, _2 = plt.hist(np.array(pvals_observed[:pvals_observed.index(None)])-tol, bins=bins, alpha=0, color="g")
+    for i in range(len(y1)):
+        width=(x1[i+1]-x1[i])
+        if y1[i] > y2[i]:
+            zorder=1
+        else:
+            zorder=0
+        axs1.bar(x1[:-1][i], y1[i], width=width, color="b")
+        axs1.bar(x1[:-1][i], y2[i], width=width, color="g", zorder=zorder)
+        #axs1.bar(x1[:-1][i], y1[i], width=width/2.0, color="b")
+        #axs1.bar(x1[:-1][i]+(width/2.0), y2[i], width=width/2.0, color="g", zorder=zorder)
+    axs1.set_ylim([0, 1+max([max(y1),max(y2)])])
+    axs1.yaxis.grid('on')
+
+    fig2, axs2 = plt.subplots(1, 1, sharey=True, tight_layout=True)
+    y1, x1, _1 = axs2.hist(pvals_predicted, bins=logbins, alpha=0)
+    y2, x2, _2 = axs2.hist(pvals_observed[:pvals_observed.index(None)], bins=logbins, alpha=0)
+    for i in range(len(y1)):
+        width=(x1[i+1]-x1[i])
+        midpoint=np.sqrt(x1[i+1]*x1[i])
+        print x1
+        print midpoint
+        if y1[i] > y2[i]:
+            zorder=1
+        else:
+            zorder=0
+        axs2.bar(x1[:-1][i], y1[i], width=width, color="b")
+        axs2.bar(x1[:-1][i], y2[i], width=width, color="g", zorder=zorder)
+        #axs2.bar(x1[:-1][i], y1[i], width=(midpoint-x1[i]), color="b")
+        #axs2.bar(midpoint, y2[i], width=(x1[i+1]-midpoint), color="g", zorder=zorder)
+    plt.xscale('log')
+    axs2.set_ylim([0, 1+max([max(y1),max(y2)])])
+    axs2.yaxis.grid('on')
+
+    plt.show()
 
     print "Analysis complete! (%s)" % title
 
@@ -375,16 +430,16 @@ group_stage_matches = {
             [1, 2]],    # observed
         'Match 27': [['Germany', 'Sweden'],
             [1, 1],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [2, 1]],    # observed
         'Match 30': [['England', 'Panama'],
             [2, 0],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [6, 1]],    # observed
         'Match 32': [['Japan', 'Senegal'],
             [1, 3],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [2, 2]],    # observed
         'Match 31': [['Poland', 'Colombia'],
             [0, 1],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [0, 3]],    # observed
         'Match 33': [['Uruguay', 'Russia'],
             [3, 0],     # predicted
             "N/A"], #[0, 0]],    # observed

@@ -28,12 +28,12 @@ Match 23 |    Argentina - Croatia      |   0 - 2   | 0.274 |   0 - 3  | 0.154 |
 Match 24 |      Nigeria - Iceland      |   0 - 1   | 0.888 |   2 - 0  | 0.329 |
 Match 25 |       Brazil - Costa Rica   |   1 - 0   | 1.000 |   2 - 0  | 0.690 |
 Match 26 |       Serbia - Switzerland  |   1 - 4   | 0.179 |   1 - 2  | 0.779 |
-Match 27 |      Germany - Sweden       |   1 - 1   | 0.615 |    N/A   |  N/A  |
+Match 27 |      Germany - Sweden       |   1 - 1   | 0.615 |   2 - 1  | 0.853 |
 Match 28 |  South Korea - Mexico       |   0 - 3   | 0.320 |   1 - 2  | 0.777 |
 Match 29 |      Belgium - Tunisia      |   1 - 0   | 1.000 |   5 - 2  | 0.043 |
-Match 30 |      England - Panama       |   2 - 0   | 0.718 |    N/A   |  N/A  |
+Match 30 |      England - Panama       |   2 - 0   | 0.718 |   6 - 1  | 0.001 |
 Match 31 |       Poland - Colombia     |   0 - 1   | 0.890 |    N/A   |  N/A  |
-Match 32 |        Japan - Senegal      |   1 - 3   | 0.330 |    N/A   |  N/A  |
+Match 32 |        Japan - Senegal      |   1 - 3   | 0.330 |   2 - 2  | 0.429 |
 Match 33 |      Uruguay - Russia       |   3 - 0   | 0.424 |    N/A   |  N/A  |
 Match 34 | Saudi Arabia - Egypt        |   3 - 3   | 0.067 |    N/A   |  N/A  |
 Match 35 |         Iran - Portugal     |   1 - 2   | 0.873 |    N/A   |  N/A  |
