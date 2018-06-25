@@ -8,6 +8,7 @@ import random as rnd
 import sys
 
 from matplotlib.lines import Line2D
+import matplotlib.patches as mpatches
 
 # Match overview: https://en.wikipedia.org/wiki/2018_FIFA_World_Cup
 
@@ -232,7 +233,7 @@ def print_pval_table(title, analysis_data, header=False):
     sys.stdout = orig_stdout
     outfile.close()
 
-def plot_pvals(title, pvals_predicted, pvals_observed):
+def pvals_plot(title, pvals_predicted, pvals_observed):
     font_size = 15
     font_size_title = 22
 
@@ -251,6 +252,72 @@ def plot_pvals(title, pvals_predicted, pvals_observed):
     plt.savefig(fig_title)
 
     print "p-value plot made! (%s)" % title
+   
+def pvals_histogram(title, pvals_predicted, pvals_observed):
+    font_size = 15
+    font_size_title = 22
+
+    tol = 1e-6
+    nbins=6
+    nlogbins=11
+    bins = np.linspace(1e-3,1,nbins)
+    logbins = np.logspace(np.log10(bins[0]),np.log10(bins[-1]),nlogbins)
+    
+    fig1, axs1 = plt.subplots(1, 1, sharey=True, tight_layout=True)
+    y1, x1, _1 = plt.hist(np.array(pvals_predicted)-tol, bins=bins, alpha=0, color="b")
+    y2, x2, _2 = plt.hist(np.array(pvals_observed[:pvals_observed.index(None)])-tol, bins=bins, alpha=0, color="g")
+    for i in range(len(y1)):
+        width=(x1[i+1]-x1[i])
+        if y1[i] > y2[i]:
+            zorder=1
+        else:
+            zorder=0
+        axs1.bar(x1[:-1][i], y1[i], width=width, color="b")
+        axs1.bar(x1[:-1][i], y2[i], width=width, color="g", zorder=zorder)
+        #axs1.bar(x1[:-1][i], y1[i], width=width/2.0, color="b")
+        #axs1.bar(x1[:-1][i]+(width/2.0), y2[i], width=width/2.0, color="g", zorder=zorder)
+    axs1.set_ylim([0, 1+max([max(y1),max(y2)])])
+    axs1.yaxis.grid('on')
+    axs1.set_xlabel("p-values")
+    axs1.set_ylabel("Frequecy")
+    for item in ([axs1.title, axs1.xaxis.label, axs1.yaxis.label] + axs1.get_xticklabels() + axs1.get_yticklabels()):
+        item.set_fontsize(font_size)
+    axs1.set_title("p-values: %s" % (title), y=1.04, fontsize=font_size_title)
+    predicted_patch = mpatches.Patch(color="blue", label="Predicted (%d matches)" % len(pvals_predicted))
+    observed_patch = mpatches.Patch(color="green", label="Observed (%d matches)" % len(pvals_observed[:pvals_observed.index(None)]))
+    plt.legend(handles=[predicted_patch, observed_patch], loc='upper left')
+    fig1_title="./pval_histogram_lin-%s.png" %(title)
+    plt.savefig(fig1_title)
+
+    fig2, axs2 = plt.subplots(1, 1, sharey=True, tight_layout=True)
+    y1, x1, _1 = axs2.hist(pvals_predicted, bins=logbins, alpha=0)
+    y2, x2, _2 = axs2.hist(pvals_observed[:pvals_observed.index(None)], bins=logbins, alpha=0)
+    for i in range(len(y1)):
+        width=(x1[i+1]-x1[i])
+        midpoint=np.sqrt(x1[i+1]*x1[i])
+        if y1[i] > y2[i]:
+            zorder=1
+        else:
+            zorder=0
+        axs2.bar(x1[:-1][i], y1[i], width=width, color="b")
+        axs2.bar(x1[:-1][i], y2[i], width=width, color="g", zorder=zorder)
+        #axs2.bar(x1[:-1][i], y1[i], width=(midpoint-x1[i]), color="b")
+        #axs2.bar(midpoint, y2[i], width=(x1[i+1]-midpoint), color="g", zorder=zorder)
+    plt.xscale('log')
+    axs2.set_ylim([0, 1+max([max(y1),max(y2)])])
+    axs2.yaxis.grid('on')
+    axs2.set_xlabel("p-values")
+    axs2.set_ylabel("Frequecy")
+    for item in ([axs2.title, axs2.xaxis.label, axs2.yaxis.label] + axs2.get_xticklabels() + axs2.get_yticklabels()):
+        item.set_fontsize(font_size)
+    axs2.set_title("p-values: %s" % (title), y=1.04, fontsize=font_size_title)
+    predicted_patch = mpatches.Patch(color="blue", label="Predicted (%d matches)" % len(pvals_predicted))
+    observed_patch = mpatches.Patch(color="green", label="Observed (%d matches)" % len(pvals_observed[:pvals_observed.index(None)]))
+    plt.legend(handles=[predicted_patch, observed_patch], loc='upper left')
+    fig2_title="./pval_histogram_log-%s.png" %(title)
+    plt.savefig(fig2_title)
+
+    print "p-value histograms made! (%s)" % title
 
 def analysis_predictions(title, matches):
     header=True
@@ -278,67 +345,12 @@ def analysis_predictions(title, matches):
 
         analysis_data = [match, matchup, predicted_score, observed_score, match_prob_matrix, sigma1_matrix, sigma2_matrix, prob_win_1, prob_win_2, prob_draw]
 
-        #make_pdf_plot(title, analysis_data)
-        #print_pval_table(title, analysis_data, header)
+        make_pdf_plot(title, analysis_data)
+        print_pval_table(title, analysis_data, header)
         header=False
 
-    #plot_pvals(title, pvals_predicted, pvals_observed)
-
-    print len(pvals_predicted)
-    print pvals_predicted
-
-    tol = 1e-6
-    #alpha = 1.0
-    
-    nbins=6
-    nlogbins=11
-    bins = np.linspace(1e-3,1,nbins)
-    logbins = np.logspace(np.log10(bins[0]),np.log10(bins[-1]),nlogbins)
-    
-
-    #fig1, axs1 = plt.subplots(1, 1, sharey=True, tight_layout=True)
-    #y1, x1, _1 = axs1.hist(np.array(pvals_predicted)-tol, bins=bins, alpha=alpha, color="b")
-    #y2, x2, _2 = axs1.hist(np.array(pvals_observed[:pvals_observed.index(None)])-tol, bins=bins, alpha=alpha, color="g")
-    #axs1.set_ylim([0, 1+max([max(y1),max(y2)])])
-    #axs1.yaxis.grid('on')
-    
-    fig1, axs1 = plt.subplots(1, 1, sharey=True, tight_layout=True)
-    y1, x1, _1 = plt.hist(np.array(pvals_predicted)-tol, bins=bins, alpha=0, color="b")
-    y2, x2, _2 = plt.hist(np.array(pvals_observed[:pvals_observed.index(None)])-tol, bins=bins, alpha=0, color="g")
-    for i in range(len(y1)):
-        width=(x1[i+1]-x1[i])
-        if y1[i] > y2[i]:
-            zorder=1
-        else:
-            zorder=0
-        axs1.bar(x1[:-1][i], y1[i], width=width, color="b")
-        axs1.bar(x1[:-1][i], y2[i], width=width, color="g", zorder=zorder)
-        #axs1.bar(x1[:-1][i], y1[i], width=width/2.0, color="b")
-        #axs1.bar(x1[:-1][i]+(width/2.0), y2[i], width=width/2.0, color="g", zorder=zorder)
-    axs1.set_ylim([0, 1+max([max(y1),max(y2)])])
-    axs1.yaxis.grid('on')
-
-    fig2, axs2 = plt.subplots(1, 1, sharey=True, tight_layout=True)
-    y1, x1, _1 = axs2.hist(pvals_predicted, bins=logbins, alpha=0)
-    y2, x2, _2 = axs2.hist(pvals_observed[:pvals_observed.index(None)], bins=logbins, alpha=0)
-    for i in range(len(y1)):
-        width=(x1[i+1]-x1[i])
-        midpoint=np.sqrt(x1[i+1]*x1[i])
-        print x1
-        print midpoint
-        if y1[i] > y2[i]:
-            zorder=1
-        else:
-            zorder=0
-        axs2.bar(x1[:-1][i], y1[i], width=width, color="b")
-        axs2.bar(x1[:-1][i], y2[i], width=width, color="g", zorder=zorder)
-        #axs2.bar(x1[:-1][i], y1[i], width=(midpoint-x1[i]), color="b")
-        #axs2.bar(midpoint, y2[i], width=(x1[i+1]-midpoint), color="g", zorder=zorder)
-    plt.xscale('log')
-    axs2.set_ylim([0, 1+max([max(y1),max(y2)])])
-    axs2.yaxis.grid('on')
-
-    plt.show()
+    pvals_plot(title, pvals_predicted, pvals_observed)
+    pvals_histogram(title, pvals_predicted, pvals_observed)
 
     print "Analysis complete! (%s)" % title
 
@@ -441,17 +453,17 @@ group_stage_matches = {
             [0, 1],     # predicted
             [0, 3]],    # observed
         'Match 33': [['Uruguay', 'Russia'],
-            [3, 0],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [0, 0],     # predicted
+            [3, 0]],    # observed
         'Match 34': [['Saudi Arabia', 'Egypt'],
             [3, 3],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [2, 1]],    # observed
         'Match 35': [['Spain', 'Morocco'],
             [4, 0],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [2, 2]],    # observed
         'Match 35': [['Iran', 'Portugal'],
             [1, 2],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [1, 1]],    # observed
         'Match 38': [['Australia', 'Peru'],
             [1, 2],     # predicted
             "N/A"], #[0, 0]],    # observed
