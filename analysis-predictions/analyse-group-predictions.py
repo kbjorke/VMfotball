@@ -194,7 +194,6 @@ def determine_result(winner, matchup):
 def group_play(group_teams, matches):
     accepted = False
     while not accepted:
-        group_order = ['team_rank1', 'team_rank2', 'team_rank3', 'team_rank4']
         results = dict()
         for match in matches:
             results[match] = ['team1', 'team2', 'winner', 0, 0]
@@ -237,6 +236,8 @@ def group_play(group_teams, matches):
                 if i != j:
                     if (test_list[0][i] == test_list[0][j]) and (test_list[1][i] == test_list[1][j]) and (test_list[2][i] == test_list[2][j]):
                         accepted = False
+
+    group_order = [score_table[0][0], score_table[1][0], score_table[2][0], score_table[3][0]]
 
     return (results, group_order)
 
