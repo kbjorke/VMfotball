@@ -279,7 +279,7 @@ def pvals_histogram(title, pvals_predicted, pvals_observed):
     axs1.set_ylim([0, 1+max([max(y1),max(y2)])])
     axs1.yaxis.grid('on')
     axs1.set_xlabel("p-values")
-    axs1.set_ylabel("Frequecy")
+    axs1.set_ylabel("Events")
     for item in ([axs1.title, axs1.xaxis.label, axs1.yaxis.label] + axs1.get_xticklabels() + axs1.get_yticklabels()):
         item.set_fontsize(font_size)
     axs1.set_title("p-values: %s" % (title), y=1.04, fontsize=font_size_title)
