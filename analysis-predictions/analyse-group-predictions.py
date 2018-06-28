@@ -206,7 +206,7 @@ observed_results = {
             [3, 0]],    # observed
         'Match 34': [['Saudi Arabia', 'Egypt'],
             [2, 1]],    # observed
-        'Match 35': [['Spain', 'Morocco'],
+        'Match 36': [['Spain', 'Morocco'],
             [2, 2]],    # observed
         'Match 35': [['Iran', 'Portugal'],
             [1, 1]],    # observed
@@ -227,13 +227,13 @@ observed_results = {
         'Match 42': [['Switzerland', 'Costa Rica'],
             [2, 2]],    # observed
         'Match 47': [['Japan', 'Poland'],
-            "N/A"], #[0, 0]],    # observed
+            [0, 1]],    # observed
         'Match 48': [['Senegal', 'Colombia'],
-            "N/A"], #[0, 0]],    # observed
+            [0, 1]],    # observed
         'Match 46': [['Panama', 'Tunisia'],
-            "N/A"], #[0, 0]],    # observed
+            [0, 0]],    # observed
         'Match 45': [['England', 'Belgium'],
-            "N/A"], #[0, 0]],    # observed
+            [0, 0]],    # observed
         }
 
 def prob_tune_func(ranking_ratio):
@@ -352,6 +352,57 @@ def group_play(group_teams, matches):
 
     return (results, group_order)
 
+def group_observed(group_teams, group_matches):
+    results = dict()
+    score_table = dict()
+
+    for team in group_teams:
+        score_table[team] = [0,0,0,0,0,0,0]
+
+    for match in group_matches:
+        #print match
+        teams = group_matches[match]
+        score = observed_results[match][1]
+        if score[0] > score[1]:
+            winner = teams[0]
+        elif score[0] < score[1]:
+            winner = teams[1]
+        elif score[0] == score[1]:
+            winner = "Draw"
+        results[match] = [teams[0], teams[1], winner, score[0], score[1]]
+
+        for team in teams:
+            score_table[team][3] += score[teams.index(team)]
+            score_table[team][4] += score[teams.index(team)-1]
+            score_table[team][5] += score[teams.index(team)] - score[teams.index(team)-1]
+            if winner is team:
+                score_table[team][0] += 1
+                score_table[team][6] += 3
+            elif winner is "Draw":
+                score_table[team][1] += 1
+                score_table[team][6] += 1
+            else:
+                score_table[team][2] += 1
+                score_table[team][6] += 0
+
+    score_table = sorted(score_table.items(), key=lambda e: e[1][3], reverse=True)
+    score_table.sort(key=lambda e: e[1][5], reverse=True)
+    score_table.sort(key=lambda e: e[1][6], reverse=True)
+    
+    test_list= [[score_table[i][1][6] for i in range(4)],
+            [score_table[i][1][5] for i in range(4)],
+            [score_table[i][1][3] for i in range(4)]]
+
+    #accepted = True
+    #for i in range(4):
+    #    for j in range(4):
+    #        if i != j:
+    #            if (test_list[0][i] == test_list[0][j]) and (test_list[1][i] == test_list[1][j]) and (test_list[2][i] == test_list[2][j]):
+    #                accepted = False
+
+    group_order = [score_table[0][0], score_table[1][0], score_table[2][0], score_table[3][0]]
+    return (results, group_order)
+
 #def group_runs(label, group_teams, group_matches, n_runs):
 #
 #    print " --- Computing %2s runs for Group %s --- " % (n_runs, label)
@@ -397,7 +448,6 @@ print " "
 print group_order
 print " "
 
-#group_stage_prediction = {'Group A', 'Group B', 'Group C', 'Group D', 'Group E', 'Group F', 'Group G', 'Group H'}
 group_stage_prediction = {}
 group_stage_observation = {}
 
@@ -405,9 +455,12 @@ for group in groups:
     print group
     group_teams = groups[group][0] 
     group_matches = groups[group][1]
-    results, group_order = group_play(group_teams, group_matches)
-    group_stage_prediction[group] = [results, group_order]
+    results_pred, group_order_pred = group_play(group_teams, group_matches)
+    group_stage_prediction[group] = [results_pred, group_order_pred]
     print group_stage_prediction[group]
+    results_obs, group_order_obs = group_observed(group_teams, group_matches)
+    group_stage_observation[group] = [results_obs, group_order_obs]
+    print group_stage_observation[group]
 
 
 # Test results:
