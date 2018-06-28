@@ -37,14 +37,14 @@ Match 32 |        Japan - Senegal      |   1 - 3   | 0.330 |   2 - 2  | 0.429 |
 Match 33 |      Uruguay - Russia       |   0 - 0   | 0.486 |   3 - 0  | 0.424 |
 Match 34 | Saudi Arabia - Egypt        |   3 - 3   | 0.067 |   2 - 1  | 0.494 |
 Match 35 |         Iran - Portugal     |   1 - 2   | 0.873 |   1 - 1  | 0.758 |
-Match 37 |      Denmark - France       |   0 - 1   | 1.000 |    N/A   |  N/A  |
-Match 38 |    Australia - Peru         |   1 - 2   | 0.873 |    N/A   |  N/A  |
-Match 39 |      Nigeria - Argentina    |   2 - 5   | 0.048 |    N/A   |  N/A  |
-Match 40 |      Iceland - Croatia      |   1 - 0   | 0.548 |    N/A   |  N/A  |
-Match 41 |       Serbia - Brazil       |   0 - 3   | 0.418 |    N/A   |  N/A  |
-Match 42 |  Switzerland - Costa Rica   |   3 - 1   | 0.522 |    N/A   |  N/A  |
-Match 43 |  South Korea - Germany      |   0 - 1   | 1.000 |    N/A   |  N/A  |
-Match 44 |       Mexico - Sweden       |   2 - 0   | 0.698 |    N/A   |  N/A  |
+Match 37 |      Denmark - France       |   0 - 1   | 1.000 |   0 - 0  | 0.581 |
+Match 38 |    Australia - Peru         |   1 - 2   | 0.873 |   0 - 2  | 0.655 |
+Match 39 |      Nigeria - Argentina    |   2 - 5   | 0.048 |   1 - 2  | 0.849 |
+Match 40 |      Iceland - Croatia      |   1 - 0   | 0.548 |   1 - 2  | 0.785 |
+Match 41 |       Serbia - Brazil       |   0 - 3   | 0.418 |   0 - 2  | 0.693 |
+Match 42 |  Switzerland - Costa Rica   |   3 - 1   | 0.522 |   2 - 2  | 0.367 |
+Match 43 |  South Korea - Germany      |   0 - 1   | 1.000 |   2 - 0  | 0.109 |
+Match 44 |       Mexico - Sweden       |   2 - 0   | 0.698 |   0 - 3  | 0.186 |
 Match 45 |      England - Belgium      |   2 - 4   | 0.057 |    N/A   |  N/A  |
 Match 46 |       Panama - Tunisia      |   2 - 0   | 0.496 |    N/A   |  N/A  |
 Match 47 |        Japan - Poland       |   2 - 0   | 0.232 |    N/A   |  N/A  |

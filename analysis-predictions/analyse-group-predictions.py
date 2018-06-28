@@ -125,6 +125,117 @@ groupH_matches = {
         'Match 48': ['Senegal', 'Colombia']
         }
 
+observed_group_results = {
+        'Group A': [ 
+            {
+                'Match 1': ['Russia', 'Saudi Arabia', 'Russia',  5, 0],
+                'Match 2': ['Egypt', 'Uruguay', 'Uruguay', 0, 1]
+                }, 
+            ['Uruguay', 'Russia'] ]
+        }
+
+print observed_group_results
+print " "
+
+observed_results = {
+        'Match 1': [['Russia', 'Saudi Arabia'], 
+            [5, 0]],    # observed
+        'Match 2': [['Egypt', 'Uruguay'],
+            [0, 1]],    # observed
+        'Match 4': [['Morocco', 'Iran'],
+            [0, 1]],    # observed
+        'Match 3': [['Portugal', 'Spain'],
+            [3, 3]],    # observed
+        'Match 5': [['France', 'Australia'],
+            [2, 1]],    # observed
+        'Match 7': [['Argentina', 'Iceland'],
+            [1, 1]],    # observed
+        'Match 6': [['Peru', 'Denmark'],
+            [0, 1]],    # observed
+        'Match 8': [['Croatia', 'Nigeria'],
+            [2, 0]],    # observed
+        'Match 10': [['Costa Rica', 'Serbia'],
+            [0, 1]],    # observed
+        'Match 11': [['Germany', 'Mexico'],
+            [0, 1]],    # observed
+        'Match 9': [['Brazil', 'Switzerland'],
+            [1, 1]],    # observed
+        'Match 12': [['Sweden', 'South Korea'],
+            [1, 0]],    # observed
+        'Match 13': [['Belgium', 'Panama'],
+            [3, 0]],    # observed
+        'Match 14': [['Tunisia', 'England'],
+            [1, 2]],    # observed
+        'Match 16': [['Colombia', 'Japan'],
+            [1, 2]],    # observed
+        'Match 15': [['Poland', 'Senegal'],
+            [1, 2]],    # observed
+        'Match 17': [['Russia', 'Egypt'],
+            [3, 1]],    # observed
+        'Match 19': [['Portugal', 'Morocco'],
+            [1, 0]],    # observed
+        'Match 18': [['Uruguay', 'Saudi Arabia'],
+            [1, 0]],    # observed
+        'Match 20': [['Iran', 'Spain'],
+            [0, 1]],    # observed
+        'Match 22': [['Denmark', 'Australia'],
+            [1, 1]],    # observed
+        'Match 21': [['France', 'Peru'],
+            [1, 0]],    # observed
+        'Match 23': [['Argentina', 'Croatia'],
+            [0, 3]],    # observed
+        'Match 25': [['Brazil', 'Costa Rica'],
+            [2, 0]],    # observed
+        'Match 24': [['Nigeria', 'Iceland'],
+            [2, 0]],    # observed
+        'Match 26': [['Serbia', 'Switzerland'],
+            [1, 2]],    # observed
+        'Match 29': [['Belgium', 'Tunisia'],
+            [5, 2]],    # observed
+        'Match 28': [['South Korea', 'Mexico'],
+            [1, 2]],    # observed
+        'Match 27': [['Germany', 'Sweden'],
+            [2, 1]],    # observed
+        'Match 30': [['England', 'Panama'],
+            [6, 1]],    # observed
+        'Match 32': [['Japan', 'Senegal'],
+            [2, 2]],    # observed
+        'Match 31': [['Poland', 'Colombia'],
+            [0, 3]],    # observed
+        'Match 33': [['Uruguay', 'Russia'],
+            [3, 0]],    # observed
+        'Match 34': [['Saudi Arabia', 'Egypt'],
+            [2, 1]],    # observed
+        'Match 35': [['Spain', 'Morocco'],
+            [2, 2]],    # observed
+        'Match 35': [['Iran', 'Portugal'],
+            [1, 1]],    # observed
+        'Match 38': [['Australia', 'Peru'],
+            [0, 2]],    # observed
+        'Match 37': [['Denmark', 'France'],
+            [0, 0]],    # observed
+        'Match 39': [['Nigeria', 'Argentina'],
+            [1, 2]],    # observed
+        'Match 40': [['Iceland', 'Croatia'],
+            [1, 2]],    # observed
+        'Match 43': [['South Korea', 'Germany'],
+            [2, 0]],    # observed
+        'Match 44': [['Mexico', 'Sweden'],
+            [0, 3]],    # observed
+        'Match 41': [['Serbia', 'Brazil'],
+            [0, 2]],    # observed
+        'Match 42': [['Switzerland', 'Costa Rica'],
+            [2, 2]],    # observed
+        'Match 47': [['Japan', 'Poland'],
+            "N/A"], #[0, 0]],    # observed
+        'Match 48': [['Senegal', 'Colombia'],
+            "N/A"], #[0, 0]],    # observed
+        'Match 46': [['Panama', 'Tunisia'],
+            "N/A"], #[0, 0]],    # observed
+        'Match 45': [['England', 'Belgium'],
+            "N/A"], #[0, 0]],    # observed
+        }
+
 def prob_tune_func(ranking_ratio):
     tune_factor = 8.0
     return 1.0/(1 + np.exp(-tune_factor*(ranking_ratio-0.5)))
@@ -206,7 +317,7 @@ def group_play(group_teams, matches):
             teams = matches[match]
             winner = determine_winner(teams)
             result = determine_result(winner, teams)
-            results[match] = [teams[0], teams[1], winner, result.split('-')[0], result.split('-')[1]]
+            results[match] = [teams[0], teams[1], winner, int(result.split('-')[0]), int(result.split('-')[1])]
             
             for team in teams:
                 score_table[team][3] += int(result.split('-')[teams.index(team)])
@@ -269,9 +380,35 @@ def group_play(group_teams, matches):
 n_runs = 1
 knockout=False
 
+groups = {
+        'Group A': [groupA_teams, groupA_matches],
+        'Group B': [groupB_teams, groupB_matches],
+        'Group C': [groupC_teams, groupC_matches],
+        'Group D': [groupD_teams, groupD_matches],
+        'Group E': [groupE_teams, groupE_matches],
+        'Group F': [groupF_teams, groupF_matches],
+        'Group G': [groupG_teams, groupG_matches],
+        'Group H': [groupH_teams, groupH_matches]
+        }
+
 results, group_order = group_play(groupA_teams, groupA_matches)
 print results
+print " "
 print group_order
+print " "
+
+#group_stage_prediction = {'Group A', 'Group B', 'Group C', 'Group D', 'Group E', 'Group F', 'Group G', 'Group H'}
+group_stage_prediction = {}
+group_stage_observation = {}
+
+for group in groups:
+    print group
+    group_teams = groups[group][0] 
+    group_matches = groups[group][1]
+    results, group_order = group_play(group_teams, group_matches)
+    group_stage_prediction[group] = [results, group_order]
+    print group_stage_prediction[group]
+
 
 # Test results:
 # 1a Correct scores

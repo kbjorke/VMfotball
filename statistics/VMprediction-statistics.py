@@ -466,28 +466,28 @@ group_stage_matches = {
             [1, 1]],    # observed
         'Match 38': [['Australia', 'Peru'],
             [1, 2],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [0, 2]],    # observed
         'Match 37': [['Denmark', 'France'],
             [0, 1],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [0, 0]],    # observed
         'Match 39': [['Nigeria', 'Argentina'],
             [2, 5],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [1, 2]],    # observed
         'Match 40': [['Iceland', 'Croatia'],
             [1, 0],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [1, 2]],    # observed
         'Match 43': [['South Korea', 'Germany'],
             [0, 1],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [2, 0]],    # observed
         'Match 44': [['Mexico', 'Sweden'],
             [2, 0],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [0, 3]],    # observed
         'Match 41': [['Serbia', 'Brazil'],
             [0, 3],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [0, 2]],    # observed
         'Match 42': [['Switzerland', 'Costa Rica'],
             [3, 1],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [2, 2]],    # observed
         'Match 47': [['Japan', 'Poland'],
             [2, 0],     # predicted
             "N/A"], #[0, 0]],    # observed
