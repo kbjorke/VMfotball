@@ -239,7 +239,8 @@ def pvals_plot(title, pvals_predicted, pvals_observed):
 
     fig, ax = plt.subplots()
     plt.plot(pvals_predicted, 'o-b')
-    plt.plot(pvals_observed[:pvals_observed.index(None)], 'o-g')
+    #plt.plot(pvals_observed[:pvals_observed.index(None)], 'o-g')
+    plt.plot(pvals_observed, 'o-g')
     plt.yscale('log')
     plt.grid('on', which="both")
     plt.legend(handles=[Line2D([], [], marker='o', color="w", label="Predicted p-value", markerfacecolor="blue"), Line2D([], [], marker='o', color="w", label="Observed p-value", markerfacecolor="green")], loc='lower right', numpoints=1)
@@ -265,7 +266,8 @@ def pvals_histogram(title, pvals_predicted, pvals_observed):
     
     fig1, axs1 = plt.subplots(1, 1, sharey=True, tight_layout=True)
     y1, x1, _1 = plt.hist(np.array(pvals_predicted)-tol, bins=bins, alpha=0, color="b")
-    y2, x2, _2 = plt.hist(np.array(pvals_observed[:pvals_observed.index(None)])-tol, bins=bins, alpha=0, color="g")
+    #y2, x2, _2 = plt.hist(np.array(pvals_observed[:pvals_observed.index(None)])-tol, bins=bins, alpha=0, color="g")
+    y2, x2, _2 = plt.hist(np.array(pvals_observed)-tol, bins=bins, alpha=0, color="g")
     for i in range(len(y1)):
         width=(x1[i+1]-x1[i])
         if y1[i] > y2[i]:
@@ -284,14 +286,16 @@ def pvals_histogram(title, pvals_predicted, pvals_observed):
         item.set_fontsize(font_size)
     axs1.set_title("p-values: %s" % (title), y=1.04, fontsize=font_size_title)
     predicted_patch = mpatches.Patch(color="blue", label="Predicted (%d matches)" % len(pvals_predicted))
-    observed_patch = mpatches.Patch(color="green", label="Observed (%d matches)" % len(pvals_observed[:pvals_observed.index(None)]))
+    #observed_patch = mpatches.Patch(color="green", label="Observed (%d matches)" % len(pvals_observed[:pvals_observed.index(None)]))
+    observed_patch = mpatches.Patch(color="green", label="Observed (%d matches)" % len(pvals_observed))
     plt.legend(handles=[predicted_patch, observed_patch], loc='upper left')
     fig1_title="./pval_histogram_lin-%s.png" %(title)
     plt.savefig(fig1_title)
 
     fig2, axs2 = plt.subplots(1, 1, sharey=True, tight_layout=True)
     y1, x1, _1 = axs2.hist(pvals_predicted, bins=logbins, alpha=0)
-    y2, x2, _2 = axs2.hist(pvals_observed[:pvals_observed.index(None)], bins=logbins, alpha=0)
+    #y2, x2, _2 = axs2.hist(pvals_observed[:pvals_observed.index(None)], bins=logbins, alpha=0)
+    y2, x2, _2 = axs2.hist(pvals_observed, bins=logbins, alpha=0)
     for i in range(len(y1)):
         width=(x1[i+1]-x1[i])
         midpoint=np.sqrt(x1[i+1]*x1[i])
@@ -312,7 +316,8 @@ def pvals_histogram(title, pvals_predicted, pvals_observed):
         item.set_fontsize(font_size)
     axs2.set_title("p-values: %s" % (title), y=1.04, fontsize=font_size_title)
     predicted_patch = mpatches.Patch(color="blue", label="Predicted (%d matches)" % len(pvals_predicted))
-    observed_patch = mpatches.Patch(color="green", label="Observed (%d matches)" % len(pvals_observed[:pvals_observed.index(None)]))
+    #observed_patch = mpatches.Patch(color="green", label="Observed (%d matches)" % len(pvals_observed[:pvals_observed.index(None)]))
+    observed_patch = mpatches.Patch(color="green", label="Observed (%d matches)" % len(pvals_observed))
     plt.legend(handles=[predicted_patch, observed_patch], loc='upper left')
     fig2_title="./pval_histogram_log-%s.png" %(title)
     plt.savefig(fig2_title)
@@ -458,7 +463,7 @@ group_stage_matches = {
         'Match 34': [['Saudi Arabia', 'Egypt'],
             [3, 3],     # predicted
             [2, 1]],    # observed
-        'Match 35': [['Spain', 'Morocco'],
+        'Match 36': [['Spain', 'Morocco'],
             [4, 0],     # predicted
             [2, 2]],    # observed
         'Match 35': [['Iran', 'Portugal'],
@@ -490,16 +495,16 @@ group_stage_matches = {
             [2, 2]],    # observed
         'Match 47': [['Japan', 'Poland'],
             [2, 0],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [0, 1]],    # observed
         'Match 48': [['Senegal', 'Colombia'],
             [2, 2],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [0, 1]],    # observed
         'Match 46': [['Panama', 'Tunisia'],
             [2, 0],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [1, 2]],    # observed
         'Match 45': [['England', 'Belgium'],
             [2, 4],     # predicted
-            "N/A"], #[0, 0]],    # observed
+            [0, 1]],    # observed
         }
 
 analysis_predictions('groups', group_stage_matches)

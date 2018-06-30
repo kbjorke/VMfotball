@@ -8,38 +8,38 @@ import random as rnd
 import sys
 
 teams_points={ # Updated 8. june 2018 https://www.eloratings.net/
-    'Australia': 1733,
-    'Iran': 1787,
-    'Japan': 1670,
-    'Saudi Arabia': 1592,
-    'South Korea': 1729,
-    'Egypt': 1646,
-    'Morocco': 1723,
-    'Nigeria': 1681,
-    'Senegal': 1740,
-    'Tunisia': 1659,
-    'Costa Rica': 1750,
-    'Mexico': 1861,
-    'Panama': 1659,
-    'Argentina': 1986,
-    'Brazil': 2136,
-    'Colombia': 1928,
-    'Peru': 1916,
-    'Uruguay': 1894,
-    'Belgium': 1933,
-    'Croatia': 1848,
-    'Denmark': 1845,
-    'England': 1948,
-    'France': 1995,
-    'Germany': 2076,
-    'Iceland': 1764,
-    'Poland': 1831,
-    'Portugal': 1970,
-    'Russia': 1678,
-    'Serbia': 1763,
-    'Spain': 2042,
-    'Sweden': 1794,
-    'Switzerland': 1886
+        'Australia': 1733,
+        'Iran': 1787,
+        'Japan': 1670,
+        'Saudi Arabia': 1592,
+        'South Korea': 1729,
+        'Egypt': 1646,
+        'Morocco': 1723,
+        'Nigeria': 1681,
+        'Senegal': 1740,
+        'Tunisia': 1659,
+        'Costa Rica': 1750,
+        'Mexico': 1861,
+        'Panama': 1659,
+        'Argentina': 1986,
+        'Brazil': 2136,
+        'Colombia': 1928,
+        'Peru': 1916,
+        'Uruguay': 1894,
+        'Belgium': 1933,
+        'Croatia': 1848,
+        'Denmark': 1845,
+        'England': 1948,
+        'France': 1995,
+        'Germany': 2076,
+        'Iceland': 1764,
+        'Poland': 1831,
+        'Portugal': 1970,
+        'Russia': 1678,
+        'Serbia': 1763,
+        'Spain': 2042,
+        'Sweden': 1794,
+        'Switzerland': 1886
 }
 
 # Match overview: https://en.wikipedia.org/wiki/2018_FIFA_World_Cup
@@ -133,9 +133,6 @@ observed_group_results = {
                 }, 
             ['Uruguay', 'Russia'] ]
         }
-
-print observed_group_results
-print " "
 
 observed_results = {
         'Match 1': [['Russia', 'Saudi Arabia'], 
@@ -231,9 +228,9 @@ observed_results = {
         'Match 48': [['Senegal', 'Colombia'],
             [0, 1]],    # observed
         'Match 46': [['Panama', 'Tunisia'],
-            [0, 0]],    # observed
+            [1, 2]],    # observed
         'Match 45': [['England', 'Belgium'],
-            [0, 0]],    # observed
+            [0, 1]],    # observed
         }
 
 def prob_tune_func(ranking_ratio):
@@ -424,11 +421,46 @@ def group_observed(group_teams, group_matches):
 #    sys.stdout = orig_stdout
 #    outfile.close()
 
+def get_prediction(groups):
+    prediction = {}
+    for group in groups:
+        group_teams = groups[group][0] 
+        group_matches = groups[group][1]
+        results_pred, group_order_pred = group_play(group_teams, group_matches)
+        prediction[group] = [results_pred, group_order_pred]
+    return prediction
+
+def get_observation(groups):
+    observation = {}
+    for group in groups:
+        group_teams = groups[group][0] 
+        group_matches = groups[group][1]
+        results_obs, group_order_obs = group_observed(group_teams, group_matches)
+        observation[group] = [results_obs, group_order_obs]
+    return observation
+
+def test_prediction(prediction, observation):
+    results = [0, 0, 0, 0, 0]
+
+    for group in prediction:
+        for match in prediction[group][0]:
+            if prediction[group][0][match][3] == observation[group][0][match][3] and prediction[group][0][match][4] == observation[group][0][match][4]:
+                results[0] += 1
+            if prediction[group][0][match][2] == observation[group][0][match][2]:
+                results[1] += 1
+        if prediction[group][1] == observation[group][1]:
+            results[2] += 1
+        if prediction[group][1][:2] == observation[group][1][:2]:
+            results[3] += 1
+        if set(prediction[group][1][:2]) == set(observation[group][1][:2]):
+            results[4] += 1
+
+    return results
 
 
 ### Analysis: ###
 
-n_runs = 1
+n_runs = 2
 knockout=False
 
 groups = {
@@ -442,30 +474,21 @@ groups = {
         'Group H': [groupH_teams, groupH_matches]
         }
 
-results, group_order = group_play(groupA_teams, groupA_matches)
-print results
-print " "
-print group_order
-print " "
+group_stage_observation = get_observation(groups)
 
-group_stage_prediction = {}
-group_stage_observation = {}
+group_stage_prediction = get_prediction(groups)
+#group_stage_prediction = np.array([get_prediction(groups) for i in range(n_runs)])
 
-for group in groups:
-    print group
-    group_teams = groups[group][0] 
-    group_matches = groups[group][1]
-    results_pred, group_order_pred = group_play(group_teams, group_matches)
-    group_stage_prediction[group] = [results_pred, group_order_pred]
-    print group_stage_prediction[group]
-    results_obs, group_order_obs = group_observed(group_teams, group_matches)
-    group_stage_observation[group] = [results_obs, group_order_obs]
-    print group_stage_observation[group]
+print group_stage_prediction
 
+#test_results = test_prediction(group_stage_prediction, group_stage_observation)
+#test_max = [48, 48, 8, 8, 8]
+#
+#print test_results
 
 # Test results:
-# 1a Correct scores
-# 1b Correct outcomes
-# 2a Correct group resulting order
-# 2b Correct advancing teams, right order
-# 2c Correct advancing teams, wrong order
+# 1. Correct scores
+# 2. Correct outcomes
+# 3. Correct group resulting order
+# 4. Correct advancing teams, right order
+# 5. Correct advancing teams, wrong order
