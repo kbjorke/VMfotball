@@ -125,13 +125,15 @@ groupH_matches = {
         'Match 48': ['Senegal', 'Colombia']
         }
 
-observed_group_results = {
-        'Group A': [ 
-            {
-                'Match 1': ['Russia', 'Saudi Arabia', 'Russia',  5, 0],
-                'Match 2': ['Egypt', 'Uruguay', 'Uruguay', 0, 1]
-                }, 
-            ['Uruguay', 'Russia'] ]
+groups = {
+        'Group A': [groupA_teams, groupA_matches],
+        'Group B': [groupB_teams, groupB_matches],
+        'Group C': [groupC_teams, groupC_matches],
+        'Group D': [groupD_teams, groupD_matches],
+        'Group E': [groupE_teams, groupE_matches],
+        'Group F': [groupF_teams, groupF_matches],
+        'Group G': [groupG_teams, groupG_matches],
+        'Group H': [groupH_teams, groupH_matches]
         }
 
 observed_results = {
@@ -439,52 +441,38 @@ def get_observation(groups):
         observation[group] = [results_obs, group_order_obs]
     return observation
 
-def test_prediction(prediction, observation):
-    results = [0, 0, 0, 0, 0]
+def test_prediction(predictions, observation):
+    n_predictions =  len(predictions)
+    results = np.zeros([5,n_predictions])
 
-    for group in prediction:
-        for match in prediction[group][0]:
-            if prediction[group][0][match][3] == observation[group][0][match][3] and prediction[group][0][match][4] == observation[group][0][match][4]:
-                results[0] += 1
-            if prediction[group][0][match][2] == observation[group][0][match][2]:
-                results[1] += 1
-        if prediction[group][1] == observation[group][1]:
-            results[2] += 1
-        if prediction[group][1][:2] == observation[group][1][:2]:
-            results[3] += 1
-        if set(prediction[group][1][:2]) == set(observation[group][1][:2]):
-            results[4] += 1
+    i = 0
+    for prediction in predictions:
+        for group in prediction:
+            for match in prediction[group][0]:
+                if prediction[group][0][match][3] == observation[group][0][match][3] and prediction[group][0][match][4] == observation[group][0][match][4]:
+                    results[0][i] += 1
+                if prediction[group][0][match][2] == observation[group][0][match][2]:
+                    results[1][i] += 1
+            if prediction[group][1] == observation[group][1]:
+                results[2][i] += 1
+            if prediction[group][1][:2] == observation[group][1][:2]:
+                results[3][i] += 1
+            if set(prediction[group][1][:2]) == set(observation[group][1][:2]):
+                results[4][i] += 1
+        i += 1
 
     return results
 
 
 ### Analysis: ###
 
-n_runs = 2
+n_runs = 100
 knockout=False
-
-groups = {
-        'Group A': [groupA_teams, groupA_matches],
-        'Group B': [groupB_teams, groupB_matches],
-        'Group C': [groupC_teams, groupC_matches],
-        'Group D': [groupD_teams, groupD_matches],
-        'Group E': [groupE_teams, groupE_matches],
-        'Group F': [groupF_teams, groupF_matches],
-        'Group G': [groupG_teams, groupG_matches],
-        'Group H': [groupH_teams, groupH_matches]
-        }
 
 group_stage_observation = get_observation(groups)
 
-group_stage_prediction = get_prediction(groups)
-#group_stage_prediction = np.array([get_prediction(groups) for i in range(n_runs)])
+group_stage_prediction = np.array([get_prediction(groups) for i in range(n_runs)])
 
-print group_stage_prediction
-
-#test_results = test_prediction(group_stage_prediction, group_stage_observation)
-#test_max = [48, 48, 8, 8, 8]
-#
-#print test_results
 
 # Test results:
 # 1. Correct scores
@@ -492,3 +480,14 @@ print group_stage_prediction
 # 3. Correct group resulting order
 # 4. Correct advancing teams, right order
 # 5. Correct advancing teams, wrong order
+
+test_results = test_prediction(group_stage_prediction, group_stage_observation)
+test_max = [48, 48, 8, 8, 8]
+
+#print test_results
+print np.mean(test_results, 1)
+print np.std(test_results, 1)
+
+print " "
+print np.mean(test_results, 1)/test_max
+print np.std(test_results, 1)/test_max
