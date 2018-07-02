@@ -42,6 +42,24 @@ teams_points={ # Updated 8. june 2018 https://www.eloratings.net/
         'Switzerland': 1886
 }
 
+draw_prob = 0.74 # http://pena.lt/y/2015/12/12/frequency-of-draws-in-football/
+
+# SCORE PROBS: https://fivethirtyeight.com/features/in-126-years-english-football-has-seen-13475-nil-nil-draws/
+draw_probs = np.array([7.2, 11.6, 5.2, 1.1, 0.2, 0])
+win_probs = np.array([9.8+6.3, 8.9+5.6, 8.1+3.4, 2.8+1.8, 5.2+2.3, 4.8+1.4, 0.5+0.3, 1.4+0.6, 2.5+0.7, 2.3+0.4, 0.1+0.05, 0.2+0.1, 0.6+0.2, 1.1+0.2, 1.0+0.1])
+
+draw_probs = draw_probs/sum(draw_probs)
+win_probs = win_probs/sum(win_probs)
+
+score_prob_matrix = np.array([
+    [draw_probs[0], win_probs[0], win_probs[2], win_probs[5], win_probs[9], win_probs[14]],
+    [win_probs[0], draw_probs[1], win_probs[1], win_probs[4], win_probs[8], win_probs[13]],
+    [win_probs[2], win_probs[1], draw_probs[2], win_probs[3], win_probs[7], win_probs[12]],
+    [win_probs[5], win_probs[4], win_probs[3], draw_probs[3], win_probs[6], win_probs[11]],
+    [win_probs[9], win_probs[8], win_probs[7], win_probs[6], draw_probs[4], win_probs[10]],
+    [win_probs[14], win_probs[13], win_probs[12], win_probs[11], win_probs[10], draw_probs[5]],
+    ])
+
 # Match overview: https://en.wikipedia.org/wiki/2018_FIFA_World_Cup
 ### Groups setup: ###
 # Group A:
@@ -235,19 +253,58 @@ observed_results = {
             [0, 1]],    # observed
         }
 
-def prob_tune_func(ranking_ratio):
-    tune_factor = 8.0
-    return 1.0/(1 + np.exp(-tune_factor*(ranking_ratio-0.5)))
+def draw_mod(matchup):
+    return abs(teams_points[matchup[0]]-teams_points[matchup[1]])/5e3
 
 def win_expectancy(rating_diff):
     return 1.0/(10**(-rating_diff/400.0) + 1)
+
+def scores_pdf(matchup, score_prob_matrix):
+    draw_modifier = draw_mod(matchup)
+    rating_diff = float(teams_points[matchup[0]]-teams_points[matchup[1]])
+    
+    prob_win_1 = (draw_prob+draw_modifier)*win_expectancy(rating_diff)
+    prob_win_2 = (draw_prob+draw_modifier)*win_expectancy(-rating_diff)
+    prob_draw = 1-(draw_prob+draw_modifier)
+
+    prob_density_matrix = np.zeros([6,6])
+   
+    for i in range(6):
+        for j in range(6):
+            if i == j:
+                prob_density_matrix[i,j] = score_prob_matrix[i,j]*prob_draw
+            elif i > j:
+                prob_density_matrix[i,j] = score_prob_matrix[i,j]*prob_win_1
+            elif i < j:
+                prob_density_matrix[i,j] = score_prob_matrix[i,j]*prob_win_2
+
+    return prob_density_matrix
+
+def result_prob(matchup):
+    draw_modifier = draw_mod(matchup)
+    rating_diff = float(teams_points[matchup[0]]-teams_points[matchup[1]])
+
+    prob_win_1 = (draw_prob+draw_modifier)*win_expectancy(rating_diff)
+    prob_win_2 = (draw_prob+draw_modifier)*win_expectancy(-rating_diff)
+    prob_draw = 1-(draw_prob+draw_modifier)
+
+    return [prob_win_1, prob_win_2, prob_draw]
+
+def get_winner(teams, score):
+	if score[0] > score[1]:
+	    winner = teams[0]
+	elif score[0] < score[1]:
+	    winner = teams[1]
+	elif score[0] == score[1]:
+	    winner = "Draw"
+	return winner
 
 def determine_winner(matchup):
     draw_prob = 0.74 # http://pena.lt/y/2015/12/12/frequency-of-draws-in-football/
 
     rating_diff = float(teams_points[matchup[0]]-teams_points[matchup[1]])
 
-    draw_modifier = abs(teams_points[matchup[0]]-teams_points[matchup[1]])/5e3
+    draw_modifier = draw_mod(matchup)
         
     draw_prob += draw_modifier
     win_exp = draw_prob*win_expectancy(rating_diff)
@@ -301,7 +358,7 @@ def determine_result(winner, matchup):
 
     return result
 
-def group_play(group_teams, matches):
+def group_play(group_teams, matches, method):
     accepted = False
     while not accepted:
         results = dict()
@@ -314,8 +371,23 @@ def group_play(group_teams, matches):
 
         for match in matches:
             teams = matches[match]
-            winner = determine_winner(teams)
-            result = determine_result(winner, teams)
+            if method == "Method 1":
+                winner = determine_winner(teams)
+                result = determine_result(winner, teams)
+            elif method == "Method 2":
+                print method
+            elif method == "Method 3":
+                print method
+            elif method == "Method 4":
+                print method
+            elif method == "Method 5":
+                print method
+            elif method == "Method 6":
+                print method
+            elif method == "Method 7":
+                print method
+
+
             results[match] = [teams[0], teams[1], winner, int(result.split('-')[0]), int(result.split('-')[1])]
             
             for team in teams:
@@ -359,15 +431,9 @@ def group_observed(group_teams, group_matches):
         score_table[team] = [0,0,0,0,0,0,0]
 
     for match in group_matches:
-        #print match
         teams = group_matches[match]
         score = observed_results[match][1]
-        if score[0] > score[1]:
-            winner = teams[0]
-        elif score[0] < score[1]:
-            winner = teams[1]
-        elif score[0] == score[1]:
-            winner = "Draw"
+        winner = get_winner(teams, score)
         results[match] = [teams[0], teams[1], winner, score[0], score[1]]
 
         for team in teams:
@@ -392,43 +458,15 @@ def group_observed(group_teams, group_matches):
             [score_table[i][1][5] for i in range(4)],
             [score_table[i][1][3] for i in range(4)]]
 
-    #accepted = True
-    #for i in range(4):
-    #    for j in range(4):
-    #        if i != j:
-    #            if (test_list[0][i] == test_list[0][j]) and (test_list[1][i] == test_list[1][j]) and (test_list[2][i] == test_list[2][j]):
-    #                accepted = False
-
     group_order = [score_table[0][0], score_table[1][0], score_table[2][0], score_table[3][0]]
     return (results, group_order)
 
-#def group_runs(label, group_teams, group_matches, n_runs):
-#
-#    print " --- Computing %2s runs for Group %s --- " % (n_runs, label)
-#    
-#    orig_stdout = sys.stdout
-#    outfile = open('./group_stage/group%s.txt' % label, 'w')
-#    sys.stdout = outfile
-#        
-#    print "######### Group stage: Group %s #########\n\n" % label
-#    
-#    for i in range(1,n_runs+1):
-#        print "###### RUN %3s ######" % i
-#    
-#        results, score_table = group_play(group_teams, group_matches)
-#        print_results(results)
-#        print_score_table(score_table)
-#        print "\n"
-#    
-#    sys.stdout = orig_stdout
-#    outfile.close()
-
-def get_prediction(groups):
+def get_prediction(groups, method):
     prediction = {}
     for group in groups:
         group_teams = groups[group][0] 
         group_matches = groups[group][1]
-        results_pred, group_order_pred = group_play(group_teams, group_matches)
+        results_pred, group_order_pred = group_play(group_teams, group_matches, method)
         prediction[group] = [results_pred, group_order_pred]
     return prediction
 
@@ -463,31 +501,51 @@ def test_prediction(predictions, observation):
 
     return results
 
+def do_analysis(groups, methods, n_runs):
+    group_stage_observation = get_observation(groups)
+   
+    methods_tests = dict.fromkeys(methods)
+   
+    for method in methods:
+        group_stage_prediction = np.array([get_prediction(groups, method) for i in range(n_runs)])
+        methods_tests[method] = test_prediction(group_stage_prediction, group_stage_observation)
+        # Test results:
+        # 1. Correct scores
+        # 2. Correct outcomes
+        # 3. Correct group resulting order
+        # 4. Correct advancing teams, right order
+        # 5. Correct advancing teams, wrong order
+
+    test_max = [48, 48, 8, 8, 8]
+   
+
+    test_results = methods_tests[methods[0]]
+
+    print np.mean(test_results, 1)
+    print np.std(test_results, 1)
+    
+    print " "
+    print np.mean(test_results, 1)/test_max
+    print np.std(test_results, 1)/test_max
+
 
 ### Analysis: ###
 
 n_runs = 100
 knockout=False
+methods = ["Method 1"]
 
-group_stage_observation = get_observation(groups)
+do_analysis(groups, methods, n_runs)
 
-group_stage_prediction = np.array([get_prediction(groups) for i in range(n_runs)])
+def rnd_score_selection(pdf_matrix):
+    prob_pdf = np.cumsum(pdf_matrix)
+    random_number = rnd.random()
+    index = np.argwhere(prob_pdf>random_number)[0]
+    goals_1 = index/6
+    goals_2 = index-(6*goals_1)
+    return [int(goals_1), int(goals_2)]
 
+spdf = scores_pdf(['Belgium', 'Japan'], score_prob_matrix)
 
-# Test results:
-# 1. Correct scores
-# 2. Correct outcomes
-# 3. Correct group resulting order
-# 4. Correct advancing teams, right order
-# 5. Correct advancing teams, wrong order
-
-test_results = test_prediction(group_stage_prediction, group_stage_observation)
-test_max = [48, 48, 8, 8, 8]
-
-#print test_results
-print np.mean(test_results, 1)
-print np.std(test_results, 1)
-
-print " "
-print np.mean(test_results, 1)/test_max
-print np.std(test_results, 1)/test_max
+print spdf
+print rnd_score_selection(spdf)

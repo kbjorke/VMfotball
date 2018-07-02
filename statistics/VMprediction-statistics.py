@@ -65,18 +65,14 @@ score_prob_matrix = np.array([
     [win_probs[14], win_probs[13], win_probs[12], win_probs[11], win_probs[10], draw_probs[5]],
     ])
 
+score_prob_matrix = score_prob_matrix/np.sum(score_prob_matrix)
+
 
 def draw_mod(matchup):
     return abs(teams_points[matchup[0]]-teams_points[matchup[1]])/5e3
 
 def win_expectancy(rating_diff):
     return 1.0/(10**(-rating_diff/400.0) + 1)
-
-def prediction_pdf(match, draw_prob):
-    team1 = match[0]
-    team2 = match[1]
-    team1_goals = match[2]
-    team2_goals = match[3]
 
 def scores_pdf(matchup, score_prob_matrix):
     draw_modifier = draw_mod(matchup)
