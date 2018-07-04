@@ -397,8 +397,19 @@ def group_play(group_teams, matches, method):
                 scores_pdf = get_scores_pdf(teams, score_prob_matrix)
                 result = get_max_prob(scores_pdf)
                 winner = get_winner(teams, result)
-            elif method == "Method 4":
-                print method
+            elif method == "Method 4 (det)":
+                scores_pdf = get_scores_pdf(teams, score_prob_matrix)
+                if teams_points[teams[0]] > teams_points[teams[1]]:
+                    winner = teams[0]
+                    scores_pdf = np.tril(scores_pdf, -1)
+                elif teams_points[teams[0]] < teams_points[teams[1]]:
+                    winner = teams[1]
+                    scores_pdf = np.triu(scores_pdf, 1)
+                elif teams_points[teams[0]] == teams_points[teams[1]]:
+                    winner = "Draw"
+                    scores_pdf = np.triu(scores_pdf)
+                    scores_pdf = np.tril(scores_pdf)
+                result = get_max_prob(scores_pdf)
             elif method == "Method 5":
                 print method
             elif method == "Method 6":
