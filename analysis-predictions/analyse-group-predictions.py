@@ -259,7 +259,7 @@ def draw_mod(matchup):
 def win_expectancy(rating_diff):
     return 1.0/(10**(-rating_diff/400.0) + 1)
 
-def scores_pdf(matchup, score_prob_matrix):
+def get_scores_pdf(matchup, score_prob_matrix):
     draw_modifier = draw_mod(matchup)
     rating_diff = float(teams_points[matchup[0]]-teams_points[matchup[1]])
     
@@ -327,11 +327,14 @@ def determine_winner(matchup):
 
 def determine_result(winner, matchup):
     # https://fivethirtyeight.com/features/in-126-years-english-football-has-seen-13475-nil-nil-draws/
-    draw_results = ['0 - 0', '1 - 1', '2 - 2', '3 - 3', '4 - 4']
+    #draw_results = ['0 - 0', '1 - 1', '2 - 2', '3 - 3', '4 - 4']
+    draw_results = [[0,0], [1,1], [2,2], [3,3], [4,4]]
     draw_probs = np.array([7.2, 11.6, 5.2, 1.1, 0.2])
     
-    win_results_0 = ['1 - 0', '2 - 1', '2 - 0', '3 - 2', '3 - 1', '3 - 0', '4 - 3', '4 - 2', '4 - 1', '4 - 0', '5 - 4', '5 - 3', '5 - 2', '5 - 1', '5 - 0']
-    win_results_1 = ['0 - 1', '1 - 2', '0 - 2', '2 - 3', '1 - 3', '0 - 3', '3 - 4', '2 - 4', '1 - 4', '0 - 4', '4 - 5', '3 - 5', '2 - 5', '1 - 5', '0 - 5']
+#    win_results_0 = ['1 - 0', '2 - 1', '2 - 0', '3 - 2', '3 - 1', '3 - 0', '4 - 3', '4 - 2', '4 - 1', '4 - 0', '5 - 4', '5 - 3', '5 - 2', '5 - 1', '5 - 0']
+    win_results_0 = [[1,0], [2,1], [2,0], [3,2], [3,1], [3,0], [4,3], [4,2], [4,1], [4,0], [5,4], [5,3], [5,2], [5,1], [5,0]]
+#    win_results_1 = ['0 - 1', '1 - 2', '0 - 2', '2 - 3', '1 - 3', '0 - 3', '3 - 4', '2 - 4', '1 - 4', '0 - 4', '4 - 5', '3 - 5', '2 - 5', '1 - 5', '0 - 5']
+    win_results_1 = [[0,1], [1,2], [0,2], [2,3], [1,3], [0,3], [3,4], [2,4], [1,4], [0,4], [4,5], [3,5], [2,5], [1,5], [0,5]]
     win_probs = np.array([9.8+6.3, 8.9+5.6, 8.1+3.4, 2.8+1.8, 5.2+2.3, 4.8+1.4, 0.5+0.3, 1.4+0.6, 2.5+0.7, 2.3+0.4, 0.1+0.05, 0.2+0.1, 0.6+0.2, 1.1+0.2, 1.0+0.1])
     
     draw_probs = draw_probs/sum(draw_probs)
@@ -358,6 +361,18 @@ def determine_result(winner, matchup):
 
     return result
 
+def random_score_selection(pdf_matrix):
+    prob_pdf = np.cumsum(pdf_matrix)
+    random_number = rnd.random()
+    index = np.argwhere(prob_pdf>random_number)[0]
+    goals_1 = index/6
+    goals_2 = index-(6*goals_1)
+    return [int(goals_1), int(goals_2)]
+
+def get_max_prob(prob):
+    return np.unravel_index(prob.argmax(), prob.shape)
+
+
 def group_play(group_teams, matches, method):
     accepted = False
     while not accepted:
@@ -375,9 +390,13 @@ def group_play(group_teams, matches, method):
                 winner = determine_winner(teams)
                 result = determine_result(winner, teams)
             elif method == "Method 2":
-                print method
-            elif method == "Method 3":
-                print method
+                scores_pdf = get_scores_pdf(teams, score_prob_matrix)
+                result = random_score_selection(scores_pdf)
+                winner = get_winner(teams, result)
+            elif method == "Method 3 (det)":
+                scores_pdf = get_scores_pdf(teams, score_prob_matrix)
+                result = get_max_prob(scores_pdf)
+                winner = get_winner(teams, result)
             elif method == "Method 4":
                 print method
             elif method == "Method 5":
@@ -388,12 +407,12 @@ def group_play(group_teams, matches, method):
                 print method
 
 
-            results[match] = [teams[0], teams[1], winner, int(result.split('-')[0]), int(result.split('-')[1])]
+            results[match] = [teams[0], teams[1], winner, int(result[0]), int(result[1])]
             
             for team in teams:
-                score_table[team][3] += int(result.split('-')[teams.index(team)])
-                score_table[team][4] += int(result.split('-')[teams.index(team)-1])
-                score_table[team][5] += (int(result.split('-')[teams.index(team)]) - int(result.split('-')[teams.index(team)-1]))
+                score_table[team][3] += int(result[teams.index(team)])
+                score_table[team][4] += int(result[teams.index(team)-1])
+                score_table[team][5] += (int(result[teams.index(team)]) - int(result[teams.index(team)-1]))
                 if winner is team:
                     score_table[team][0] += 1
                     score_table[team][6] += 3
@@ -413,11 +432,12 @@ def group_play(group_teams, matches, method):
                 [score_table[i][1][3] for i in range(4)]]
 
         accepted = True
-        for i in range(4):
-            for j in range(4):
-                if i != j:
-                    if (test_list[0][i] == test_list[0][j]) and (test_list[1][i] == test_list[1][j]) and (test_list[2][i] == test_list[2][j]):
-                        accepted = False
+        if "(det)" not in method:
+            for i in range(4):
+                for j in range(4):
+                    if i != j:
+                        if (test_list[0][i] == test_list[0][j]) and (test_list[1][i] == test_list[1][j]) and (test_list[2][i] == test_list[2][j]):
+                            accepted = False
 
     group_order = [score_table[0][0], score_table[1][0], score_table[2][0], score_table[3][0]]
 
@@ -505,47 +525,48 @@ def do_analysis(groups, methods, n_runs):
     group_stage_observation = get_observation(groups)
    
     methods_tests = dict.fromkeys(methods)
-   
-    for method in methods:
-        group_stage_prediction = np.array([get_prediction(groups, method) for i in range(n_runs)])
-        methods_tests[method] = test_prediction(group_stage_prediction, group_stage_observation)
-        # Test results:
-        # 1. Correct scores
-        # 2. Correct outcomes
-        # 3. Correct group resulting order
-        # 4. Correct advancing teams, right order
-        # 5. Correct advancing teams, wrong order
 
     test_max = [48, 48, 8, 8, 8]
+    # Test results:
+    # 1. Correct scores
+    # 2. Correct outcomes
+    # 3. Correct group resulting order
+    # 4. Correct advancing teams, right order
+    # 5. Correct advancing teams, wrong order
    
+    for method in methods:
+        print method
+        if "(det)" not in method:
+            group_stage_prediction = np.array([get_prediction(groups, method) for i in range(n_runs)])
+        elif "(det)" in method:
+            group_stage_prediction = np.array([get_prediction(groups, method)])
 
-    test_results = methods_tests[methods[0]]
+        methods_tests[method] = test_prediction(group_stage_prediction, group_stage_observation)
+   
+        test_results = methods_tests[method]
 
-    print np.mean(test_results, 1)
-    print np.std(test_results, 1)
-    
-    print " "
-    print np.mean(test_results, 1)/test_max
-    print np.std(test_results, 1)/test_max
+        print " "
+        print "--------------------- "
+        print method
+        print " "
+        print np.mean(test_results, 1)
+        if "(det)" not in method:
+            print np.std(test_results, 1)
+        
+        print " "
+        print np.mean(test_results, 1)/test_max
+        if "(det)" not in method:
+            print np.std(test_results, 1)/test_max
 
 
 ### Analysis: ###
 
 n_runs = 100
 knockout=False
-methods = ["Method 1"]
+methods = ["Method 1", "Method 2", "Method 3 (det)", "Method 4 (det)"]
+#methods = ["Method 1"]
 
 do_analysis(groups, methods, n_runs)
 
-def rnd_score_selection(pdf_matrix):
-    prob_pdf = np.cumsum(pdf_matrix)
-    random_number = rnd.random()
-    index = np.argwhere(prob_pdf>random_number)[0]
-    goals_1 = index/6
-    goals_2 = index-(6*goals_1)
-    return [int(goals_1), int(goals_2)]
+scores_pdf = get_scores_pdf(['Belgium', 'Japan'], score_prob_matrix)
 
-spdf = scores_pdf(['Belgium', 'Japan'], score_prob_matrix)
-
-print spdf
-print rnd_score_selection(spdf)
